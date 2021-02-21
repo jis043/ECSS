@@ -1,0 +1,16 @@
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\bin\Debug\TextBoxEmailAutocomplete.dll
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\bin\Debug\TextBoxEmailAutocomplete.pdb
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.csprojAssemblyReference.cache
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\obj\Debug\CustomControls.TextBoxEmailAutocomplete.resources
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.csproj.GenerateResource.cache
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.csproj.CoreCompileInputs.cache
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.dll
+D:\PROJECTS\Tools\Examples\email-autocomplete\trunk\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.pdb
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\bin\Debug\TextBoxEmailAutocomplete.dll
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\bin\Debug\TextBoxEmailAutocomplete.pdb
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.csprojAssemblyReference.cache
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\obj\Debug\CustomControls.TextBoxEmailAutocomplete.resources
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.csproj.GenerateResource.cache
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.csproj.CoreCompileInputs.cache
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.dll
+C:\Users\sam.sun\source\repos\ECSS2\TextBoxEmailAutocomplete\obj\Debug\TextBoxEmailAutocomplete.pdb
