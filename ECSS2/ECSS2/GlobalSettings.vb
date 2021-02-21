@@ -5,11 +5,12 @@
         IMPERIAL = 1
     End Enum
 
+    Public Const COMPANY As String = "Prexeco"
     Public Const ECSS_DB As String = "ECSS.db3"
     Public Const ECSSUSER_DB As String = "ECSSUSER.db3"
     Public Const ECSS_TITLE As String = "Engineering Components Search Systems"
     Public Const MAIN_VER As Integer = 0
-    Public Const SUB_VER As Integer = 1
+    Public Const SUB_VER As Integer = 2
     Public Const MIN_VER As Integer = 1
 
     Public SystemUnit As UNITTYPE = UNITTYPE.METRIC

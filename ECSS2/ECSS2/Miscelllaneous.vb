@@ -17,4 +17,15 @@
             Next
         Next
     End Sub
+
+    Public Shared Function ListToString(ByVal l As List(Of String)) As String
+        If l Is Nothing OrElse l.Count = 0 Then Return ""
+        Dim str As String = ""
+        For Each s In l
+            str = str & s & ", "
+        Next
+        str = str.Trim
+        Return str.Substring(0, str.Length - 1)
+    End Function
+
 End Class
