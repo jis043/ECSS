@@ -28,6 +28,19 @@
         End Try
     End Function
 
+    Public Shared Function SelectUnit() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM SYSTEM_UNITS"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select POWER_SUPPLY", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
     Public Shared Function SelectEnclosure() As DataTable
         Try
             If PartDB Is Nothing Then Return Nothing
@@ -69,7 +82,7 @@
         Try
             If UserDB Is Nothing Then Return Nothing
             Dim Result As DataTable
-            Dim sql As String = "SELECT i.* FROM BOMITEM i, BOMLIST l WHERE l.BOMNAME = i.BOMNAME ORDER BY l.createtime DESC"
+            Dim sql As String = "SELECT l.BOMTITLE, l.CREATETIME, i.* FROM BOMITEM i, BOMLIST l WHERE l.BOMNAME = i.BOMNAME ORDER BY l.createtime DESC"
             Result = UserDB.DBSelectWithDataTable(sql)
             Return Result
         Catch ex As Exception
@@ -78,22 +91,24 @@
         End Try
     End Function
 
-    Public Shared Function InsertOneBOM(ByVal KVP As KeyValuePair(Of String, List(Of ECSSBOM)), ByVal addProject As Boolean) As Boolean
+    Public Shared Function InsertOneBOM(ByVal alist As OneBOMList, ByVal addProject As Boolean) As Boolean
         Try
             If UserDB Is Nothing Then Return False
             Dim SQL As String = ""
             If addProject Then
-                SQL = SQL & "INSERT INTO BOMLIST VALUES('" & KVP.Key & "',date('now'),'ENABLE');" & vbCrLf
+                SQL = SQL & "INSERT INTO BOMLIST VALUES('" & alist.BOMID & "' ,'" & alist.BOMTitle & "' ,datetime('now'),'ENABLE');" & vbCrLf
+            Else
+                SQL = SQL & "UPDATE BOMLIST SET BOMTITLE ='" & alist.BOMTitle & "' WHERE BOMNAME ='" & alist.BOMID & "' ;" & vbCrLf
             End If
-            SQL = SQL & "DELETE FROM BOMITEM WHERE BOMNAME = '" & KVP.Key & "';" & vbCrLf
-            If KVP.Value IsNot Nothing Then
-                For Each aBOM In KVP.Value
+            SQL = SQL & "DELETE FROM BOMITEM WHERE BOMNAME = '" & alist.BOMID & "';" & vbCrLf
+            If alist.BOMList IsNot Nothing Then
+                For Each aBOM In alist.BOMList
                     SQL = SQL & "INSERT INTO BOMITEM VALUES('" & aBOM.BOMID & "'," & aBOM.QTY & ",'" & aBOM.PartID & "','" & aBOM.Manufacturer & "','" & aBOM.Description & "','" & aBOM.Note & "');" & vbCrLf
                 Next
             End If
             Return UserDB.DBModify(SQL)
         Catch ex As Exception
-            MessageBox.Show(ex.ToString, "ECSS Select BREATHER_DRAIN", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show(ex.ToString, "insert bom", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End Try
     End Function

@@ -15,14 +15,14 @@
         Public PartID As String = ""
         Public PartType As PART_TYPE = PART_TYPE.NONE
         Public Manufacturer As String = ""
-        Public Certificates1 As String = ""
-        Public Certificates2 As String = ""
+        Public Certificates As New List(Of String)
         Public Height As Double
         Public Width As Double
         Public Depth As Double
         Public Keywords As New List(Of String)
         Public link As String = ""
         Public Description As String = ""
+        Public PDF As String = ""
         Public aTransformer As OneTransformer = Nothing
         Public aPowerSupply As OnePowerSupply = Nothing
         Public aEnclosure As OneEnclosure = Nothing
@@ -42,7 +42,8 @@
             Public Output_Power As Integer
             Public Output_Current As Double
             Public Output_Vol As Integer
-            Public Input_Vol As String = ""
+            Public Normal_Vol As Integer
+            Public Input_Phase As String = ""
             Public Opera_temp_min As Integer
             Public Opera_temp_max As Integer
             Public Stor_temp_min As Integer
@@ -55,9 +56,14 @@
         End Class
 
         Public Class OneEnclosure
-            Public Style As String = ""
-            Public NEMA_Type As String = ""
-            Public Finish As String = ""
+            Public Color As String = ""
+            Public NEMA_Type As New List(Of String)
+            Public Material As String = ""
+            Public MountType As String = ""
+            Public MountID As New List(Of String)
+            Public MountHeight As Double
+            Public MountWidth As Double
+            Public Window As String = ""
         End Class
 
         Public Class OneServitPost
@@ -69,7 +75,7 @@
 
         Public Class OneBreatherDrain
             Public Part_size As String = ""
-            Public NEMA_Type As String = ""
+            Public NEMA_Type As New List(Of String)
             Public Material As String = ""
         End Class
 
@@ -173,11 +179,10 @@
                         If Me.Keywords.Contains(Str.Trim) = False Then Me.Keywords.Add(Str.Trim)
                     Next
                 End If
-                If String.IsNullOrEmpty(kvp.Value.Certificates1) = False Then
-                    If Me.Keywords.Contains(kvp.Value.Certificates1.Trim) = False Then Me.Keywords.Add(kvp.Value.Certificates1.Trim)
-                End If
-                If String.IsNullOrEmpty(kvp.Value.Certificates2) = False Then
-                    If Me.Keywords.Contains(kvp.Value.Certificates2.Trim) = False Then Me.Keywords.Add(kvp.Value.Certificates2.Trim)
+                If kvp.Value.Certificates IsNot Nothing AndAlso kvp.Value.Certificates.Count > 0 Then
+                    For Each cert In kvp.Value.Certificates
+                        If Me.Keywords.Contains(cert) = False Then Me.Keywords.Add(cert)
+                    Next
                 End If
                 If String.IsNullOrEmpty(kvp.Value.PartID) = False Then
                     If Me.Keywords.Contains(kvp.Value.PartID.Trim) = False Then Me.Keywords.Add(kvp.Value.PartID.Trim)
@@ -187,6 +192,7 @@
                 End If
             Next
         End If
+        Me.Keywords.Sort()
         Return True
     End Function
 
@@ -198,8 +204,8 @@
             aPart.aTransformer = New OnePart.OneTransformer
             aPart.PartID = oneRow("PartID").ToString
             aPart.Manufacturer = oneRow("Manufacturer").ToString
-            aPart.Certificates1 = oneRow("Certificates1").ToString
-            aPart.Certificates2 = oneRow("Certificates2").ToString
+            If String.IsNullOrEmpty(oneRow("Certificates1")) = False Then aPart.Certificates.Add(oneRow("Certificates1").ToString)
+            If String.IsNullOrEmpty(oneRow("Certificates2")) = False Then aPart.Certificates.Add(oneRow("Certificates2").ToString)
             aPart.Height = CDbl(oneRow("Height"))
             aPart.Width = CDbl(oneRow("Width"))
             aPart.Depth = CDbl(oneRow("Depth"))
@@ -225,8 +231,9 @@
             aPart.aPowerSupply = New OnePart.OnePowerSupply
             aPart.PartID = oneRow("PartID").ToString
             aPart.Manufacturer = oneRow("Manufacturer").ToString
-            aPart.Certificates1 = oneRow("Certificates1").ToString
-            aPart.Certificates2 = oneRow("Certificates2").ToString
+            If oneRow("Certificates") IsNot Nothing Then
+                aPart.Certificates.AddRange(oneRow("Certificates").ToString.Split("|"))
+            End If
             aPart.Height = CDbl(oneRow("Height"))
             aPart.Width = CDbl(oneRow("Width"))
             aPart.Depth = CDbl(oneRow("Depth"))
@@ -238,10 +245,12 @@
             aPart.aPowerSupply.Output_Power = CInt(oneRow("Output_Power"))
             aPart.aPowerSupply.Output_Current = CInt(oneRow("Output_Current"))
             aPart.aPowerSupply.Output_Vol = CInt(oneRow("Output_Vol"))
+            aPart.aPowerSupply.Normal_Vol = CInt(oneRow("Normal_Vol"))
             aPart.aPowerSupply.Opera_temp_min = CInt(oneRow("Opera_temp_min"))
             aPart.aPowerSupply.Opera_temp_max = CInt(oneRow("Opera_temp_max"))
             aPart.aPowerSupply.Stor_temp_min = CInt(oneRow("Stor_temp_min"))
             aPart.aPowerSupply.Stor_temp_max = CInt(oneRow("Stor_temp_max"))
+            aPart.aPowerSupply.Input_Phase = oneRow("Input_Phase").ToString
             aPart.aPowerSupply.Area_Class = oneRow("Area_Class").ToString
             aPart.aPowerSupply.SupplyClass = oneRow("Class").ToString
             aPart.aPowerSupply.Division = oneRow("Division").ToString
@@ -261,8 +270,9 @@
             aPart.aEnclosure = New OnePart.OneEnclosure
             aPart.PartID = oneRow("PartID").ToString
             aPart.Manufacturer = oneRow("Manufacturer").ToString
-            aPart.Certificates1 = oneRow("Certificates1").ToString
-            aPart.Certificates2 = oneRow("Certificates2").ToString
+            If oneRow("Certificates") IsNot Nothing Then
+                aPart.Certificates.AddRange(oneRow("Certificates").ToString.Split("|"))
+            End If
             aPart.Height = CDbl(oneRow("Height"))
             aPart.Width = CDbl(oneRow("Width"))
             aPart.Depth = CDbl(oneRow("Depth"))
@@ -270,10 +280,20 @@
             aPart.Keywords.AddRange(Me.GenKeyWords(oneRow("Keywords").ToString))
             aPart.Description = oneRow("Description").ToString
             aPart.link = oneRow("Link").ToString
+            aPart.PDF = oneRow("PDF").ToString
 
-            aPart.aEnclosure.Style = oneRow("Style").ToString
-            aPart.aEnclosure.NEMA_Type = oneRow("NEMA_Type").ToString
-            aPart.aEnclosure.Finish = oneRow("Finish").ToString
+            aPart.aEnclosure.Color = oneRow("Color").ToString
+            If oneRow("NEMA_Type") IsNot Nothing Then
+                aPart.aEnclosure.NEMA_Type.AddRange(oneRow("NEMA_Type").ToString.Split("|"))
+            End If
+            aPart.aEnclosure.Material = oneRow("Material").ToString
+            aPart.aEnclosure.MountType = oneRow("Mount").ToString
+            If oneRow("MountID") IsNot Nothing Then
+                aPart.aEnclosure.MountID.AddRange(oneRow("MountID").ToString.Split("|"))
+            End If
+            aPart.aEnclosure.MountHeight = CDbl(oneRow("MountHeight"))
+            aPart.aEnclosure.MountWidth = CDbl(oneRow("MountWidth"))
+            aPart.aEnclosure.Window = oneRow("Window").ToString
         Catch ex As Exception
             MessageBox.Show("Error: Add Enclosure.")
         End Try
@@ -287,8 +307,8 @@
             aPart.aServitPost = New OnePart.OneServitPost
             aPart.PartID = oneRow("PartID").ToString
             aPart.Manufacturer = oneRow("Manufacturer").ToString
-            aPart.Certificates1 = oneRow("Certificates1").ToString
-            aPart.Certificates2 = oneRow("Certificates2").ToString
+            If String.IsNullOrEmpty(oneRow("Certificates1")) = False Then aPart.Certificates.Add(oneRow("Certificates1").ToString)
+            If String.IsNullOrEmpty(oneRow("Certificates2")) = False Then aPart.Certificates.Add(oneRow("Certificates2").ToString)
 
             aPart.Keywords = New List(Of String)
             aPart.Keywords.AddRange(Me.GenKeyWords(oneRow("Keywords").ToString))
@@ -312,8 +332,8 @@
             aPart.aBreatherDrain = New OnePart.OneBreatherDrain
             aPart.PartID = oneRow("PartID").ToString
             aPart.Manufacturer = oneRow("Manufacturer").ToString
-            aPart.Certificates1 = oneRow("Certificates1").ToString
-            aPart.Certificates2 = oneRow("Certificates2").ToString
+            If String.IsNullOrEmpty(oneRow("Certificates1")) = False Then aPart.Certificates.Add(oneRow("Certificates1").ToString)
+            If String.IsNullOrEmpty(oneRow("Certificates2")) = False Then aPart.Certificates.Add(oneRow("Certificates2").ToString)
 
             aPart.Keywords = New List(Of String)
             aPart.Keywords.AddRange(Me.GenKeyWords(oneRow("Keywords").ToString))
@@ -321,7 +341,9 @@
             aPart.link = oneRow("Link").ToString
 
             aPart.aBreatherDrain.Part_size = oneRow("Part_size").ToString
-            aPart.aBreatherDrain.NEMA_Type = oneRow("NEMA_Type").ToString
+            If oneRow("NEMA_Type") IsNot Nothing Then
+                aPart.aBreatherDrain.NEMA_Type.AddRange(oneRow("NEMA_Type").ToString.Split("|"))
+            End If
             aPart.aBreatherDrain.Material = oneRow("Material").ToString
 
         Catch ex As Exception
@@ -344,10 +366,24 @@
 
     Public Function PartMatchesSearchCriteria(ByVal aPart As OnePart, ByVal searchCondition As ECSSSearchCriteria) As Boolean
         If aPart Is Nothing OrElse searchCondition Is Nothing Then Return False
+        If searchCondition.IsEmpty Then Return False
         If Not PartMatchSearchWords(aPart, searchCondition.keyword.Trim) Then Return False
         If Not PartMatchFilterPartType(aPart, searchCondition.PartType) Then Return False
         If Not PartMatchFilterManufacturer(aPart, searchCondition.Manufacturer) Then Return False
         If Not PartMatchFilterMaterial(aPart, searchCondition.Material) Then Return False
+        If Not PartMatchFilterCertificate(aPart, searchCondition.Certificates) Then Return False
+        If Not PartMatchFilterHeight(aPart, searchCondition.Height) Then Return False
+        If Not PartMatchFilterWidth(aPart, searchCondition.Width) Then Return False
+        If Not PartMatchFilterDepth(aPart, searchCondition.Depth) Then Return False
+        If Not PartMatchFilterMount(aPart, searchCondition.Mount) Then Return False
+        If Not PartMatchFilterNEMA(aPart, searchCondition.NEMA) Then Return False
+
+        If Not PartMatchFilterOTV(aPart, searchCondition.outputV) Then Return False
+        If Not PartMatchFilterOTA(aPart, searchCondition.outputA) Then Return False
+        If Not PartMatchFilterNorV(aPart, searchCondition.NormalV) Then Return False
+        If Not PartMatchFilterInputP(aPart, searchCondition.InputPhase) Then Return False
+        If Not PartMatchFilterClass(aPart, searchCondition.Class) Then Return False
+        If Not PartMatchFilterGroup(aPart, searchCondition.Group) Then Return False
         Return True
     End Function
 
@@ -357,8 +393,11 @@
         Dim wordMatches As Boolean = False
         If aPart.PartID.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
         If aPart.Manufacturer.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
-        If aPart.Certificates1.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
-        If aPart.Certificates2.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
+        If aPart.Certificates IsNot Nothing AndAlso aPart.Certificates.Count > 0 Then
+            For Each cert In aPart.Certificates
+                If cert.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
+            Next
+        End If
         If aPart.Description.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
         If aPart.link.ToUpper.Contains(keyword.ToUpper) Then wordMatches = True
         If aPart.Keywords IsNot Nothing Then
@@ -397,6 +436,122 @@
         Return filterMatches
     End Function
 
+    Public Function PartMatchFilterCertificate(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        For Each Str As String In aPart.Certificates
+            If MList.Contains(Str) Then filterMatches = True : Exit For
+        Next
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterHeight(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.Height > 0 AndAlso MList.Contains(aPart.Height) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterWidth(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.Width > 0 AndAlso MList.Contains(aPart.Width) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterDepth(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.Depth > 0 AndAlso MList.Contains(aPart.Depth) Then filterMatches = True
+        Return filterMatches
+    End Function
+    Public Function PartMatchFilterMount(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aEnclosure IsNot Nothing AndAlso MList.Contains(aPart.aEnclosure.MountType) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterNEMA(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aEnclosure IsNot Nothing Then
+            For Each Str As String In aPart.aEnclosure.NEMA_Type
+                If MList.Contains(Str) Then filterMatches = True : Exit For
+            Next
+        End If
+        If aPart.aBreatherDrain IsNot Nothing Then
+            For Each Str As String In aPart.aBreatherDrain.NEMA_Type
+                If MList.Contains(Str) Then filterMatches = True : Exit For
+            Next
+        End If
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterOTV(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Output_Vol) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterOTA(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Output_Current) Then filterMatches = True
+        Return filterMatches
+    End Function
+    Public Function PartMatchFilterNorV(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Normal_Vol) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterInputP(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Input_Phase) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterClass(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.SupplyClass) Then filterMatches = True
+        Return filterMatches
+    End Function
+
+    Public Function PartMatchFilterGroup(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+        If MList Is Nothing Then Return True
+        If MList.Count = 0 Then Return True
+        If aPart Is Nothing Then Return False
+        Dim filterMatches As Boolean = False
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Gas_Group) Then filterMatches = True
+        Return filterMatches
+    End Function
 End Class
 
 Public Class ECSSSearchCriteria
@@ -404,8 +559,53 @@ Public Class ECSSSearchCriteria
     Public PartType As New List(Of ECSSParts.PART_TYPE)
     Public Manufacturer As New List(Of String)
     Public Material As New List(Of String)
+    Public Certificates As New List(Of String)
+
+    Public Height As New List(Of Integer)
+    Public Width As New List(Of Integer)
+    Public Depth As New List(Of Integer)
+    Public Mount As New List(Of String)
+    Public NEMA As New List(Of String)
+
+    Public outputV As New List(Of String)
+    Public outputA As New List(Of String)
+    Public NormalV As New List(Of String)
+    Public InputPhase As New List(Of String)
+    Public [Class] As New List(Of String)
+    Public Group As New List(Of String)
+
+    Public Function IsEmpty() As Boolean
+        If String.IsNullOrEmpty(keyword) = False Then Return False
+        If PartType.Count > 0 Then Return False
+        If Manufacturer.Count > 0 Then Return False
+        If Material.Count > 0 Then Return False
+        If Certificates.Count > 0 Then Return False
+
+        If Height.Count > 0 Then Return False
+        If Width.Count > 0 Then Return False
+        If Depth.Count > 0 Then Return False
+        If Mount.Count > 0 Then Return False
+        If NEMA.Count > 0 Then Return False
+
+        If outputV.Count > 0 Then Return False
+        If outputA.Count > 0 Then Return False
+        If NormalV.Count > 0 Then Return False
+        If InputPhase.Count > 0 Then Return False
+        If [Class].Count > 0 Then Return False
+        If Group.Count > 0 Then Return False
+
+        Return True
+    End Function
+
 End Class
 
+
+Public Class OneBOMList
+    Public BOMID As String = ""
+    Public BOMTitle As String = ""
+    Public CreateTime As Date
+    Public BOMList As New List(Of ECSSBOM)
+End Class
 
 Public Class ECSSBOM
     Public BOMID As String = ""
@@ -417,7 +617,7 @@ Public Class ECSSBOM
 End Class
 
 Public Class BOMHelper
-    Public Shared Function LoadBOM(ByVal BOMdic As Dictionary(Of String, List(Of ECSSBOM))) As Boolean
+    Public Shared Function LoadBOM(ByVal BOMdic As Dictionary(Of String, OneBOMList)) As Boolean
         Try
             BOMdic.Clear()
             Dim result = ECSSDBFunctions.SelectBOM
@@ -431,9 +631,14 @@ Public Class BOMHelper
                     aBOM.Description = aRow.Item("Description").ToString
                     aBOM.Note = aRow.Item("NOTE").ToString
                     If BOMdic.ContainsKey(aBOM.BOMID) Then
-                        BOMdic.Item(aBOM.BOMID).Add(aBOM)
+                        BOMdic.Item(aBOM.BOMID).BOMList.Add(aBOM)
                     Else
-                        BOMdic.Add(aBOM.BOMID, New List(Of ECSSBOM)({aBOM}))
+                        Dim alist As New OneBOMList
+                        alist.BOMList = New List(Of ECSSBOM)({aBOM})
+                        alist.BOMID = aBOM.BOMID
+                        alist.BOMTitle = aRow.Item("BOMTITLE").ToString
+                        alist.CreateTime = CDate(aRow.Item("CREATETIME"))
+                        BOMdic.Add(aBOM.BOMID, alist)
                     End If
                 Next
             End If
