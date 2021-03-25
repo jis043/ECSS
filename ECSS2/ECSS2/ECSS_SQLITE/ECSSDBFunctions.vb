@@ -2,6 +2,46 @@
     Public Shared PartDB As SQLiteDBFunctions
     Public Shared UserDB As SQLiteDBFunctions
 
+
+    Public Shared Function SelectWindowKit() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM WINDOW_KIT"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select WINDOW_KIT", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function SelectTheromostat() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM Theromostat"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select Theromostat", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function SelectTempSwitch() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM TEMP_SWITCH"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select TEMP_SWITCH", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
     Public Shared Function SelectTransformer() As DataTable
         Try
             If PartDB Is Nothing Then Return Nothing
@@ -24,6 +64,32 @@
             Return Result
         Catch ex As Exception
             MessageBox.Show(ex.ToString, "ECSS Select POWER_SUPPLY", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function SelectPilotLight() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM PILOT_LIGHT"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select POWER_SUPPLY", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function SelectConfig() As DataTable
+        Try
+            If UserDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM USERSETTINGS"
+            Result = UserDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "User Config", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return Nothing
         End Try
     End Function
@@ -78,6 +144,32 @@
         End Try
     End Function
 
+    Public Shared Function SelectHeater() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM HEATER"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select HEATER", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function SelectNonIlluminate() As DataTable
+        Try
+            If PartDB Is Nothing Then Return Nothing
+            Dim Result As DataTable
+            Dim sql As String = "SELECT * FROM NON_ILLUMINATE"
+            Result = PartDB.DBSelectWithDataTable(sql)
+            Return Result
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "ECSS Select NON_ILLUMINATE", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End Try
+    End Function
+
     Public Shared Function SelectBOM() As DataTable
         Try
             If UserDB Is Nothing Then Return Nothing
@@ -88,6 +180,18 @@
         Catch ex As Exception
             MessageBox.Show(ex.ToString, "ECSS Select BREATHER_DRAIN", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return Nothing
+        End Try
+    End Function
+
+    Public Shared Function UpdateUserConfig() As Boolean
+        Try
+            If UserDB Is Nothing Then Return False
+            Dim SQL As String = "UPDATE USERSTTINGS SET MultiKeywords = " & CInt(GlobalSettings.MultiKeywords) & " , MaxDisplay= " & GlobalSettings.MaxDisplay &
+                ", UnitType= " & CInt(GlobalSettings.SystemUnit) & ", AlwaysOnTop= " & CInt(GlobalSettings.AlwaysOnTop) & " ;"
+            Return UserDB.DBModify(SQL)
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "insert bom", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
         End Try
     End Function
 
