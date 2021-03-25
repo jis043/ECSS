@@ -15,6 +15,7 @@ Public Class frmAddBOM
 
     Private Sub frmAddBOM_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.UpdateBOMcombolist()
+        Me.txtName.Text = "BOM" & Date.Now.ToString("yyyyMMddHHmmss") 'default name
         If Me.BOMdic Is Nothing OrElse Me.BOMdic.Count > 0 Then
             Me.radExisting.Checked = True
         Else
@@ -56,7 +57,7 @@ Public Class frmAddBOM
 
     Private Sub txtQty_Validating(sender As Object, e As CancelEventArgs) Handles txtQty.Validating
         Try
-            Dim str As String = Me.txtName.Text.Trim
+            Dim str As String = Me.txtQty.Text.Trim
             If String.IsNullOrEmpty(str) Then
                 MessageBox.Show("Qty cannot be empty!", "Qty Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Me.txtQty.SelectAll()

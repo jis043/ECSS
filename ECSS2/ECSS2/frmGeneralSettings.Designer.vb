@@ -23,6 +23,12 @@ Partial Class frmGeneralSettings
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.TabGeneral = New System.Windows.Forms.TabControl()
+        Me.tabSettings = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.chkOnTop = New System.Windows.Forms.CheckBox()
+        Me.txtMax = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.chkMultiKeywords = New System.Windows.Forms.CheckBox()
         Me.tabUnit = New System.Windows.Forms.TabPage()
         Me.listUnit = New System.Windows.Forms.ListView()
         Me.colVar = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -30,7 +36,10 @@ Partial Class frmGeneralSettings
         Me.tabAbout = New System.Windows.Forms.TabPage()
         Me.palAbout = New System.Windows.Forms.Panel()
         Me.lblAbout = New System.Windows.Forms.Label()
+        Me.lblVersion = New System.Windows.Forms.Label()
         Me.TabGeneral.SuspendLayout()
+        Me.tabSettings.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.tabUnit.SuspendLayout()
         Me.tabAbout.SuspendLayout()
         Me.palAbout.SuspendLayout()
@@ -39,6 +48,7 @@ Partial Class frmGeneralSettings
         'TabGeneral
         '
         Me.TabGeneral.Alignment = System.Windows.Forms.TabAlignment.Left
+        Me.TabGeneral.Controls.Add(Me.tabSettings)
         Me.TabGeneral.Controls.Add(Me.tabUnit)
         Me.TabGeneral.Controls.Add(Me.tabAbout)
         Me.TabGeneral.Dock = System.Windows.Forms.DockStyle.Fill
@@ -51,6 +61,67 @@ Partial Class frmGeneralSettings
         Me.TabGeneral.Size = New System.Drawing.Size(443, 312)
         Me.TabGeneral.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.TabGeneral.TabIndex = 0
+        '
+        'tabSettings
+        '
+        Me.tabSettings.Controls.Add(Me.GroupBox1)
+        Me.tabSettings.Location = New System.Drawing.Point(104, 4)
+        Me.tabSettings.Name = "tabSettings"
+        Me.tabSettings.Size = New System.Drawing.Size(335, 304)
+        Me.tabSettings.TabIndex = 2
+        Me.tabSettings.Text = "Settings"
+        Me.tabSettings.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.chkOnTop)
+        Me.GroupBox1.Controls.Add(Me.txtMax)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.chkMultiKeywords)
+        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(335, 304)
+        Me.GroupBox1.TabIndex = 1
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "General Settings"
+        '
+        'chkOnTop
+        '
+        Me.chkOnTop.AutoSize = True
+        Me.chkOnTop.Location = New System.Drawing.Point(16, 48)
+        Me.chkOnTop.Name = "chkOnTop"
+        Me.chkOnTop.Size = New System.Drawing.Size(98, 17)
+        Me.chkOnTop.TabIndex = 3
+        Me.chkOnTop.Text = "Always On Top"
+        Me.chkOnTop.UseVisualStyleBackColor = True
+        '
+        'txtMax
+        '
+        Me.txtMax.Location = New System.Drawing.Point(165, 81)
+        Me.txtMax.Name = "txtMax"
+        Me.txtMax.Size = New System.Drawing.Size(100, 20)
+        Me.txtMax.TabIndex = 2
+        Me.txtMax.Text = "1000"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 84)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(146, 13)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Max Number of Parts Display "
+        '
+        'chkMultiKeywords
+        '
+        Me.chkMultiKeywords.AutoSize = True
+        Me.chkMultiKeywords.Location = New System.Drawing.Point(16, 25)
+        Me.chkMultiKeywords.Name = "chkMultiKeywords"
+        Me.chkMultiKeywords.Size = New System.Drawing.Size(184, 17)
+        Me.chkMultiKeywords.TabIndex = 0
+        Me.chkMultiKeywords.Text = "Enable Multipal Keywords Search"
+        Me.chkMultiKeywords.UseVisualStyleBackColor = True
         '
         'tabUnit
         '
@@ -101,6 +172,7 @@ Partial Class frmGeneralSettings
         '
         'palAbout
         '
+        Me.palAbout.Controls.Add(Me.lblVersion)
         Me.palAbout.Controls.Add(Me.lblAbout)
         Me.palAbout.Dock = System.Windows.Forms.DockStyle.Fill
         Me.palAbout.Location = New System.Drawing.Point(3, 3)
@@ -115,8 +187,16 @@ Partial Class frmGeneralSettings
         Me.lblAbout.Size = New System.Drawing.Size(272, 210)
         Me.lblAbout.TabIndex = 0
         Me.lblAbout.Text = "Engineering Components Search Systems" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Copyright 2021 Prexeco. All rights Reser" &
-    "ved." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Version Number: 0.2.1 (Beta Demo)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Design and Developed by Sam S, Ma" &
-    "rk L, Randy L"
+    "ved." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Design and Developed by Sam S, Mark L, Randy L"
+        '
+        'lblVersion
+        '
+        Me.lblVersion.AutoSize = True
+        Me.lblVersion.Location = New System.Drawing.Point(32, 98)
+        Me.lblVersion.Name = "lblVersion"
+        Me.lblVersion.Size = New System.Drawing.Size(39, 13)
+        Me.lblVersion.TabIndex = 1
+        Me.lblVersion.Text = "Label2"
         '
         'frmGeneralSettings
         '
@@ -127,9 +207,13 @@ Partial Class frmGeneralSettings
         Me.Name = "frmGeneralSettings"
         Me.Text = "Settings"
         Me.TabGeneral.ResumeLayout(False)
+        Me.tabSettings.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.tabUnit.ResumeLayout(False)
         Me.tabAbout.ResumeLayout(False)
         Me.palAbout.ResumeLayout(False)
+        Me.palAbout.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -142,4 +226,11 @@ Partial Class frmGeneralSettings
     Friend WithEvents colUnit As ColumnHeader
     Friend WithEvents palAbout As Panel
     Friend WithEvents lblAbout As Label
+    Friend WithEvents tabSettings As TabPage
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents txtMax As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents chkMultiKeywords As CheckBox
+    Friend WithEvents chkOnTop As CheckBox
+    Friend WithEvents lblVersion As Label
 End Class

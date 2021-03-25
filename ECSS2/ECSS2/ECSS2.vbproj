@@ -104,6 +104,32 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DocumentationFile>ECSS.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DocumentationFile>ECSS.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Prexeco.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -141,7 +167,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECSSModels\DoubleTrackBarWithLabels.Designer.vb">
+      <DependentUpon>DoubleTrackBarWithLabels.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ECSSModels\DoubleTrackBarWithLabels.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ECSSModels\ECSSParts.vb" />
+    <Compile Include="ECSSModels\GrowLabel.Designer.vb">
+      <DependentUpon>GrowLabel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ECSSModels\GrowLabel.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ECSS_SQLITE\ECSSDBFunctions.vb" />
     <Compile Include="ECSS_SQLITE\SQLiteDBFunction.vb" />
     <Compile Include="frmAddBOM.Designer.vb">
@@ -181,6 +219,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ECSSModels\DoubleTrackBarWithLabels.resx">
+      <DependentUpon>DoubleTrackBarWithLabels.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAddBOM.resx">
       <DependentUpon>frmAddBOM.vb</DependentUpon>
     </EmbeddedResource>
@@ -213,6 +254,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SpannedDataGridViewNet2\SpannedDataGridViewNet2.csproj">
+      <Project>{2ab3e335-0e47-4ef6-b6a2-9ebf4b1967d0}</Project>
+      <Name>SpannedDataGridViewNet2</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TextBoxEmailAutocomplete\TextBoxEmailAutocomplete.csproj">
       <Project>{9c00839c-b8af-442e-899a-b376808b7794}</Project>
       <Name>TextBoxEmailAutocomplete</Name>
@@ -229,6 +274,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\16\apps_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\16\BOM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons\16\pesticon_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Prexeco.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

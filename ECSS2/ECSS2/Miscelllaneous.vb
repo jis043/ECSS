@@ -27,5 +27,23 @@
         str = str.Trim
         Return str.Substring(0, str.Length - 1)
     End Function
+    Public Shared Function ListToString(ByVal l As List(Of Integer)) As String
+        If l Is Nothing OrElse l.Count = 0 Then Return ""
+        Dim str As String = ""
+        For Each s In l
+            str = str & s & ", "
+        Next
+        str = str.Trim
+        Return str.Substring(0, str.Length - 1)
+    End Function
 
+    Public Shared Function ListToString(ByVal l As List(Of ECSSParts.PART_TYPE)) As String
+        If l Is Nothing OrElse l.Count = 0 Then Return ""
+        Dim str As String = ""
+        For Each s In l
+            str = str & ECSSParts.GetTypeName(s) & ", "
+        Next
+        str = str.Trim
+        Return str.Substring(0, str.Length - 1)
+    End Function
 End Class

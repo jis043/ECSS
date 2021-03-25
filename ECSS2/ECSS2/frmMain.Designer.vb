@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,22 +20,107 @@ Partial Class frmMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.palSearch = New System.Windows.Forms.Panel()
-        Me.txtSearchSuggest = New CustomControls.TextBoxEmailAutocomplete()
-        Me.btnSetting = New System.Windows.Forms.Button()
+        Me.lblTotal = New System.Windows.Forms.Label()
+        Me.lblFilterDisplay = New ECSS.GrowLabel()
         Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.btnBOM = New System.Windows.Forms.Button()
+        Me.txtSearchMulti = New CustomControls.TextBoxEmailAutocomplete()
+        Me.btnSetting = New System.Windows.Forms.Button()
         Me.btnClean = New System.Windows.Forms.Button()
         Me.btnSearch = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.splPart = New System.Windows.Forms.SplitContainer()
         Me.palFilter = New System.Windows.Forms.Panel()
+        Me.palLenColor = New System.Windows.Forms.Panel()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.clbLenColor = New System.Windows.Forms.CheckedListBox()
+        Me.palVoltage = New System.Windows.Forms.Panel()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.clbVoltage = New System.Windows.Forms.CheckedListBox()
+        Me.palVoltageType = New System.Windows.Forms.Panel()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.clbVoltageType = New System.Windows.Forms.CheckedListBox()
+        Me.palIlluminationOption = New System.Windows.Forms.Panel()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.clbIlluminationOption = New System.Windows.Forms.CheckedListBox()
+        Me.palLampTest = New System.Windows.Forms.Panel()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.clbLampTest = New System.Windows.Forms.CheckedListBox()
+        Me.palPowerModuleType = New System.Windows.Forms.Panel()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.clbPowerModuleType = New System.Windows.Forms.CheckedListBox()
+        Me.palFingersafe = New System.Windows.Forms.Panel()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.clbFingersafe = New System.Windows.Forms.CheckedListBox()
+        Me.palTempCode = New System.Windows.Forms.Panel()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.clbTempCode = New System.Windows.Forms.CheckedListBox()
+        Me.palArea = New System.Windows.Forms.Panel()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.clbArea = New System.Windows.Forms.CheckedListBox()
+        Me.palBuiltInFan = New System.Windows.Forms.Panel()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.clbBuiltInFan = New System.Windows.Forms.CheckedListBox()
+        Me.palBuiltInThem = New System.Windows.Forms.Panel()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.clbBuiltInThem = New System.Windows.Forms.CheckedListBox()
+        Me.palPower = New System.Windows.Forms.Panel()
+        Me.Power = New System.Windows.Forms.Label()
+        Me.clbPower = New System.Windows.Forms.CheckedListBox()
+        Me.palOperaTempMax = New System.Windows.Forms.Panel()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.clbOperaTempMax = New System.Windows.Forms.CheckedListBox()
+        Me.palOperaTempMin = New System.Windows.Forms.Panel()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.clbOperaTempMin = New System.Windows.Forms.CheckedListBox()
+        Me.palContacts = New System.Windows.Forms.Panel()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.clbContacts = New System.Windows.Forms.CheckedListBox()
+        Me.palBlockType = New System.Windows.Forms.Panel()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.clbBlockType = New System.Windows.Forms.CheckedListBox()
+        Me.palRatedVolMin = New System.Windows.Forms.Panel()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.clbRatedVolMin = New System.Windows.Forms.CheckedListBox()
+        Me.palType = New System.Windows.Forms.Panel()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.clbType = New System.Windows.Forms.CheckedListBox()
+        Me.palSwitchTempOFF = New System.Windows.Forms.Panel()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.clbSwitchTempOFF = New System.Windows.Forms.CheckedListBox()
+        Me.palSwitchTempON = New System.Windows.Forms.Panel()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.clbSwitchTempON = New System.Windows.Forms.CheckedListBox()
+        Me.palRatedCurrent = New System.Windows.Forms.Panel()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.clbRatedCurrent = New System.Windows.Forms.CheckedListBox()
+        Me.palRatedVolMax = New System.Windows.Forms.Panel()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.clbRatedVolMax = New System.Windows.Forms.CheckedListBox()
+        Me.palFunction = New System.Windows.Forms.Panel()
+        Me.lblFilterFunction = New System.Windows.Forms.Label()
+        Me.clbFunction = New System.Windows.Forms.CheckedListBox()
+        Me.palViewAreaW = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.clbViewAreaW = New System.Windows.Forms.CheckedListBox()
+        Me.palViewAreaH = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.clbViewAreaH = New System.Windows.Forms.CheckedListBox()
+        Me.palColor = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.clbColor = New System.Windows.Forms.CheckedListBox()
         Me.palGroup = New System.Windows.Forms.Panel()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.clbGroup = New System.Windows.Forms.CheckedListBox()
@@ -62,14 +147,14 @@ Partial Class frmMain
         Me.Label9 = New System.Windows.Forms.Label()
         Me.clbMount = New System.Windows.Forms.CheckedListBox()
         Me.palDepth = New System.Windows.Forms.Panel()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.clbDepth = New System.Windows.Forms.CheckedListBox()
+        Me.dtbDepth = New ECSS.DoubleTrackBarWithLabels()
+        Me.lblFilterDepth = New System.Windows.Forms.Label()
         Me.palWidth = New System.Windows.Forms.Panel()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.clbWidth = New System.Windows.Forms.CheckedListBox()
+        Me.dtbWidth = New ECSS.DoubleTrackBarWithLabels()
+        Me.lblFilterWidth = New System.Windows.Forms.Label()
         Me.palHeight = New System.Windows.Forms.Panel()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.clbHeight = New System.Windows.Forms.CheckedListBox()
+        Me.dtbHeight = New ECSS.DoubleTrackBarWithLabels()
+        Me.lblFilterHeight = New System.Windows.Forms.Label()
         Me.palMaterial = New System.Windows.Forms.Panel()
         Me.lblMaterial = New System.Windows.Forms.Label()
         Me.clbMaterial = New System.Windows.Forms.CheckedListBox()
@@ -83,6 +168,7 @@ Partial Class frmMain
         Me.lblPartType = New System.Windows.Forms.Label()
         Me.clbPartType = New System.Windows.Forms.CheckedListBox()
         Me.splDetail = New System.Windows.Forms.SplitContainer()
+        Me.lblError = New System.Windows.Forms.Label()
         Me.lstPart = New System.Windows.Forms.ListView()
         Me.colPartID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColManufacturer = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -92,18 +178,13 @@ Partial Class frmMain
         Me.ColDescription = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.palDetail = New System.Windows.Forms.Panel()
-        Me.palAddBOM = New System.Windows.Forms.Panel()
-        Me.btnBOM = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.txtQty = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.radExisting = New System.Windows.Forms.RadioButton()
-        Me.radNew = New System.Windows.Forms.RadioButton()
-        Me.cboBOM = New System.Windows.Forms.ComboBox()
-        Me.btnAddBOM = New System.Windows.Forms.Button()
-        Me.lstDetail = New System.Windows.Forms.ListView()
-        Me.colVar = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColValue = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.dgvDetail = New System.Windows.Forms.DataGridView()
+        Me.Column1 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
+        Me.Column2 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
+        Me.Column3 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
+        Me.Column4 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
+        Me.Column5 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
+        Me.Column6 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
         Me.palBOM = New System.Windows.Forms.Panel()
         Me.txtBOMTitle = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -125,12 +206,39 @@ Partial Class frmMain
         Me.ColNote = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TreeBOM = New System.Windows.Forms.TreeView()
         Me.MyContextMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.palSearch.SuspendLayout()
         CType(Me.splPart, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.splPart.Panel1.SuspendLayout()
         Me.splPart.Panel2.SuspendLayout()
         Me.splPart.SuspendLayout()
         Me.palFilter.SuspendLayout()
+        Me.palLenColor.SuspendLayout()
+        Me.palVoltage.SuspendLayout()
+        Me.palVoltageType.SuspendLayout()
+        Me.palIlluminationOption.SuspendLayout()
+        Me.palLampTest.SuspendLayout()
+        Me.palPowerModuleType.SuspendLayout()
+        Me.palFingersafe.SuspendLayout()
+        Me.palTempCode.SuspendLayout()
+        Me.palArea.SuspendLayout()
+        Me.palBuiltInFan.SuspendLayout()
+        Me.palBuiltInThem.SuspendLayout()
+        Me.palPower.SuspendLayout()
+        Me.palOperaTempMax.SuspendLayout()
+        Me.palOperaTempMin.SuspendLayout()
+        Me.palContacts.SuspendLayout()
+        Me.palBlockType.SuspendLayout()
+        Me.palRatedVolMin.SuspendLayout()
+        Me.palType.SuspendLayout()
+        Me.palSwitchTempOFF.SuspendLayout()
+        Me.palSwitchTempON.SuspendLayout()
+        Me.palRatedCurrent.SuspendLayout()
+        Me.palRatedVolMax.SuspendLayout()
+        Me.palFunction.SuspendLayout()
+        Me.palViewAreaW.SuspendLayout()
+        Me.palViewAreaH.SuspendLayout()
+        Me.palColor.SuspendLayout()
         Me.palGroup.SuspendLayout()
         Me.palClass.SuspendLayout()
         Me.palInputPhase.SuspendLayout()
@@ -151,16 +259,19 @@ Partial Class frmMain
         Me.splDetail.Panel2.SuspendLayout()
         Me.splDetail.SuspendLayout()
         Me.palDetail.SuspendLayout()
-        Me.palAddBOM.SuspendLayout()
+        CType(Me.dgvDetail, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.palBOM.SuspendLayout()
         CType(Me.dgvBOM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'palSearch
         '
-        Me.palSearch.Controls.Add(Me.txtSearchSuggest)
-        Me.palSearch.Controls.Add(Me.btnSetting)
+        Me.palSearch.Controls.Add(Me.lblTotal)
+        Me.palSearch.Controls.Add(Me.lblFilterDisplay)
         Me.palSearch.Controls.Add(Me.txtSearch)
+        Me.palSearch.Controls.Add(Me.btnBOM)
+        Me.palSearch.Controls.Add(Me.txtSearchMulti)
+        Me.palSearch.Controls.Add(Me.btnSetting)
         Me.palSearch.Controls.Add(Me.btnClean)
         Me.palSearch.Controls.Add(Me.btnSearch)
         Me.palSearch.Controls.Add(Me.Label1)
@@ -171,28 +282,22 @@ Partial Class frmMain
         Me.palSearch.Size = New System.Drawing.Size(1064, 681)
         Me.palSearch.TabIndex = 0
         '
-        'txtSearchSuggest
+        'lblTotal
         '
-        Me.txtSearchSuggest.EmailAutocompleteSource = Nothing
-        Me.txtSearchSuggest.HighlightColor = System.Drawing.SystemColors.ControlLight
-        Me.txtSearchSuggest.Location = New System.Drawing.Point(176, 39)
-        Me.txtSearchSuggest.MinimumSize = New System.Drawing.Size(103, 246)
-        Me.txtSearchSuggest.Name = "txtSearchSuggest"
-        Me.txtSearchSuggest.Size = New System.Drawing.Size(427, 246)
-        Me.txtSearchSuggest.TabIndex = 5
-        Me.txtSearchSuggest.TextColor = System.Drawing.SystemColors.WindowText
+        Me.lblTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblTotal.Location = New System.Drawing.Point(941, 42)
+        Me.lblTotal.Name = "lblTotal"
+        Me.lblTotal.Size = New System.Drawing.Size(120, 23)
+        Me.lblTotal.TabIndex = 7
+        Me.lblTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'btnSetting
+        'lblFilterDisplay
         '
-        Me.btnSetting.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSetting.BackgroundImage = CType(resources.GetObject("btnSetting.BackgroundImage"), System.Drawing.Image)
-        Me.btnSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.btnSetting.Location = New System.Drawing.Point(1032, 30)
-        Me.btnSetting.Margin = New System.Windows.Forms.Padding(1)
-        Me.btnSetting.Name = "btnSetting"
-        Me.btnSetting.Size = New System.Drawing.Size(23, 23)
-        Me.btnSetting.TabIndex = 4
-        Me.btnSetting.UseVisualStyleBackColor = True
+        Me.lblFilterDisplay.Location = New System.Drawing.Point(10, 39)
+        Me.lblFilterDisplay.Name = "lblFilterDisplay"
+        Me.lblFilterDisplay.Size = New System.Drawing.Size(763, 0)
+        Me.lblFilterDisplay.TabIndex = 6
+        Me.lblFilterDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'txtSearch
         '
@@ -204,9 +309,45 @@ Partial Class frmMain
         Me.txtSearch.Size = New System.Drawing.Size(427, 20)
         Me.txtSearch.TabIndex = 1
         '
+        'btnBOM
+        '
+        Me.btnBOM.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnBOM.BackgroundImage = Global.ECSS.My.Resources.Resources.BOM
+        Me.btnBOM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.btnBOM.Location = New System.Drawing.Point(1004, 8)
+        Me.btnBOM.Name = "btnBOM"
+        Me.btnBOM.Size = New System.Drawing.Size(23, 23)
+        Me.btnBOM.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.btnBOM, "BOM")
+        Me.btnBOM.UseVisualStyleBackColor = True
+        '
+        'txtSearchMulti
+        '
+        Me.txtSearchMulti.EmailAutocompleteSource = Nothing
+        Me.txtSearchMulti.HighlightColor = System.Drawing.SystemColors.ControlLight
+        Me.txtSearchMulti.Location = New System.Drawing.Point(176, 9)
+        Me.txtSearchMulti.MinimumSize = New System.Drawing.Size(103, 246)
+        Me.txtSearchMulti.Name = "txtSearchMulti"
+        Me.txtSearchMulti.Size = New System.Drawing.Size(427, 246)
+        Me.txtSearchMulti.TabIndex = 5
+        Me.txtSearchMulti.TextColor = System.Drawing.SystemColors.WindowText
+        '
+        'btnSetting
+        '
+        Me.btnSetting.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSetting.BackgroundImage = CType(resources.GetObject("btnSetting.BackgroundImage"), System.Drawing.Image)
+        Me.btnSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.btnSetting.Location = New System.Drawing.Point(1031, 8)
+        Me.btnSetting.Margin = New System.Windows.Forms.Padding(1)
+        Me.btnSetting.Name = "btnSetting"
+        Me.btnSetting.Size = New System.Drawing.Size(23, 23)
+        Me.btnSetting.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.btnSetting, "Settings")
+        Me.btnSetting.UseVisualStyleBackColor = True
+        '
         'btnClean
         '
-        Me.btnClean.Location = New System.Drawing.Point(698, 9)
+        Me.btnClean.Location = New System.Drawing.Point(698, 8)
         Me.btnClean.Name = "btnClean"
         Me.btnClean.Size = New System.Drawing.Size(77, 23)
         Me.btnClean.TabIndex = 3
@@ -247,13 +388,39 @@ Partial Class frmMain
         '
         Me.splPart.Panel2.Controls.Add(Me.splDetail)
         Me.splPart.Size = New System.Drawing.Size(1064, 611)
-        Me.splPart.SplitterDistance = 130
+        Me.splPart.SplitterDistance = 200
         Me.splPart.SplitterWidth = 2
         Me.splPart.TabIndex = 1
         '
         'palFilter
         '
         Me.palFilter.AutoScroll = True
+        Me.palFilter.Controls.Add(Me.palLenColor)
+        Me.palFilter.Controls.Add(Me.palVoltage)
+        Me.palFilter.Controls.Add(Me.palVoltageType)
+        Me.palFilter.Controls.Add(Me.palIlluminationOption)
+        Me.palFilter.Controls.Add(Me.palLampTest)
+        Me.palFilter.Controls.Add(Me.palPowerModuleType)
+        Me.palFilter.Controls.Add(Me.palFingersafe)
+        Me.palFilter.Controls.Add(Me.palTempCode)
+        Me.palFilter.Controls.Add(Me.palArea)
+        Me.palFilter.Controls.Add(Me.palBuiltInFan)
+        Me.palFilter.Controls.Add(Me.palBuiltInThem)
+        Me.palFilter.Controls.Add(Me.palPower)
+        Me.palFilter.Controls.Add(Me.palOperaTempMax)
+        Me.palFilter.Controls.Add(Me.palOperaTempMin)
+        Me.palFilter.Controls.Add(Me.palContacts)
+        Me.palFilter.Controls.Add(Me.palBlockType)
+        Me.palFilter.Controls.Add(Me.palRatedVolMin)
+        Me.palFilter.Controls.Add(Me.palType)
+        Me.palFilter.Controls.Add(Me.palSwitchTempOFF)
+        Me.palFilter.Controls.Add(Me.palSwitchTempON)
+        Me.palFilter.Controls.Add(Me.palRatedCurrent)
+        Me.palFilter.Controls.Add(Me.palRatedVolMax)
+        Me.palFilter.Controls.Add(Me.palFunction)
+        Me.palFilter.Controls.Add(Me.palViewAreaW)
+        Me.palFilter.Controls.Add(Me.palViewAreaH)
+        Me.palFilter.Controls.Add(Me.palColor)
         Me.palFilter.Controls.Add(Me.palGroup)
         Me.palFilter.Controls.Add(Me.palClass)
         Me.palFilter.Controls.Add(Me.palInputPhase)
@@ -273,17 +440,849 @@ Partial Class frmMain
         Me.palFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.palFilter.Location = New System.Drawing.Point(0, 0)
         Me.palFilter.Name = "palFilter"
-        Me.palFilter.Size = New System.Drawing.Size(130, 611)
+        Me.palFilter.Size = New System.Drawing.Size(200, 611)
         Me.palFilter.TabIndex = 1
+        '
+        'palLenColor
+        '
+        Me.palLenColor.Controls.Add(Me.Label36)
+        Me.palLenColor.Controls.Add(Me.clbLenColor)
+        Me.palLenColor.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palLenColor.Location = New System.Drawing.Point(0, 4728)
+        Me.palLenColor.Name = "palLenColor"
+        Me.palLenColor.Size = New System.Drawing.Size(183, 128)
+        Me.palLenColor.TabIndex = 51
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(1, 0)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(57, 13)
+        Me.Label36.TabIndex = 11
+        Me.Label36.Text = "Lens Color"
+        '
+        'clbLenColor
+        '
+        Me.clbLenColor.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbLenColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbLenColor.FormattingEnabled = True
+        Me.clbLenColor.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbLenColor.Location = New System.Drawing.Point(3, 16)
+        Me.clbLenColor.Name = "clbLenColor"
+        Me.clbLenColor.Size = New System.Drawing.Size(177, 107)
+        Me.clbLenColor.TabIndex = 10
+        '
+        'palVoltage
+        '
+        Me.palVoltage.Controls.Add(Me.Label35)
+        Me.palVoltage.Controls.Add(Me.clbVoltage)
+        Me.palVoltage.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palVoltage.Location = New System.Drawing.Point(0, 4600)
+        Me.palVoltage.Name = "palVoltage"
+        Me.palVoltage.Size = New System.Drawing.Size(183, 128)
+        Me.palVoltage.TabIndex = 50
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(1, 0)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(43, 13)
+        Me.Label35.TabIndex = 11
+        Me.Label35.Text = "Voltage"
+        '
+        'clbVoltage
+        '
+        Me.clbVoltage.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbVoltage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbVoltage.FormattingEnabled = True
+        Me.clbVoltage.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbVoltage.Location = New System.Drawing.Point(3, 16)
+        Me.clbVoltage.Name = "clbVoltage"
+        Me.clbVoltage.Size = New System.Drawing.Size(177, 107)
+        Me.clbVoltage.TabIndex = 10
+        '
+        'palVoltageType
+        '
+        Me.palVoltageType.Controls.Add(Me.Label34)
+        Me.palVoltageType.Controls.Add(Me.clbVoltageType)
+        Me.palVoltageType.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palVoltageType.Location = New System.Drawing.Point(0, 4472)
+        Me.palVoltageType.Name = "palVoltageType"
+        Me.palVoltageType.Size = New System.Drawing.Size(183, 128)
+        Me.palVoltageType.TabIndex = 49
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(1, 0)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(70, 13)
+        Me.Label34.TabIndex = 11
+        Me.Label34.Text = "Voltage Type"
+        '
+        'clbVoltageType
+        '
+        Me.clbVoltageType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbVoltageType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbVoltageType.FormattingEnabled = True
+        Me.clbVoltageType.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbVoltageType.Location = New System.Drawing.Point(3, 16)
+        Me.clbVoltageType.Name = "clbVoltageType"
+        Me.clbVoltageType.Size = New System.Drawing.Size(177, 107)
+        Me.clbVoltageType.TabIndex = 10
+        '
+        'palIlluminationOption
+        '
+        Me.palIlluminationOption.Controls.Add(Me.Label33)
+        Me.palIlluminationOption.Controls.Add(Me.clbIlluminationOption)
+        Me.palIlluminationOption.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palIlluminationOption.Location = New System.Drawing.Point(0, 4344)
+        Me.palIlluminationOption.Name = "palIlluminationOption"
+        Me.palIlluminationOption.Size = New System.Drawing.Size(183, 128)
+        Me.palIlluminationOption.TabIndex = 48
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(1, 0)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(98, 13)
+        Me.Label33.TabIndex = 11
+        Me.Label33.Text = "Illumination Options"
+        '
+        'clbIlluminationOption
+        '
+        Me.clbIlluminationOption.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbIlluminationOption.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbIlluminationOption.FormattingEnabled = True
+        Me.clbIlluminationOption.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbIlluminationOption.Location = New System.Drawing.Point(3, 16)
+        Me.clbIlluminationOption.Name = "clbIlluminationOption"
+        Me.clbIlluminationOption.Size = New System.Drawing.Size(177, 107)
+        Me.clbIlluminationOption.TabIndex = 10
+        '
+        'palLampTest
+        '
+        Me.palLampTest.Controls.Add(Me.Label32)
+        Me.palLampTest.Controls.Add(Me.clbLampTest)
+        Me.palLampTest.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palLampTest.Location = New System.Drawing.Point(0, 4216)
+        Me.palLampTest.Name = "palLampTest"
+        Me.palLampTest.Size = New System.Drawing.Size(183, 128)
+        Me.palLampTest.TabIndex = 47
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(1, 0)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(96, 13)
+        Me.Label32.TabIndex = 11
+        Me.Label32.Text = "Lamp Test Options"
+        '
+        'clbLampTest
+        '
+        Me.clbLampTest.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbLampTest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbLampTest.FormattingEnabled = True
+        Me.clbLampTest.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbLampTest.Location = New System.Drawing.Point(3, 16)
+        Me.clbLampTest.Name = "clbLampTest"
+        Me.clbLampTest.Size = New System.Drawing.Size(177, 107)
+        Me.clbLampTest.TabIndex = 10
+        '
+        'palPowerModuleType
+        '
+        Me.palPowerModuleType.Controls.Add(Me.Label31)
+        Me.palPowerModuleType.Controls.Add(Me.clbPowerModuleType)
+        Me.palPowerModuleType.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palPowerModuleType.Location = New System.Drawing.Point(0, 4088)
+        Me.palPowerModuleType.Name = "palPowerModuleType"
+        Me.palPowerModuleType.Size = New System.Drawing.Size(183, 128)
+        Me.palPowerModuleType.TabIndex = 46
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(1, 0)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(108, 13)
+        Me.Label31.TabIndex = 11
+        Me.Label31.Text = "Power Modeule Type"
+        '
+        'clbPowerModuleType
+        '
+        Me.clbPowerModuleType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbPowerModuleType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbPowerModuleType.FormattingEnabled = True
+        Me.clbPowerModuleType.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbPowerModuleType.Location = New System.Drawing.Point(3, 16)
+        Me.clbPowerModuleType.Name = "clbPowerModuleType"
+        Me.clbPowerModuleType.Size = New System.Drawing.Size(177, 107)
+        Me.clbPowerModuleType.TabIndex = 10
+        '
+        'palFingersafe
+        '
+        Me.palFingersafe.Controls.Add(Me.Label30)
+        Me.palFingersafe.Controls.Add(Me.clbFingersafe)
+        Me.palFingersafe.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palFingersafe.Location = New System.Drawing.Point(0, 3960)
+        Me.palFingersafe.Name = "palFingersafe"
+        Me.palFingersafe.Size = New System.Drawing.Size(183, 128)
+        Me.palFingersafe.TabIndex = 45
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(1, 0)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(93, 13)
+        Me.Label30.TabIndex = 11
+        Me.Label30.Text = "Fingersafe Guards"
+        '
+        'clbFingersafe
+        '
+        Me.clbFingersafe.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbFingersafe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbFingersafe.FormattingEnabled = True
+        Me.clbFingersafe.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbFingersafe.Location = New System.Drawing.Point(3, 16)
+        Me.clbFingersafe.Name = "clbFingersafe"
+        Me.clbFingersafe.Size = New System.Drawing.Size(177, 107)
+        Me.clbFingersafe.TabIndex = 10
+        '
+        'palTempCode
+        '
+        Me.palTempCode.Controls.Add(Me.Label29)
+        Me.palTempCode.Controls.Add(Me.clbTempCode)
+        Me.palTempCode.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palTempCode.Location = New System.Drawing.Point(0, 3832)
+        Me.palTempCode.Name = "palTempCode"
+        Me.palTempCode.Size = New System.Drawing.Size(183, 128)
+        Me.palTempCode.TabIndex = 44
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(1, 0)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(65, 13)
+        Me.Label29.TabIndex = 11
+        Me.Label29.Text = "Temp. Code"
+        '
+        'clbTempCode
+        '
+        Me.clbTempCode.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbTempCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbTempCode.FormattingEnabled = True
+        Me.clbTempCode.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbTempCode.Location = New System.Drawing.Point(3, 16)
+        Me.clbTempCode.Name = "clbTempCode"
+        Me.clbTempCode.Size = New System.Drawing.Size(177, 107)
+        Me.clbTempCode.TabIndex = 10
+        '
+        'palArea
+        '
+        Me.palArea.Controls.Add(Me.Label28)
+        Me.palArea.Controls.Add(Me.clbArea)
+        Me.palArea.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palArea.Location = New System.Drawing.Point(0, 3704)
+        Me.palArea.Name = "palArea"
+        Me.palArea.Size = New System.Drawing.Size(183, 128)
+        Me.palArea.TabIndex = 43
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(1, 0)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(93, 13)
+        Me.Label28.TabIndex = 11
+        Me.Label28.Text = "Area Classification"
+        '
+        'clbArea
+        '
+        Me.clbArea.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbArea.FormattingEnabled = True
+        Me.clbArea.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbArea.Location = New System.Drawing.Point(3, 16)
+        Me.clbArea.Name = "clbArea"
+        Me.clbArea.Size = New System.Drawing.Size(177, 107)
+        Me.clbArea.TabIndex = 10
+        '
+        'palBuiltInFan
+        '
+        Me.palBuiltInFan.Controls.Add(Me.Label27)
+        Me.palBuiltInFan.Controls.Add(Me.clbBuiltInFan)
+        Me.palBuiltInFan.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palBuiltInFan.Location = New System.Drawing.Point(0, 3650)
+        Me.palBuiltInFan.Name = "palBuiltInFan"
+        Me.palBuiltInFan.Size = New System.Drawing.Size(183, 54)
+        Me.palBuiltInFan.TabIndex = 42
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(1, 0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(60, 13)
+        Me.Label27.TabIndex = 11
+        Me.Label27.Text = "Built-In Fan"
+        '
+        'clbBuiltInFan
+        '
+        Me.clbBuiltInFan.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbBuiltInFan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbBuiltInFan.FormattingEnabled = True
+        Me.clbBuiltInFan.Items.AddRange(New Object() {"Yes", "No"})
+        Me.clbBuiltInFan.Location = New System.Drawing.Point(3, 16)
+        Me.clbBuiltInFan.Name = "clbBuiltInFan"
+        Me.clbBuiltInFan.Size = New System.Drawing.Size(177, 32)
+        Me.clbBuiltInFan.TabIndex = 10
+        '
+        'palBuiltInThem
+        '
+        Me.palBuiltInThem.Controls.Add(Me.Label26)
+        Me.palBuiltInThem.Controls.Add(Me.clbBuiltInThem)
+        Me.palBuiltInThem.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palBuiltInThem.Location = New System.Drawing.Point(0, 3596)
+        Me.palBuiltInThem.Name = "palBuiltInThem"
+        Me.palBuiltInThem.Size = New System.Drawing.Size(183, 54)
+        Me.palBuiltInThem.TabIndex = 41
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(1, 0)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(95, 13)
+        Me.Label26.TabIndex = 11
+        Me.Label26.Text = "Built-In Thermostat"
+        '
+        'clbBuiltInThem
+        '
+        Me.clbBuiltInThem.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbBuiltInThem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbBuiltInThem.FormattingEnabled = True
+        Me.clbBuiltInThem.Items.AddRange(New Object() {"Yes", "No"})
+        Me.clbBuiltInThem.Location = New System.Drawing.Point(3, 16)
+        Me.clbBuiltInThem.Name = "clbBuiltInThem"
+        Me.clbBuiltInThem.Size = New System.Drawing.Size(177, 32)
+        Me.clbBuiltInThem.TabIndex = 10
+        '
+        'palPower
+        '
+        Me.palPower.Controls.Add(Me.Power)
+        Me.palPower.Controls.Add(Me.clbPower)
+        Me.palPower.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palPower.Location = New System.Drawing.Point(0, 3468)
+        Me.palPower.Name = "palPower"
+        Me.palPower.Size = New System.Drawing.Size(183, 128)
+        Me.palPower.TabIndex = 40
+        '
+        'Power
+        '
+        Me.Power.AutoSize = True
+        Me.Power.Location = New System.Drawing.Point(1, 0)
+        Me.Power.Name = "Power"
+        Me.Power.Size = New System.Drawing.Size(37, 13)
+        Me.Power.TabIndex = 11
+        Me.Power.Text = "Power"
+        '
+        'clbPower
+        '
+        Me.clbPower.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbPower.FormattingEnabled = True
+        Me.clbPower.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbPower.Location = New System.Drawing.Point(3, 16)
+        Me.clbPower.Name = "clbPower"
+        Me.clbPower.Size = New System.Drawing.Size(177, 107)
+        Me.clbPower.TabIndex = 10
+        '
+        'palOperaTempMax
+        '
+        Me.palOperaTempMax.Controls.Add(Me.Label25)
+        Me.palOperaTempMax.Controls.Add(Me.clbOperaTempMax)
+        Me.palOperaTempMax.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palOperaTempMax.Location = New System.Drawing.Point(0, 3340)
+        Me.palOperaTempMax.Name = "palOperaTempMax"
+        Me.palOperaTempMax.Size = New System.Drawing.Size(183, 128)
+        Me.palOperaTempMax.TabIndex = 39
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(1, 0)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(122, 13)
+        Me.Label25.TabIndex = 11
+        Me.Label25.Text = "Operation Temp Maxium"
+        '
+        'clbOperaTempMax
+        '
+        Me.clbOperaTempMax.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbOperaTempMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbOperaTempMax.FormattingEnabled = True
+        Me.clbOperaTempMax.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbOperaTempMax.Location = New System.Drawing.Point(3, 16)
+        Me.clbOperaTempMax.Name = "clbOperaTempMax"
+        Me.clbOperaTempMax.Size = New System.Drawing.Size(177, 107)
+        Me.clbOperaTempMax.TabIndex = 10
+        '
+        'palOperaTempMin
+        '
+        Me.palOperaTempMin.Controls.Add(Me.Label24)
+        Me.palOperaTempMin.Controls.Add(Me.clbOperaTempMin)
+        Me.palOperaTempMin.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palOperaTempMin.Location = New System.Drawing.Point(0, 3212)
+        Me.palOperaTempMin.Name = "palOperaTempMin"
+        Me.palOperaTempMin.Size = New System.Drawing.Size(183, 128)
+        Me.palOperaTempMin.TabIndex = 38
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(1, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(119, 13)
+        Me.Label24.TabIndex = 11
+        Me.Label24.Text = "Operation Temp Minium"
+        '
+        'clbOperaTempMin
+        '
+        Me.clbOperaTempMin.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbOperaTempMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbOperaTempMin.FormattingEnabled = True
+        Me.clbOperaTempMin.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbOperaTempMin.Location = New System.Drawing.Point(3, 16)
+        Me.clbOperaTempMin.Name = "clbOperaTempMin"
+        Me.clbOperaTempMin.Size = New System.Drawing.Size(177, 107)
+        Me.clbOperaTempMin.TabIndex = 10
+        '
+        'palContacts
+        '
+        Me.palContacts.Controls.Add(Me.Label23)
+        Me.palContacts.Controls.Add(Me.clbContacts)
+        Me.palContacts.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palContacts.Location = New System.Drawing.Point(0, 3084)
+        Me.palContacts.Name = "palContacts"
+        Me.palContacts.Size = New System.Drawing.Size(183, 128)
+        Me.palContacts.TabIndex = 37
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(1, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(49, 13)
+        Me.Label23.TabIndex = 11
+        Me.Label23.Text = "Contacts"
+        '
+        'clbContacts
+        '
+        Me.clbContacts.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbContacts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbContacts.FormattingEnabled = True
+        Me.clbContacts.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbContacts.Location = New System.Drawing.Point(3, 16)
+        Me.clbContacts.Name = "clbContacts"
+        Me.clbContacts.Size = New System.Drawing.Size(177, 107)
+        Me.clbContacts.TabIndex = 10
+        '
+        'palBlockType
+        '
+        Me.palBlockType.Controls.Add(Me.Label22)
+        Me.palBlockType.Controls.Add(Me.clbBlockType)
+        Me.palBlockType.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palBlockType.Location = New System.Drawing.Point(0, 2956)
+        Me.palBlockType.Name = "palBlockType"
+        Me.palBlockType.Size = New System.Drawing.Size(183, 128)
+        Me.palBlockType.TabIndex = 36
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(1, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(106, 13)
+        Me.Label22.TabIndex = 11
+        Me.Label22.Text = "Contact Blocks Type"
+        '
+        'clbBlockType
+        '
+        Me.clbBlockType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbBlockType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbBlockType.FormattingEnabled = True
+        Me.clbBlockType.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbBlockType.Location = New System.Drawing.Point(3, 16)
+        Me.clbBlockType.Name = "clbBlockType"
+        Me.clbBlockType.Size = New System.Drawing.Size(177, 107)
+        Me.clbBlockType.TabIndex = 10
+        '
+        'palRatedVolMin
+        '
+        Me.palRatedVolMin.Controls.Add(Me.Label21)
+        Me.palRatedVolMin.Controls.Add(Me.clbRatedVolMin)
+        Me.palRatedVolMin.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palRatedVolMin.Location = New System.Drawing.Point(0, 2828)
+        Me.palRatedVolMin.Name = "palRatedVolMin"
+        Me.palRatedVolMin.Size = New System.Drawing.Size(183, 128)
+        Me.palRatedVolMin.TabIndex = 35
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(1, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(111, 13)
+        Me.Label21.TabIndex = 11
+        Me.Label21.Text = "Minium Rated Voltage"
+        '
+        'clbRatedVolMin
+        '
+        Me.clbRatedVolMin.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbRatedVolMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbRatedVolMin.FormattingEnabled = True
+        Me.clbRatedVolMin.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbRatedVolMin.Location = New System.Drawing.Point(3, 16)
+        Me.clbRatedVolMin.Name = "clbRatedVolMin"
+        Me.clbRatedVolMin.Size = New System.Drawing.Size(177, 107)
+        Me.clbRatedVolMin.TabIndex = 10
+        '
+        'palType
+        '
+        Me.palType.Controls.Add(Me.Label20)
+        Me.palType.Controls.Add(Me.clbType)
+        Me.palType.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palType.Location = New System.Drawing.Point(0, 2700)
+        Me.palType.Name = "palType"
+        Me.palType.Size = New System.Drawing.Size(183, 128)
+        Me.palType.TabIndex = 34
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(1, 0)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(31, 13)
+        Me.Label20.TabIndex = 11
+        Me.Label20.Text = "Type"
+        '
+        'clbType
+        '
+        Me.clbType.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbType.FormattingEnabled = True
+        Me.clbType.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbType.Location = New System.Drawing.Point(3, 16)
+        Me.clbType.Name = "clbType"
+        Me.clbType.Size = New System.Drawing.Size(177, 107)
+        Me.clbType.TabIndex = 10
+        '
+        'palSwitchTempOFF
+        '
+        Me.palSwitchTempOFF.Controls.Add(Me.Label19)
+        Me.palSwitchTempOFF.Controls.Add(Me.clbSwitchTempOFF)
+        Me.palSwitchTempOFF.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palSwitchTempOFF.Location = New System.Drawing.Point(0, 2572)
+        Me.palSwitchTempOFF.Name = "palSwitchTempOFF"
+        Me.palSwitchTempOFF.Size = New System.Drawing.Size(183, 128)
+        Me.palSwitchTempOFF.TabIndex = 33
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(1, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(119, 13)
+        Me.Label19.TabIndex = 11
+        Me.Label19.Text = "Switch Off Temperature"
+        '
+        'clbSwitchTempOFF
+        '
+        Me.clbSwitchTempOFF.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbSwitchTempOFF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbSwitchTempOFF.FormattingEnabled = True
+        Me.clbSwitchTempOFF.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbSwitchTempOFF.Location = New System.Drawing.Point(3, 16)
+        Me.clbSwitchTempOFF.Name = "clbSwitchTempOFF"
+        Me.clbSwitchTempOFF.Size = New System.Drawing.Size(177, 107)
+        Me.clbSwitchTempOFF.TabIndex = 10
+        '
+        'palSwitchTempON
+        '
+        Me.palSwitchTempON.Controls.Add(Me.Label18)
+        Me.palSwitchTempON.Controls.Add(Me.clbSwitchTempON)
+        Me.palSwitchTempON.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palSwitchTempON.Location = New System.Drawing.Point(0, 2444)
+        Me.palSwitchTempON.Name = "palSwitchTempON"
+        Me.palSwitchTempON.Size = New System.Drawing.Size(183, 128)
+        Me.palSwitchTempON.TabIndex = 32
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(1, 0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(119, 13)
+        Me.Label18.TabIndex = 11
+        Me.Label18.Text = "Switch On Temperature"
+        '
+        'clbSwitchTempON
+        '
+        Me.clbSwitchTempON.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbSwitchTempON.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbSwitchTempON.FormattingEnabled = True
+        Me.clbSwitchTempON.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbSwitchTempON.Location = New System.Drawing.Point(3, 16)
+        Me.clbSwitchTempON.Name = "clbSwitchTempON"
+        Me.clbSwitchTempON.Size = New System.Drawing.Size(177, 107)
+        Me.clbSwitchTempON.TabIndex = 10
+        '
+        'palRatedCurrent
+        '
+        Me.palRatedCurrent.Controls.Add(Me.Label17)
+        Me.palRatedCurrent.Controls.Add(Me.clbRatedCurrent)
+        Me.palRatedCurrent.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palRatedCurrent.Location = New System.Drawing.Point(0, 2316)
+        Me.palRatedCurrent.Name = "palRatedCurrent"
+        Me.palRatedCurrent.Size = New System.Drawing.Size(183, 128)
+        Me.palRatedCurrent.TabIndex = 31
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(1, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(97, 13)
+        Me.Label17.TabIndex = 11
+        Me.Label17.Text = "Rated Current Amp"
+        '
+        'clbRatedCurrent
+        '
+        Me.clbRatedCurrent.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbRatedCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbRatedCurrent.FormattingEnabled = True
+        Me.clbRatedCurrent.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbRatedCurrent.Location = New System.Drawing.Point(3, 16)
+        Me.clbRatedCurrent.Name = "clbRatedCurrent"
+        Me.clbRatedCurrent.Size = New System.Drawing.Size(177, 107)
+        Me.clbRatedCurrent.TabIndex = 10
+        '
+        'palRatedVolMax
+        '
+        Me.palRatedVolMax.Controls.Add(Me.Label8)
+        Me.palRatedVolMax.Controls.Add(Me.clbRatedVolMax)
+        Me.palRatedVolMax.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palRatedVolMax.Location = New System.Drawing.Point(0, 2188)
+        Me.palRatedVolMax.Name = "palRatedVolMax"
+        Me.palRatedVolMax.Size = New System.Drawing.Size(183, 128)
+        Me.palRatedVolMax.TabIndex = 30
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(1, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(122, 13)
+        Me.Label8.TabIndex = 11
+        Me.Label8.Text = "Maximum Rated Voltage"
+        '
+        'clbRatedVolMax
+        '
+        Me.clbRatedVolMax.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbRatedVolMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbRatedVolMax.FormattingEnabled = True
+        Me.clbRatedVolMax.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbRatedVolMax.Location = New System.Drawing.Point(3, 16)
+        Me.clbRatedVolMax.Name = "clbRatedVolMax"
+        Me.clbRatedVolMax.Size = New System.Drawing.Size(177, 107)
+        Me.clbRatedVolMax.TabIndex = 10
+        '
+        'palFunction
+        '
+        Me.palFunction.Controls.Add(Me.lblFilterFunction)
+        Me.palFunction.Controls.Add(Me.clbFunction)
+        Me.palFunction.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palFunction.Location = New System.Drawing.Point(0, 2060)
+        Me.palFunction.Name = "palFunction"
+        Me.palFunction.Size = New System.Drawing.Size(183, 128)
+        Me.palFunction.TabIndex = 29
+        '
+        'lblFilterFunction
+        '
+        Me.lblFilterFunction.AutoSize = True
+        Me.lblFilterFunction.Location = New System.Drawing.Point(1, 0)
+        Me.lblFilterFunction.Name = "lblFilterFunction"
+        Me.lblFilterFunction.Size = New System.Drawing.Size(48, 13)
+        Me.lblFilterFunction.TabIndex = 11
+        Me.lblFilterFunction.Text = "Function"
+        '
+        'clbFunction
+        '
+        Me.clbFunction.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbFunction.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbFunction.FormattingEnabled = True
+        Me.clbFunction.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbFunction.Location = New System.Drawing.Point(3, 16)
+        Me.clbFunction.Name = "clbFunction"
+        Me.clbFunction.Size = New System.Drawing.Size(177, 107)
+        Me.clbFunction.TabIndex = 10
+        '
+        'palViewAreaW
+        '
+        Me.palViewAreaW.Controls.Add(Me.Label6)
+        Me.palViewAreaW.Controls.Add(Me.clbViewAreaW)
+        Me.palViewAreaW.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palViewAreaW.Location = New System.Drawing.Point(0, 1932)
+        Me.palViewAreaW.Name = "palViewAreaW"
+        Me.palViewAreaW.Size = New System.Drawing.Size(183, 128)
+        Me.palViewAreaW.TabIndex = 28
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(1, 0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(100, 13)
+        Me.Label6.TabIndex = 11
+        Me.Label6.Text = "Viewing Area Width"
+        '
+        'clbViewAreaW
+        '
+        Me.clbViewAreaW.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbViewAreaW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbViewAreaW.FormattingEnabled = True
+        Me.clbViewAreaW.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbViewAreaW.Location = New System.Drawing.Point(3, 16)
+        Me.clbViewAreaW.Name = "clbViewAreaW"
+        Me.clbViewAreaW.Size = New System.Drawing.Size(177, 107)
+        Me.clbViewAreaW.TabIndex = 10
+        '
+        'palViewAreaH
+        '
+        Me.palViewAreaH.Controls.Add(Me.Label3)
+        Me.palViewAreaH.Controls.Add(Me.clbViewAreaH)
+        Me.palViewAreaH.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palViewAreaH.Location = New System.Drawing.Point(0, 1804)
+        Me.palViewAreaH.Name = "palViewAreaH"
+        Me.palViewAreaH.Size = New System.Drawing.Size(183, 128)
+        Me.palViewAreaH.TabIndex = 27
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(1, 0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(103, 13)
+        Me.Label3.TabIndex = 11
+        Me.Label3.Text = "Viewing Area Height"
+        '
+        'clbViewAreaH
+        '
+        Me.clbViewAreaH.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbViewAreaH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbViewAreaH.FormattingEnabled = True
+        Me.clbViewAreaH.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbViewAreaH.Location = New System.Drawing.Point(3, 16)
+        Me.clbViewAreaH.Name = "clbViewAreaH"
+        Me.clbViewAreaH.Size = New System.Drawing.Size(177, 107)
+        Me.clbViewAreaH.TabIndex = 10
+        '
+        'palColor
+        '
+        Me.palColor.Controls.Add(Me.Label2)
+        Me.palColor.Controls.Add(Me.clbColor)
+        Me.palColor.Dock = System.Windows.Forms.DockStyle.Top
+        Me.palColor.Location = New System.Drawing.Point(0, 1676)
+        Me.palColor.Name = "palColor"
+        Me.palColor.Size = New System.Drawing.Size(183, 128)
+        Me.palColor.TabIndex = 26
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(1, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(31, 13)
+        Me.Label2.TabIndex = 11
+        Me.Label2.Text = "Color"
+        '
+        'clbColor
+        '
+        Me.clbColor.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.clbColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.clbColor.FormattingEnabled = True
+        Me.clbColor.Items.AddRange(New Object() {"M20", "M25"})
+        Me.clbColor.Location = New System.Drawing.Point(3, 16)
+        Me.clbColor.Name = "clbColor"
+        Me.clbColor.Size = New System.Drawing.Size(177, 107)
+        Me.clbColor.TabIndex = 10
         '
         'palGroup
         '
         Me.palGroup.Controls.Add(Me.Label16)
         Me.palGroup.Controls.Add(Me.clbGroup)
         Me.palGroup.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palGroup.Location = New System.Drawing.Point(0, 1797)
+        Me.palGroup.Location = New System.Drawing.Point(0, 1548)
         Me.palGroup.Name = "palGroup"
-        Me.palGroup.Size = New System.Drawing.Size(113, 128)
+        Me.palGroup.Size = New System.Drawing.Size(183, 128)
         Me.palGroup.TabIndex = 25
         '
         'Label16
@@ -291,9 +1290,9 @@ Partial Class frmMain
         Me.Label16.AutoSize = True
         Me.Label16.Location = New System.Drawing.Point(1, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(36, 13)
+        Me.Label16.Size = New System.Drawing.Size(58, 13)
         Me.Label16.TabIndex = 11
-        Me.Label16.Text = "Group"
+        Me.Label16.Text = "Gas Group"
         '
         'clbGroup
         '
@@ -305,7 +1304,7 @@ Partial Class frmMain
         Me.clbGroup.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbGroup.Location = New System.Drawing.Point(3, 16)
         Me.clbGroup.Name = "clbGroup"
-        Me.clbGroup.Size = New System.Drawing.Size(107, 107)
+        Me.clbGroup.Size = New System.Drawing.Size(177, 107)
         Me.clbGroup.TabIndex = 10
         '
         'palClass
@@ -313,9 +1312,9 @@ Partial Class frmMain
         Me.palClass.Controls.Add(Me.Label15)
         Me.palClass.Controls.Add(Me.clbClass)
         Me.palClass.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palClass.Location = New System.Drawing.Point(0, 1669)
+        Me.palClass.Location = New System.Drawing.Point(0, 1420)
         Me.palClass.Name = "palClass"
-        Me.palClass.Size = New System.Drawing.Size(113, 128)
+        Me.palClass.Size = New System.Drawing.Size(183, 128)
         Me.palClass.TabIndex = 24
         '
         'Label15
@@ -337,7 +1336,7 @@ Partial Class frmMain
         Me.clbClass.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbClass.Location = New System.Drawing.Point(3, 16)
         Me.clbClass.Name = "clbClass"
-        Me.clbClass.Size = New System.Drawing.Size(107, 107)
+        Me.clbClass.Size = New System.Drawing.Size(177, 107)
         Me.clbClass.TabIndex = 10
         '
         'palInputPhase
@@ -345,9 +1344,9 @@ Partial Class frmMain
         Me.palInputPhase.Controls.Add(Me.Label14)
         Me.palInputPhase.Controls.Add(Me.clbInputPhase)
         Me.palInputPhase.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palInputPhase.Location = New System.Drawing.Point(0, 1541)
+        Me.palInputPhase.Location = New System.Drawing.Point(0, 1292)
         Me.palInputPhase.Name = "palInputPhase"
-        Me.palInputPhase.Size = New System.Drawing.Size(113, 128)
+        Me.palInputPhase.Size = New System.Drawing.Size(183, 128)
         Me.palInputPhase.TabIndex = 23
         '
         'Label14
@@ -369,7 +1368,7 @@ Partial Class frmMain
         Me.clbInputPhase.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbInputPhase.Location = New System.Drawing.Point(3, 16)
         Me.clbInputPhase.Name = "clbInputPhase"
-        Me.clbInputPhase.Size = New System.Drawing.Size(107, 107)
+        Me.clbInputPhase.Size = New System.Drawing.Size(177, 107)
         Me.clbInputPhase.TabIndex = 10
         '
         'palNormalV
@@ -377,9 +1376,9 @@ Partial Class frmMain
         Me.palNormalV.Controls.Add(Me.Label13)
         Me.palNormalV.Controls.Add(Me.clbNormalV)
         Me.palNormalV.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palNormalV.Location = New System.Drawing.Point(0, 1413)
+        Me.palNormalV.Location = New System.Drawing.Point(0, 1164)
         Me.palNormalV.Name = "palNormalV"
-        Me.palNormalV.Size = New System.Drawing.Size(113, 128)
+        Me.palNormalV.Size = New System.Drawing.Size(183, 128)
         Me.palNormalV.TabIndex = 22
         '
         'Label13
@@ -401,7 +1400,7 @@ Partial Class frmMain
         Me.clbNormalV.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbNormalV.Location = New System.Drawing.Point(3, 16)
         Me.clbNormalV.Name = "clbNormalV"
-        Me.clbNormalV.Size = New System.Drawing.Size(107, 107)
+        Me.clbNormalV.Size = New System.Drawing.Size(177, 107)
         Me.clbNormalV.TabIndex = 10
         '
         'palOutputA
@@ -409,9 +1408,9 @@ Partial Class frmMain
         Me.palOutputA.Controls.Add(Me.Label12)
         Me.palOutputA.Controls.Add(Me.clbOutputA)
         Me.palOutputA.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palOutputA.Location = New System.Drawing.Point(0, 1285)
+        Me.palOutputA.Location = New System.Drawing.Point(0, 1036)
         Me.palOutputA.Name = "palOutputA"
-        Me.palOutputA.Size = New System.Drawing.Size(113, 128)
+        Me.palOutputA.Size = New System.Drawing.Size(183, 128)
         Me.palOutputA.TabIndex = 21
         '
         'Label12
@@ -433,7 +1432,7 @@ Partial Class frmMain
         Me.clbOutputA.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbOutputA.Location = New System.Drawing.Point(3, 16)
         Me.clbOutputA.Name = "clbOutputA"
-        Me.clbOutputA.Size = New System.Drawing.Size(107, 107)
+        Me.clbOutputA.Size = New System.Drawing.Size(177, 107)
         Me.clbOutputA.TabIndex = 10
         '
         'palOutputV
@@ -441,9 +1440,9 @@ Partial Class frmMain
         Me.palOutputV.Controls.Add(Me.Label11)
         Me.palOutputV.Controls.Add(Me.clbOutputVol)
         Me.palOutputV.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palOutputV.Location = New System.Drawing.Point(0, 1157)
+        Me.palOutputV.Location = New System.Drawing.Point(0, 908)
         Me.palOutputV.Name = "palOutputV"
-        Me.palOutputV.Size = New System.Drawing.Size(113, 128)
+        Me.palOutputV.Size = New System.Drawing.Size(183, 128)
         Me.palOutputV.TabIndex = 20
         '
         'Label11
@@ -465,7 +1464,7 @@ Partial Class frmMain
         Me.clbOutputVol.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbOutputVol.Location = New System.Drawing.Point(3, 16)
         Me.clbOutputVol.Name = "clbOutputVol"
-        Me.clbOutputVol.Size = New System.Drawing.Size(107, 107)
+        Me.clbOutputVol.Size = New System.Drawing.Size(177, 107)
         Me.clbOutputVol.TabIndex = 10
         '
         'palNEMA
@@ -473,9 +1472,9 @@ Partial Class frmMain
         Me.palNEMA.Controls.Add(Me.Label10)
         Me.palNEMA.Controls.Add(Me.clbNEMA)
         Me.palNEMA.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palNEMA.Location = New System.Drawing.Point(0, 1029)
+        Me.palNEMA.Location = New System.Drawing.Point(0, 780)
         Me.palNEMA.Name = "palNEMA"
-        Me.palNEMA.Size = New System.Drawing.Size(113, 128)
+        Me.palNEMA.Size = New System.Drawing.Size(183, 128)
         Me.palNEMA.TabIndex = 19
         '
         'Label10
@@ -497,13 +1496,13 @@ Partial Class frmMain
         Me.clbNEMA.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbNEMA.Location = New System.Drawing.Point(3, 16)
         Me.clbNEMA.Name = "clbNEMA"
-        Me.clbNEMA.Size = New System.Drawing.Size(107, 107)
+        Me.clbNEMA.Size = New System.Drawing.Size(177, 107)
         Me.clbNEMA.TabIndex = 10
         '
         'lblLocation
         '
         Me.lblLocation.AutoSize = True
-        Me.lblLocation.Location = New System.Drawing.Point(35, 1900)
+        Me.lblLocation.Location = New System.Drawing.Point(35, 5000)
         Me.lblLocation.Name = "lblLocation"
         Me.lblLocation.Size = New System.Drawing.Size(35, 13)
         Me.lblLocation.TabIndex = 19
@@ -515,9 +1514,9 @@ Partial Class frmMain
         Me.palMount.Controls.Add(Me.Label9)
         Me.palMount.Controls.Add(Me.clbMount)
         Me.palMount.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palMount.Location = New System.Drawing.Point(0, 901)
+        Me.palMount.Location = New System.Drawing.Point(0, 652)
         Me.palMount.Name = "palMount"
-        Me.palMount.Size = New System.Drawing.Size(113, 128)
+        Me.palMount.Size = New System.Drawing.Size(183, 128)
         Me.palMount.TabIndex = 18
         '
         'Label9
@@ -539,104 +1538,101 @@ Partial Class frmMain
         Me.clbMount.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbMount.Location = New System.Drawing.Point(3, 16)
         Me.clbMount.Name = "clbMount"
-        Me.clbMount.Size = New System.Drawing.Size(107, 107)
+        Me.clbMount.Size = New System.Drawing.Size(177, 107)
         Me.clbMount.TabIndex = 10
         '
         'palDepth
         '
-        Me.palDepth.Controls.Add(Me.Label8)
-        Me.palDepth.Controls.Add(Me.clbDepth)
+        Me.palDepth.Controls.Add(Me.dtbDepth)
+        Me.palDepth.Controls.Add(Me.lblFilterDepth)
         Me.palDepth.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palDepth.Location = New System.Drawing.Point(0, 773)
+        Me.palDepth.Location = New System.Drawing.Point(0, 607)
         Me.palDepth.Name = "palDepth"
-        Me.palDepth.Size = New System.Drawing.Size(113, 128)
+        Me.palDepth.Size = New System.Drawing.Size(183, 45)
         Me.palDepth.TabIndex = 18
         '
-        'Label8
+        'dtbDepth
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(1, 0)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(36, 13)
-        Me.Label8.TabIndex = 11
-        Me.Label8.Text = "Depth"
+        Me.dtbDepth.Location = New System.Drawing.Point(3, 16)
+        Me.dtbDepth.Max = 100
+        Me.dtbDepth.Min = 0
+        Me.dtbDepth.Name = "dtbDepth"
+        Me.dtbDepth.SelectedMax = 100
+        Me.dtbDepth.SelectedMin = 0
+        Me.dtbDepth.Size = New System.Drawing.Size(177, 26)
+        Me.dtbDepth.TabIndex = 12
+        Me.dtbDepth.TrackBarColor = System.Drawing.Color.SteelBlue
         '
-        'clbDepth
+        'lblFilterDepth
         '
-        Me.clbDepth.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.clbDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.clbDepth.FormattingEnabled = True
-        Me.clbDepth.Items.AddRange(New Object() {"M20", "M25"})
-        Me.clbDepth.Location = New System.Drawing.Point(3, 16)
-        Me.clbDepth.Name = "clbDepth"
-        Me.clbDepth.Size = New System.Drawing.Size(107, 107)
-        Me.clbDepth.TabIndex = 10
+        Me.lblFilterDepth.AutoSize = True
+        Me.lblFilterDepth.Location = New System.Drawing.Point(1, 0)
+        Me.lblFilterDepth.Name = "lblFilterDepth"
+        Me.lblFilterDepth.Size = New System.Drawing.Size(36, 13)
+        Me.lblFilterDepth.TabIndex = 11
+        Me.lblFilterDepth.Text = "Depth"
         '
         'palWidth
         '
-        Me.palWidth.Controls.Add(Me.Label7)
-        Me.palWidth.Controls.Add(Me.clbWidth)
+        Me.palWidth.Controls.Add(Me.dtbWidth)
+        Me.palWidth.Controls.Add(Me.lblFilterWidth)
         Me.palWidth.Dock = System.Windows.Forms.DockStyle.Top
-        Me.palWidth.Location = New System.Drawing.Point(0, 645)
+        Me.palWidth.Location = New System.Drawing.Point(0, 562)
         Me.palWidth.Name = "palWidth"
-        Me.palWidth.Size = New System.Drawing.Size(113, 128)
+        Me.palWidth.Size = New System.Drawing.Size(183, 45)
         Me.palWidth.TabIndex = 17
         '
-        'Label7
+        'dtbWidth
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(1, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(35, 13)
-        Me.Label7.TabIndex = 11
-        Me.Label7.Text = "Width"
+        Me.dtbWidth.Location = New System.Drawing.Point(3, 16)
+        Me.dtbWidth.Max = 100
+        Me.dtbWidth.Min = 0
+        Me.dtbWidth.Name = "dtbWidth"
+        Me.dtbWidth.SelectedMax = 100
+        Me.dtbWidth.SelectedMin = 0
+        Me.dtbWidth.Size = New System.Drawing.Size(177, 26)
+        Me.dtbWidth.TabIndex = 12
+        Me.dtbWidth.TrackBarColor = System.Drawing.Color.SteelBlue
         '
-        'clbWidth
+        'lblFilterWidth
         '
-        Me.clbWidth.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.clbWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.clbWidth.FormattingEnabled = True
-        Me.clbWidth.Items.AddRange(New Object() {"M20", "M25"})
-        Me.clbWidth.Location = New System.Drawing.Point(3, 16)
-        Me.clbWidth.Name = "clbWidth"
-        Me.clbWidth.Size = New System.Drawing.Size(107, 107)
-        Me.clbWidth.TabIndex = 10
+        Me.lblFilterWidth.AutoSize = True
+        Me.lblFilterWidth.Location = New System.Drawing.Point(1, 0)
+        Me.lblFilterWidth.Name = "lblFilterWidth"
+        Me.lblFilterWidth.Size = New System.Drawing.Size(35, 13)
+        Me.lblFilterWidth.TabIndex = 11
+        Me.lblFilterWidth.Text = "Width"
         '
         'palHeight
         '
-        Me.palHeight.Controls.Add(Me.Label6)
-        Me.palHeight.Controls.Add(Me.clbHeight)
+        Me.palHeight.Controls.Add(Me.dtbHeight)
+        Me.palHeight.Controls.Add(Me.lblFilterHeight)
         Me.palHeight.Dock = System.Windows.Forms.DockStyle.Top
         Me.palHeight.Location = New System.Drawing.Point(0, 517)
         Me.palHeight.Name = "palHeight"
-        Me.palHeight.Size = New System.Drawing.Size(113, 128)
+        Me.palHeight.Size = New System.Drawing.Size(183, 45)
         Me.palHeight.TabIndex = 16
         '
-        'Label6
+        'dtbHeight
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(1, 0)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(38, 13)
-        Me.Label6.TabIndex = 11
-        Me.Label6.Text = "Height"
+        Me.dtbHeight.Location = New System.Drawing.Point(3, 16)
+        Me.dtbHeight.Max = 100
+        Me.dtbHeight.Min = 0
+        Me.dtbHeight.Name = "dtbHeight"
+        Me.dtbHeight.SelectedMax = 100
+        Me.dtbHeight.SelectedMin = 0
+        Me.dtbHeight.Size = New System.Drawing.Size(177, 26)
+        Me.dtbHeight.TabIndex = 7
+        Me.dtbHeight.TrackBarColor = System.Drawing.Color.SteelBlue
         '
-        'clbHeight
+        'lblFilterHeight
         '
-        Me.clbHeight.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.clbHeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.clbHeight.FormattingEnabled = True
-        Me.clbHeight.Items.AddRange(New Object() {"M20", "M25"})
-        Me.clbHeight.Location = New System.Drawing.Point(3, 16)
-        Me.clbHeight.Name = "clbHeight"
-        Me.clbHeight.Size = New System.Drawing.Size(107, 107)
-        Me.clbHeight.TabIndex = 10
+        Me.lblFilterHeight.AutoSize = True
+        Me.lblFilterHeight.Location = New System.Drawing.Point(1, 0)
+        Me.lblFilterHeight.Name = "lblFilterHeight"
+        Me.lblFilterHeight.Size = New System.Drawing.Size(38, 13)
+        Me.lblFilterHeight.TabIndex = 11
+        Me.lblFilterHeight.Text = "Height"
         '
         'palMaterial
         '
@@ -645,7 +1641,7 @@ Partial Class frmMain
         Me.palMaterial.Dock = System.Windows.Forms.DockStyle.Top
         Me.palMaterial.Location = New System.Drawing.Point(0, 389)
         Me.palMaterial.Name = "palMaterial"
-        Me.palMaterial.Size = New System.Drawing.Size(113, 128)
+        Me.palMaterial.Size = New System.Drawing.Size(183, 128)
         Me.palMaterial.TabIndex = 14
         '
         'lblMaterial
@@ -667,7 +1663,7 @@ Partial Class frmMain
         Me.clbMaterial.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbMaterial.Location = New System.Drawing.Point(3, 16)
         Me.clbMaterial.Name = "clbMaterial"
-        Me.clbMaterial.Size = New System.Drawing.Size(107, 107)
+        Me.clbMaterial.Size = New System.Drawing.Size(177, 107)
         Me.clbMaterial.TabIndex = 10
         '
         'palCertificates
@@ -677,7 +1673,7 @@ Partial Class frmMain
         Me.palCertificates.Dock = System.Windows.Forms.DockStyle.Top
         Me.palCertificates.Location = New System.Drawing.Point(0, 261)
         Me.palCertificates.Name = "palCertificates"
-        Me.palCertificates.Size = New System.Drawing.Size(113, 128)
+        Me.palCertificates.Size = New System.Drawing.Size(183, 128)
         Me.palCertificates.TabIndex = 15
         '
         'Label5
@@ -699,7 +1695,7 @@ Partial Class frmMain
         Me.clbCertificates.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbCertificates.Location = New System.Drawing.Point(3, 16)
         Me.clbCertificates.Name = "clbCertificates"
-        Me.clbCertificates.Size = New System.Drawing.Size(107, 107)
+        Me.clbCertificates.Size = New System.Drawing.Size(177, 107)
         Me.clbCertificates.TabIndex = 10
         '
         'palManufacturer
@@ -709,7 +1705,7 @@ Partial Class frmMain
         Me.palManufacturer.Dock = System.Windows.Forms.DockStyle.Top
         Me.palManufacturer.Location = New System.Drawing.Point(0, 136)
         Me.palManufacturer.Name = "palManufacturer"
-        Me.palManufacturer.Size = New System.Drawing.Size(113, 125)
+        Me.palManufacturer.Size = New System.Drawing.Size(183, 125)
         Me.palManufacturer.TabIndex = 13
         '
         'lblManufacturer
@@ -731,7 +1727,7 @@ Partial Class frmMain
         Me.clbManufacturer.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbManufacturer.Location = New System.Drawing.Point(3, 16)
         Me.clbManufacturer.Name = "clbManufacturer"
-        Me.clbManufacturer.Size = New System.Drawing.Size(107, 107)
+        Me.clbManufacturer.Size = New System.Drawing.Size(177, 107)
         Me.clbManufacturer.TabIndex = 8
         '
         'palCate
@@ -741,7 +1737,7 @@ Partial Class frmMain
         Me.palCate.Dock = System.Windows.Forms.DockStyle.Top
         Me.palCate.Location = New System.Drawing.Point(0, 0)
         Me.palCate.Name = "palCate"
-        Me.palCate.Size = New System.Drawing.Size(113, 136)
+        Me.palCate.Size = New System.Drawing.Size(183, 136)
         Me.palCate.TabIndex = 12
         '
         'lblPartType
@@ -764,7 +1760,7 @@ Partial Class frmMain
         Me.clbPartType.Items.AddRange(New Object() {"M20", "M25"})
         Me.clbPartType.Location = New System.Drawing.Point(3, 18)
         Me.clbPartType.Name = "clbPartType"
-        Me.clbPartType.Size = New System.Drawing.Size(107, 107)
+        Me.clbPartType.Size = New System.Drawing.Size(177, 107)
         Me.clbPartType.TabIndex = 6
         '
         'splDetail
@@ -772,17 +1768,29 @@ Partial Class frmMain
         Me.splDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.splDetail.Location = New System.Drawing.Point(0, 0)
         Me.splDetail.Name = "splDetail"
+        Me.splDetail.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
         'splDetail.Panel1
         '
+        Me.splDetail.Panel1.Controls.Add(Me.lblError)
         Me.splDetail.Panel1.Controls.Add(Me.lstPart)
         '
         'splDetail.Panel2
         '
         Me.splDetail.Panel2.Controls.Add(Me.palDetail)
-        Me.splDetail.Size = New System.Drawing.Size(932, 611)
-        Me.splDetail.SplitterDistance = 736
+        Me.splDetail.Size = New System.Drawing.Size(862, 611)
+        Me.splDetail.SplitterDistance = 415
         Me.splDetail.TabIndex = 2
+        '
+        'lblError
+        '
+        Me.lblError.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblError.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblError.ForeColor = System.Drawing.Color.Red
+        Me.lblError.Location = New System.Drawing.Point(131, 356)
+        Me.lblError.Name = "lblError"
+        Me.lblError.Size = New System.Drawing.Size(600, 46)
+        Me.lblError.TabIndex = 7
         '
         'lstPart
         '
@@ -795,7 +1803,8 @@ Partial Class frmMain
         Me.lstPart.Location = New System.Drawing.Point(0, 0)
         Me.lstPart.MultiSelect = False
         Me.lstPart.Name = "lstPart"
-        Me.lstPart.Size = New System.Drawing.Size(736, 611)
+        Me.lstPart.ShowItemToolTips = True
+        Me.lstPart.Size = New System.Drawing.Size(862, 415)
         Me.lstPart.TabIndex = 1
         Me.lstPart.UseCompatibleStateImageBehavior = False
         Me.lstPart.View = System.Windows.Forms.View.Details
@@ -829,7 +1838,7 @@ Partial Class frmMain
         '
         Me.ColHighlight.Name = "ColHighlight"
         Me.ColHighlight.Text = "Highlights"
-        Me.ColHighlight.Width = 110
+        Me.ColHighlight.Width = 250
         '
         'ColDescription
         '
@@ -845,132 +1854,117 @@ Partial Class frmMain
         '
         'palDetail
         '
-        Me.palDetail.Controls.Add(Me.palAddBOM)
-        Me.palDetail.Controls.Add(Me.lstDetail)
+        Me.palDetail.Controls.Add(Me.dgvDetail)
         Me.palDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.palDetail.Location = New System.Drawing.Point(0, 0)
         Me.palDetail.Name = "palDetail"
-        Me.palDetail.Size = New System.Drawing.Size(192, 611)
+        Me.palDetail.Size = New System.Drawing.Size(862, 192)
         Me.palDetail.TabIndex = 0
         '
-        'palAddBOM
+        'dgvDetail
         '
-        Me.palAddBOM.Controls.Add(Me.btnBOM)
-        Me.palAddBOM.Controls.Add(Me.Label3)
-        Me.palAddBOM.Controls.Add(Me.txtQty)
-        Me.palAddBOM.Controls.Add(Me.Label2)
-        Me.palAddBOM.Controls.Add(Me.radExisting)
-        Me.palAddBOM.Controls.Add(Me.radNew)
-        Me.palAddBOM.Controls.Add(Me.cboBOM)
-        Me.palAddBOM.Controls.Add(Me.btnAddBOM)
-        Me.palAddBOM.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.palAddBOM.Location = New System.Drawing.Point(0, 475)
-        Me.palAddBOM.Name = "palAddBOM"
-        Me.palAddBOM.Size = New System.Drawing.Size(192, 136)
-        Me.palAddBOM.TabIndex = 1
+        Me.dgvDetail.AllowUserToAddRows = False
+        Me.dgvDetail.AllowUserToDeleteRows = False
+        Me.dgvDetail.AllowUserToResizeColumns = False
+        Me.dgvDetail.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Honeydew
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        Me.dgvDetail.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvDetail.BackgroundColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDetail.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.dgvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvDetail.ColumnHeadersVisible = False
+        Me.dgvDetail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6})
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDetail.DefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvDetail.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvDetail.Location = New System.Drawing.Point(0, 0)
+        Me.dgvDetail.MultiSelect = False
+        Me.dgvDetail.Name = "dgvDetail"
+        Me.dgvDetail.ReadOnly = True
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.dgvDetail.RowHeadersVisible = False
+        Me.dgvDetail.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.dgvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.dgvDetail.ShowCellErrors = False
+        Me.dgvDetail.ShowEditingIcon = False
+        Me.dgvDetail.ShowRowErrors = False
+        Me.dgvDetail.Size = New System.Drawing.Size(862, 192)
+        Me.dgvDetail.TabIndex = 2
         '
-        'btnBOM
+        'Column1
         '
-        Me.btnBOM.Location = New System.Drawing.Point(5, 106)
-        Me.btnBOM.Name = "btnBOM"
-        Me.btnBOM.Size = New System.Drawing.Size(78, 20)
-        Me.btnBOM.TabIndex = 4
-        Me.btnBOM.Text = "View BOM"
-        Me.btnBOM.UseVisualStyleBackColor = True
+        Me.Column1.HeaderText = "Column1"
+        Me.Column1.Name = "Column1"
+        Me.Column1.ReadOnly = True
+        Me.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column1.Width = 140
         '
-        'Label3
+        'Column2
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(5, 10)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(120, 13)
-        Me.Label3.TabIndex = 6
-        Me.Label3.Text = "Add Select Part to BOM"
+        Me.Column2.HeaderText = "Column2"
+        Me.Column2.Name = "Column2"
+        Me.Column2.ReadOnly = True
+        Me.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column2.Width = 140
         '
-        'txtQty
+        'Column3
         '
-        Me.txtQty.Location = New System.Drawing.Point(63, 81)
-        Me.txtQty.Name = "txtQty"
-        Me.txtQty.Size = New System.Drawing.Size(116, 20)
-        Me.txtQty.TabIndex = 5
+        Me.Column3.HeaderText = "Column3"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        Me.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column3.Width = 140
         '
-        'Label2
+        'Column4
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(33, 83)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(26, 13)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Qty:"
+        Me.Column4.HeaderText = "Column4"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
+        Me.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column4.Width = 140
         '
-        'radExisting
+        'Column5
         '
-        Me.radExisting.AutoSize = True
-        Me.radExisting.Location = New System.Drawing.Point(5, 56)
-        Me.radExisting.Name = "radExisting"
-        Me.radExisting.Size = New System.Drawing.Size(56, 17)
-        Me.radExisting.TabIndex = 3
-        Me.radExisting.TabStop = True
-        Me.radExisting.Text = "Add to"
-        Me.radExisting.UseVisualStyleBackColor = True
+        Me.Column5.HeaderText = "Column5"
+        Me.Column5.Name = "Column5"
+        Me.Column5.ReadOnly = True
+        Me.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column5.Width = 140
         '
-        'radNew
+        'Column6
         '
-        Me.radNew.AutoSize = True
-        Me.radNew.Checked = True
-        Me.radNew.Location = New System.Drawing.Point(5, 34)
-        Me.radNew.Name = "radNew"
-        Me.radNew.Size = New System.Drawing.Size(115, 17)
-        Me.radNew.TabIndex = 2
-        Me.radNew.TabStop = True
-        Me.radNew.Text = "Create a new BOM"
-        Me.radNew.UseVisualStyleBackColor = True
-        '
-        'cboBOM
-        '
-        Me.cboBOM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboBOM.FormattingEnabled = True
-        Me.cboBOM.Location = New System.Drawing.Point(63, 55)
-        Me.cboBOM.Name = "cboBOM"
-        Me.cboBOM.Size = New System.Drawing.Size(116, 21)
-        Me.cboBOM.TabIndex = 1
-        '
-        'btnAddBOM
-        '
-        Me.btnAddBOM.Location = New System.Drawing.Point(88, 106)
-        Me.btnAddBOM.Name = "btnAddBOM"
-        Me.btnAddBOM.Size = New System.Drawing.Size(90, 20)
-        Me.btnAddBOM.TabIndex = 0
-        Me.btnAddBOM.Text = "Add to BOM"
-        Me.btnAddBOM.UseVisualStyleBackColor = True
-        '
-        'lstDetail
-        '
-        Me.lstDetail.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lstDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lstDetail.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colVar, Me.ColValue})
-        Me.lstDetail.GridLines = True
-        Me.lstDetail.HideSelection = False
-        Me.lstDetail.Location = New System.Drawing.Point(0, 0)
-        Me.lstDetail.Name = "lstDetail"
-        Me.lstDetail.Size = New System.Drawing.Size(189, 469)
-        Me.lstDetail.TabIndex = 0
-        Me.lstDetail.UseCompatibleStateImageBehavior = False
-        Me.lstDetail.View = System.Windows.Forms.View.Details
-        '
-        'colVar
-        '
-        Me.colVar.Name = "colVar"
-        Me.colVar.Text = "Specification"
-        Me.colVar.Width = 80
-        '
-        'ColValue
-        '
-        Me.ColValue.Name = "ColValue"
-        Me.ColValue.Text = "Value"
-        Me.ColValue.Width = 100
+        Me.Column6.HeaderText = "Column6"
+        Me.Column6.Name = "Column6"
+        Me.Column6.ReadOnly = True
+        Me.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column6.Width = 140
         '
         'palBOM
         '
@@ -1012,6 +2006,7 @@ Partial Class frmMain
         '
         'btnBottom
         '
+        Me.btnBottom.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnBottom.Location = New System.Drawing.Point(980, 184)
         Me.btnBottom.Name = "btnBottom"
         Me.btnBottom.Size = New System.Drawing.Size(75, 23)
@@ -1021,6 +2016,7 @@ Partial Class frmMain
         '
         'btnDown
         '
+        Me.btnDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDown.Location = New System.Drawing.Point(980, 155)
         Me.btnDown.Name = "btnDown"
         Me.btnDown.Size = New System.Drawing.Size(75, 23)
@@ -1030,6 +2026,7 @@ Partial Class frmMain
         '
         'btnUp
         '
+        Me.btnUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUp.Location = New System.Drawing.Point(980, 126)
         Me.btnUp.Name = "btnUp"
         Me.btnUp.Size = New System.Drawing.Size(75, 23)
@@ -1039,6 +2036,7 @@ Partial Class frmMain
         '
         'btnTop
         '
+        Me.btnTop.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnTop.Location = New System.Drawing.Point(980, 97)
         Me.btnTop.Name = "btnTop"
         Me.btnTop.Size = New System.Drawing.Size(75, 23)
@@ -1048,6 +2046,7 @@ Partial Class frmMain
         '
         'btnDelOnePart
         '
+        Me.btnDelOnePart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDelOnePart.Location = New System.Drawing.Point(980, 68)
         Me.btnDelOnePart.Name = "btnDelOnePart"
         Me.btnDelOnePart.Size = New System.Drawing.Size(75, 23)
@@ -1057,6 +2056,7 @@ Partial Class frmMain
         '
         'btnAddOnePart
         '
+        Me.btnAddOnePart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAddOnePart.Location = New System.Drawing.Point(980, 39)
         Me.btnAddOnePart.Name = "btnAddOnePart"
         Me.btnAddOnePart.Size = New System.Drawing.Size(75, 23)
@@ -1066,6 +2066,7 @@ Partial Class frmMain
         '
         'btnUpdate
         '
+        Me.btnUpdate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdate.Location = New System.Drawing.Point(759, 646)
         Me.btnUpdate.Name = "btnUpdate"
         Me.btnUpdate.Size = New System.Drawing.Size(90, 23)
@@ -1075,6 +2076,7 @@ Partial Class frmMain
         '
         'btnExcel
         '
+        Me.btnExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExcel.Location = New System.Drawing.Point(951, 646)
         Me.btnExcel.Name = "btnExcel"
         Me.btnExcel.Size = New System.Drawing.Size(104, 23)
@@ -1084,6 +2086,7 @@ Partial Class frmMain
         '
         'btnBack
         '
+        Me.btnBack.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnBack.Location = New System.Drawing.Point(855, 646)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(90, 23)
@@ -1096,6 +2099,9 @@ Partial Class frmMain
         Me.dgvBOM.AllowUserToAddRows = False
         Me.dgvBOM.AllowUserToDeleteRows = False
         Me.dgvBOM.AllowUserToResizeRows = False
+        Me.dgvBOM.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvBOM.BackgroundColor = System.Drawing.SystemColors.Control
         Me.dgvBOM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvBOM.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colIndex, Me.ColBOMPartID, Me.colQty, Me.ColManu, Me.ColDesp, Me.ColNote})
@@ -1108,8 +2114,8 @@ Partial Class frmMain
         '
         'colIndex
         '
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.colIndex.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.colIndex.DefaultCellStyle = DataGridViewCellStyle5
         Me.colIndex.HeaderText = "Num"
         Me.colIndex.Name = "colIndex"
         Me.colIndex.ReadOnly = True
@@ -1129,16 +2135,16 @@ Partial Class frmMain
         '
         'ColManu
         '
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.White
-        Me.ColManu.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
+        Me.ColManu.DefaultCellStyle = DataGridViewCellStyle6
         Me.ColManu.HeaderText = "Manufacturer"
         Me.ColManu.Name = "ColManu"
         Me.ColManu.Width = 120
         '
         'ColDesp
         '
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.White
-        Me.ColDesp.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
+        Me.ColDesp.DefaultCellStyle = DataGridViewCellStyle7
         Me.ColDesp.HeaderText = "Description"
         Me.ColDesp.Name = "ColDesp"
         Me.ColDesp.Width = 180
@@ -1171,6 +2177,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.palSearch)
         Me.Controls.Add(Me.palBOM)
         Me.HelpButton = True
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.Text = "Form1"
@@ -1182,6 +2189,58 @@ Partial Class frmMain
         Me.splPart.ResumeLayout(False)
         Me.palFilter.ResumeLayout(False)
         Me.palFilter.PerformLayout()
+        Me.palLenColor.ResumeLayout(False)
+        Me.palLenColor.PerformLayout()
+        Me.palVoltage.ResumeLayout(False)
+        Me.palVoltage.PerformLayout()
+        Me.palVoltageType.ResumeLayout(False)
+        Me.palVoltageType.PerformLayout()
+        Me.palIlluminationOption.ResumeLayout(False)
+        Me.palIlluminationOption.PerformLayout()
+        Me.palLampTest.ResumeLayout(False)
+        Me.palLampTest.PerformLayout()
+        Me.palPowerModuleType.ResumeLayout(False)
+        Me.palPowerModuleType.PerformLayout()
+        Me.palFingersafe.ResumeLayout(False)
+        Me.palFingersafe.PerformLayout()
+        Me.palTempCode.ResumeLayout(False)
+        Me.palTempCode.PerformLayout()
+        Me.palArea.ResumeLayout(False)
+        Me.palArea.PerformLayout()
+        Me.palBuiltInFan.ResumeLayout(False)
+        Me.palBuiltInFan.PerformLayout()
+        Me.palBuiltInThem.ResumeLayout(False)
+        Me.palBuiltInThem.PerformLayout()
+        Me.palPower.ResumeLayout(False)
+        Me.palPower.PerformLayout()
+        Me.palOperaTempMax.ResumeLayout(False)
+        Me.palOperaTempMax.PerformLayout()
+        Me.palOperaTempMin.ResumeLayout(False)
+        Me.palOperaTempMin.PerformLayout()
+        Me.palContacts.ResumeLayout(False)
+        Me.palContacts.PerformLayout()
+        Me.palBlockType.ResumeLayout(False)
+        Me.palBlockType.PerformLayout()
+        Me.palRatedVolMin.ResumeLayout(False)
+        Me.palRatedVolMin.PerformLayout()
+        Me.palType.ResumeLayout(False)
+        Me.palType.PerformLayout()
+        Me.palSwitchTempOFF.ResumeLayout(False)
+        Me.palSwitchTempOFF.PerformLayout()
+        Me.palSwitchTempON.ResumeLayout(False)
+        Me.palSwitchTempON.PerformLayout()
+        Me.palRatedCurrent.ResumeLayout(False)
+        Me.palRatedCurrent.PerformLayout()
+        Me.palRatedVolMax.ResumeLayout(False)
+        Me.palRatedVolMax.PerformLayout()
+        Me.palFunction.ResumeLayout(False)
+        Me.palFunction.PerformLayout()
+        Me.palViewAreaW.ResumeLayout(False)
+        Me.palViewAreaW.PerformLayout()
+        Me.palViewAreaH.ResumeLayout(False)
+        Me.palViewAreaH.PerformLayout()
+        Me.palColor.ResumeLayout(False)
+        Me.palColor.PerformLayout()
         Me.palGroup.ResumeLayout(False)
         Me.palGroup.PerformLayout()
         Me.palClass.ResumeLayout(False)
@@ -1217,8 +2276,7 @@ Partial Class frmMain
         CType(Me.splDetail, System.ComponentModel.ISupportInitialize).EndInit()
         Me.splDetail.ResumeLayout(False)
         Me.palDetail.ResumeLayout(False)
-        Me.palAddBOM.ResumeLayout(False)
-        Me.palAddBOM.PerformLayout()
+        CType(Me.dgvDetail, System.ComponentModel.ISupportInitialize).EndInit()
         Me.palBOM.ResumeLayout(False)
         Me.palBOM.PerformLayout()
         CType(Me.dgvBOM, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1244,17 +2302,6 @@ Partial Class frmMain
     Friend WithEvents ColDescription As ColumnHeader
     Friend WithEvents ColType As ColumnHeader
     Friend WithEvents clbPartType As CheckedListBox
-    Friend WithEvents palAddBOM As Panel
-    Friend WithEvents lstDetail As ListView
-    Friend WithEvents colVar As ColumnHeader
-    Friend WithEvents ColValue As ColumnHeader
-    Friend WithEvents radExisting As RadioButton
-    Friend WithEvents radNew As RadioButton
-    Friend WithEvents cboBOM As ComboBox
-    Friend WithEvents btnAddBOM As Button
-    Friend WithEvents txtQty As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents btnExcel As Button
     Friend WithEvents btnBack As Button
     Friend WithEvents dgvBOM As DataGridView
@@ -1283,11 +2330,10 @@ Partial Class frmMain
     Friend WithEvents ColDesp As DataGridViewTextBoxColumn
     Friend WithEvents ColNote As DataGridViewTextBoxColumn
     Friend WithEvents ColCerti1 As ColumnHeader
-    Friend WithEvents txtSearchSuggest As CustomControls.TextBoxEmailAutocomplete
+    Friend WithEvents txtSearchMulti As CustomControls.TextBoxEmailAutocomplete
     Friend WithEvents MyContextMenu As ContextMenuStrip
     Friend WithEvents palHeight As Panel
-    Friend WithEvents Label6 As Label
-    Friend WithEvents clbHeight As CheckedListBox
+    Friend WithEvents lblFilterHeight As Label
     Friend WithEvents palCertificates As Panel
     Friend WithEvents Label5 As Label
     Friend WithEvents clbCertificates As CheckedListBox
@@ -1312,11 +2358,9 @@ Partial Class frmMain
     Friend WithEvents Label9 As Label
     Friend WithEvents clbMount As CheckedListBox
     Friend WithEvents palDepth As Panel
-    Friend WithEvents Label8 As Label
-    Friend WithEvents clbDepth As CheckedListBox
+    Friend WithEvents lblFilterDepth As Label
     Friend WithEvents palWidth As Panel
-    Friend WithEvents Label7 As Label
-    Friend WithEvents clbWidth As CheckedListBox
+    Friend WithEvents lblFilterWidth As Label
     Friend WithEvents palGroup As Panel
     Friend WithEvents Label16 As Label
     Friend WithEvents clbGroup As CheckedListBox
@@ -1326,4 +2370,96 @@ Partial Class frmMain
     Friend WithEvents palInputPhase As Panel
     Friend WithEvents Label14 As Label
     Friend WithEvents clbInputPhase As CheckedListBox
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents dgvDetail As DataGridView
+    Friend WithEvents lblFilterDisplay As GrowLabel
+    Friend WithEvents lblError As Label
+    Friend WithEvents Column1 As SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx
+    Friend WithEvents Column2 As SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx
+    Friend WithEvents Column3 As SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx
+    Friend WithEvents Column4 As SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx
+    Friend WithEvents Column5 As SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx
+    Friend WithEvents Column6 As SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx
+    Friend WithEvents dtbDepth As DoubleTrackBarWithLabels
+    Friend WithEvents dtbWidth As DoubleTrackBarWithLabels
+    Friend WithEvents dtbHeight As DoubleTrackBarWithLabels
+    Friend WithEvents lblTotal As Label
+    Friend WithEvents palViewAreaW As Panel
+    Friend WithEvents Label6 As Label
+    Friend WithEvents clbViewAreaW As CheckedListBox
+    Friend WithEvents palViewAreaH As Panel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents clbViewAreaH As CheckedListBox
+    Friend WithEvents palColor As Panel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents clbColor As CheckedListBox
+    Friend WithEvents palFunction As Panel
+    Friend WithEvents clbFunction As CheckedListBox
+    Friend WithEvents palRatedVolMax As Panel
+    Friend WithEvents Label8 As Label
+    Friend WithEvents clbRatedVolMax As CheckedListBox
+    Friend WithEvents palRatedCurrent As Panel
+    Friend WithEvents Label17 As Label
+    Friend WithEvents clbRatedCurrent As CheckedListBox
+    Friend WithEvents palSwitchTempON As Panel
+    Friend WithEvents Label18 As Label
+    Friend WithEvents clbSwitchTempON As CheckedListBox
+    Friend WithEvents palSwitchTempOFF As Panel
+    Friend WithEvents Label19 As Label
+    Friend WithEvents clbSwitchTempOFF As CheckedListBox
+    Friend WithEvents palType As Panel
+    Friend WithEvents Label20 As Label
+    Friend WithEvents clbType As CheckedListBox
+    Friend WithEvents palRatedVolMin As Panel
+    Friend WithEvents Label21 As Label
+    Friend WithEvents clbRatedVolMin As CheckedListBox
+    Friend WithEvents palBlockType As Panel
+    Friend WithEvents Label22 As Label
+    Friend WithEvents clbBlockType As CheckedListBox
+    Friend WithEvents palContacts As Panel
+    Friend WithEvents Label23 As Label
+    Friend WithEvents clbContacts As CheckedListBox
+    Friend WithEvents palOperaTempMax As Panel
+    Friend WithEvents Label25 As Label
+    Friend WithEvents clbOperaTempMax As CheckedListBox
+    Friend WithEvents palOperaTempMin As Panel
+    Friend WithEvents Label24 As Label
+    Friend WithEvents clbOperaTempMin As CheckedListBox
+    Friend WithEvents palPower As Panel
+    Friend WithEvents Power As Label
+    Friend WithEvents clbPower As CheckedListBox
+    Friend WithEvents palBuiltInFan As Panel
+    Friend WithEvents Label27 As Label
+    Friend WithEvents clbBuiltInFan As CheckedListBox
+    Friend WithEvents palBuiltInThem As Panel
+    Friend WithEvents Label26 As Label
+    Friend WithEvents clbBuiltInThem As CheckedListBox
+    Friend WithEvents palArea As Panel
+    Friend WithEvents Label28 As Label
+    Friend WithEvents clbArea As CheckedListBox
+    Friend WithEvents palTempCode As Panel
+    Friend WithEvents Label29 As Label
+    Friend WithEvents clbTempCode As CheckedListBox
+    Friend WithEvents palIlluminationOption As Panel
+    Friend WithEvents Label33 As Label
+    Friend WithEvents clbIlluminationOption As CheckedListBox
+    Friend WithEvents palLampTest As Panel
+    Friend WithEvents Label32 As Label
+    Friend WithEvents clbLampTest As CheckedListBox
+    Friend WithEvents palPowerModuleType As Panel
+    Friend WithEvents Label31 As Label
+    Friend WithEvents clbPowerModuleType As CheckedListBox
+    Friend WithEvents palFingersafe As Panel
+    Friend WithEvents Label30 As Label
+    Friend WithEvents clbFingersafe As CheckedListBox
+    Friend WithEvents palLenColor As Panel
+    Friend WithEvents Label36 As Label
+    Friend WithEvents clbLenColor As CheckedListBox
+    Friend WithEvents palVoltage As Panel
+    Friend WithEvents Label35 As Label
+    Friend WithEvents clbVoltage As CheckedListBox
+    Friend WithEvents palVoltageType As Panel
+    Friend WithEvents Label34 As Label
+    Friend WithEvents clbVoltageType As CheckedListBox
+    Friend WithEvents lblFilterFunction As Label
 End Class

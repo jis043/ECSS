@@ -1,4 +1,6 @@
-﻿Public Class frmGeneralSettings
+﻿Imports System.ComponentModel
+
+Public Class frmGeneralSettings
 
     Public Sub New()
 
@@ -11,7 +13,10 @@
 
     Private Sub frmGeneralSettings_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-
+            Me.chkMultiKeywords.Checked = GlobalSettings.MultiKeywords
+            Me.chkOnTop.Checked = GlobalSettings.AlwaysOnTop
+            Me.txtMax.Text = GlobalSettings.MaxDisplay
+            Me.lblVersion.Text = GlobalSettings.GetCurrentVersion & " (Demo)"
             LoadUnit()
 
         Catch ex As Exception
@@ -67,5 +72,32 @@
         g.DrawString(_TabPage.Text, _TabFont, _TextBrush, _TabBounds, New StringFormat(_StringFlags))
     End Sub
 
+    Private Sub chkMultiKeywords_CheckedChanged(sender As Object, e As EventArgs) Handles chkMultiKeywords.CheckedChanged
+        GlobalSettings.MultiKeywords = chkMultiKeywords.Checked
+    End Sub
+    Private Sub chkOnTop_CheckedChanged(sender As Object, e As EventArgs) Handles chkOnTop.CheckedChanged
+        GlobalSettings.AlwaysOnTop = chkOnTop.Checked
+    End Sub
+    Private Sub txtMax_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtMax.Validating
+        If String.IsNullOrEmpty(Me.txtMax.Text.Trim) Then
+            MessageBox.Show("Please input a number.")
+            Me.txtMax.SelectAll()
+            Me.txtMax.Focus()
+        ElseIf IsNumeric(Me.txtMax.Text) = False Then
+            MessageBox.Show("Please input a number.")
+            Me.txtMax.SelectAll()
+            Me.txtMax.Focus()
+        Else
+            GlobalSettings.MaxDisplay = CInt(Me.txtMax.Text)
+        End If
+    End Sub
+
+    Private Sub frmGeneralSettings_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        Try
+            ECSSDBFunctions.UpdateUserConfig()
+        Catch ex As Exception
+            MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
+        End Try
+    End Sub
 
 End Class
