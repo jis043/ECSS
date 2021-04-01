@@ -102,7 +102,7 @@
         Public Class OneTempSwitch
             Public Monut As String = ""
             Public Rated_Vol_Max As Integer
-            Public Rated_Current As Integer
+            Public Rated_Current As Single
             Public SwitchFunction As String = ""
             Public Adjustable As Boolean
             Public Switch_Temp_ON As Integer
@@ -119,7 +119,7 @@
         Public Class OneTheromostat
             Public Monut As String = ""
             Public Rated_Vol_Max As Integer
-            Public Rated_Current As Integer
+            Public Rated_Current As Single
             Public TheroFunction As String = ""
             Public AdjustMin As Integer
             Public AdjustMax As Integer
@@ -503,7 +503,7 @@
             aPart.link = oneRow("Link").ToString
 
             aPart.aPowerSupply.Output_Power = CInt(oneRow("Output_Power"))
-            aPart.aPowerSupply.Output_Current = CInt(oneRow("Output_Current"))
+            aPart.aPowerSupply.Output_Current = CSng(oneRow("Output_Current"))
             aPart.aPowerSupply.Output_Vol = CInt(oneRow("Output_Vol"))
             aPart.aPowerSupply.Normal_Vol_Min_AC = CInt(oneRow("Normal_Vol_Min_AC"))
             aPart.aPowerSupply.Normal_Vol_Max_AC = CInt(oneRow("Normal_Vol_Max_AC"))
@@ -673,7 +673,7 @@
 
             aPart.aTheromostat.Monut = oneRow("Monut").ToString
             aPart.aTheromostat.Rated_Vol_Max = CInt(oneRow("Rated_Vol_Max"))
-            aPart.aTheromostat.Rated_Current = CInt(oneRow("Rated_Current"))
+            aPart.aTheromostat.Rated_Current = CSng(oneRow("Rated_Current"))
             aPart.aTheromostat.TheroFunction = oneRow("Function").ToString
             aPart.aTheromostat.AdjustMin = CInt(oneRow("AdjustMin"))
             aPart.aTheromostat.AdjustMax = CInt(oneRow("AdjustMax"))
@@ -712,7 +712,7 @@
 
             aPart.aTempSwitch.Monut = oneRow("Monut").ToString
             aPart.aTempSwitch.Rated_Vol_Max = CInt(oneRow("Rated_Vol_Max"))
-            aPart.aTempSwitch.Rated_Current = CInt(oneRow("Rated_Current"))
+            aPart.aTempSwitch.Rated_Current = CSng(oneRow("Rated_Current"))
             aPart.aTempSwitch.SwitchFunction = oneRow("Function").ToString
             aPart.aTempSwitch.Switch_Temp_ON = CInt(oneRow("Switch_Temp_ON"))
             aPart.aTempSwitch.Switch_Temp_OFF = CInt(oneRow("Switch_Temp_OFF"))
@@ -881,8 +881,9 @@
                 keywordMatch = PartMatchSearchWords(aPart, k.Trim)
                 If keywordMatch = False Then Exit For
             Next
+            If keywordMatch = False Then keywordMatch = PartMatchFilterMaterial(aPart, searchCondition.keyword)
             If keywordMatch = False Then Return False
-        End If
+            End If
 
         If Not PartMatchFilterPartType(aPart, searchCondition.PartType) Then Return False
         If Not PartMatchFilterManufacturer(aPart, searchCondition.Manufacturer) Then Return False
@@ -912,14 +913,12 @@
         If Not PartMatchFilterTempSwitchON(aPart, searchCondition.TempSwitchON) Then Return False
         If Not PartMatchFilterTempSwitchOFF(aPart, searchCondition.TempSwitchOFF) Then Return False
 
-        If Not PartMatchFilterRatedVolMax(aPart, searchCondition.RatedVolMax) Then Return False
-        If Not PartMatchFilterRatedVolMin(aPart, searchCondition.RatedVolMin) Then Return False
+        If Not PartMatchFilterRatedVol(aPart, searchCondition) Then Return False
         If Not PartMatchFilterFeatureTypes(aPart, searchCondition.Types) Then Return False
         If Not PartMatchFilterBlockType(aPart, searchCondition.BlockType) Then Return False
         If Not PartMatchFilterContacts(aPart, searchCondition.Contacts) Then Return False
 
-        If Not PartMatchFilterOperaTempMin(aPart, searchCondition.OperaTempMin) Then Return False
-        If Not PartMatchFilterOperaTempMax(aPart, searchCondition.OperaTempMax) Then Return False
+        If Not PartMatchFilterOperaTemp(aPart, searchCondition) Then Return False
         If Not PartMatchFilterPower(aPart, searchCondition.Power) Then Return False
         If Not PartMatchFilterBuiltInThem(aPart, searchCondition.BuiltInThem) Then Return False
         If Not PartMatchFilterBuiltInFan(aPart, searchCondition.BuiltInFan) Then Return False
@@ -1058,7 +1057,7 @@
         Return filterMatches
     End Function
 
-    Public Function PartMatchFilterOTV(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+    Public Function PartMatchFilterOTV(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
         If MList Is Nothing Then Return True
         If MList.Count = 0 Then Return True
         If aPart Is Nothing Then Return False
@@ -1067,12 +1066,12 @@
         Return filterMatches
     End Function
 
-    Public Function PartMatchFilterOTA(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
+    Public Function PartMatchFilterOTA(ByVal aPart As OnePart, ByVal MList As List(Of Single)) As Boolean
         If MList Is Nothing Then Return True
         If MList.Count = 0 Then Return True
         If aPart Is Nothing Then Return False
         Dim filterMatches As Boolean = False
-        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Output_Current) Then filterMatches = True
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(CSng(aPart.aPowerSupply.Output_Current)) Then filterMatches = True
         Return filterMatches
     End Function
     Public Function PartMatchFilterNorV(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
@@ -1158,7 +1157,7 @@
         Return filterMatches
     End Function
 
-    Public Function PartMatchFilterRatedCurrent(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
+    Public Function PartMatchFilterRatedCurrent(ByVal aPart As OnePart, ByVal MList As List(Of Single)) As Boolean
         If MList Is Nothing Then Return True
         If MList.Count = 0 Then Return True
         If aPart Is Nothing Then Return False
@@ -1186,6 +1185,10 @@
         Dim filterMatches As Boolean = False
         If aPart.aTheromostat IsNot Nothing AndAlso MList.Contains(aPart.aTheromostat.Area_Class) Then filterMatches = True
         If aPart.aTempSwitch IsNot Nothing AndAlso MList.Contains(aPart.aTempSwitch.Area_Class) Then filterMatches = True
+        If aPart.aNonIlluminate IsNot Nothing AndAlso MList.Contains(aPart.aNonIlluminate.Area_Class) Then filterMatches = True
+        If aPart.aHeater IsNot Nothing AndAlso MList.Contains(aPart.aHeater.Area_Class) Then filterMatches = True
+        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Area_Class) Then filterMatches = True
+        If aPart.aPilotLight IsNot Nothing AndAlso MList.Contains(aPart.aPilotLight.Area_Class) Then filterMatches = True
         Return filterMatches
     End Function
 
@@ -1207,12 +1210,17 @@
         Return filterMatches
     End Function
 
-    Public Function PartMatchFilterRatedVolMax(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
-        If MList Is Nothing Then Return True
-        If MList.Count = 0 Then Return True
+    Public Function PartMatchFilterRatedVol(ByVal aPart As OnePart, ByVal searchCondition As ECSSSearchCriteria) As Boolean
         If aPart Is Nothing Then Return False
         Dim filterMatches As Boolean = False
-        If aPart.aHeater IsNot Nothing AndAlso MList.Contains(aPart.aHeater.Rated_Vol_Max) Then filterMatches = True
+        If searchCondition.RatedVolMax = 0 AndAlso searchCondition.RatedVolMin = 0 Then Return True
+
+        If aPart.aHeater IsNot Nothing Then
+            If searchCondition.RatedVolMin = 0 AndAlso aPart.aHeater.Rated_Vol_Max <= searchCondition.RatedVolMax Then Return True
+            If searchCondition.RatedVolMax = 0 AndAlso aPart.aHeater.Rated_Vol_MIN >= searchCondition.RatedVolMin Then Return True
+            If aPart.aHeater.Rated_Vol_MIN >= searchCondition.RatedVolMin AndAlso aPart.aHeater.Rated_Vol_Max <= searchCondition.RatedVolMax Then Return True
+        End If
+
         Return filterMatches
     End Function
 
@@ -1255,14 +1263,28 @@
         Return filterMatches
     End Function
 
-    Public Function PartMatchFilterOperaTempMin(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
-        If MList Is Nothing Then Return True
-        If MList.Count = 0 Then Return True
+    Public Function PartMatchFilterOperaTemp(ByVal aPart As OnePart, ByVal searchCondition As ECSSSearchCriteria) As Boolean
         If aPart Is Nothing Then Return False
         Dim filterMatches As Boolean = False
-        If aPart.aPilotLight IsNot Nothing AndAlso MList.Contains(aPart.aPilotLight.Opera_temp_min) Then filterMatches = True
-        If aPart.aNonIlluminate IsNot Nothing AndAlso MList.Contains(aPart.aNonIlluminate.Opera_temp_min) Then filterMatches = True
-        If aPart.aTempSwitch IsNot Nothing AndAlso MList.Contains(aPart.aTempSwitch.Opera_Temp_Min) Then filterMatches = True
+        If searchCondition.OperaTempMin = 0 AndAlso searchCondition.OperaTempMax = 0 Then Return True
+
+        If aPart.aPilotLight IsNot Nothing Then
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aPilotLight.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aPilotLight.Opera_temp_min >= searchCondition.OperaTempMin Then Return True
+            If aPart.aPilotLight.Opera_temp_min >= searchCondition.OperaTempMin AndAlso aPart.aPilotLight.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+        End If
+
+        If aPart.aNonIlluminate IsNot Nothing Then
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aNonIlluminate.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aNonIlluminate.Opera_temp_min >= searchCondition.OperaTempMin Then Return True
+            If aPart.aNonIlluminate.Opera_temp_min >= searchCondition.OperaTempMin AndAlso aPart.aNonIlluminate.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+        End If
+
+        If aPart.aTempSwitch IsNot Nothing Then
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Min >= searchCondition.OperaTempMin Then Return True
+            If aPart.aTempSwitch.Opera_Temp_Min >= searchCondition.OperaTempMin AndAlso aPart.aTempSwitch.Opera_Temp_Max <= searchCondition.OperaTempMax Then Return True
+        End If
         Return filterMatches
     End Function
 
@@ -1372,7 +1394,7 @@
         If aPart.aPilotLight IsNot Nothing AndAlso MList.Contains(aPart.aPilotLight.Voltage_Type) Then filterMatches = True
         Return filterMatches
     End Function
-    Public Function PartMatchFilterVoltage(ByVal aPart As OnePart, ByVal MList As List(Of Integer)) As Boolean
+    Public Function PartMatchFilterVoltage(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
         If MList Is Nothing Then Return True
         If MList.Count = 0 Then Return True
         If aPart Is Nothing Then Return False
@@ -1404,8 +1426,8 @@ Public Class ECSSSearchCriteria
     Public Mount As New List(Of String)
     Public NEMA As New List(Of String)
 
-    Public outputV As New List(Of String)
-    Public outputA As New List(Of String)
+    Public outputV As New List(Of Integer)
+    Public outputA As New List(Of Single)
     Public NormalV As New List(Of String)
     Public InputPhase As New List(Of String)
     Public [Class] As New List(Of String)
@@ -1416,22 +1438,22 @@ Public Class ECSSSearchCriteria
     Public ViewAreaH As New List(Of Integer)
     Public ViewAreaW As New List(Of Integer)
     Public RatedVol As New List(Of Integer)
-    Public RatedCurrent As New List(Of Integer)
+    Public RatedCurrent As New List(Of Single)
     Public [Functions] As New List(Of String)
     Public Area As New List(Of String)
 
     Public TempSwitchON As New List(Of Integer)
     Public TempSwitchOFF As New List(Of Integer)
 
-    Public RatedVolMax As New List(Of Integer)
-    Public RatedVolMin As New List(Of Integer)
+    Public RatedVolMax As New Integer
+    Public RatedVolMin As New Integer
     Public SwitchTempON As New List(Of String)
     Public SwitchTempOFF As New List(Of String)
     Public [Types] As New List(Of String)
     Public BlockType As New List(Of String)
     Public Contacts As New List(Of String)
-    Public OperaTempMin As New List(Of Integer)
-    Public OperaTempMax As New List(Of Integer)
+    Public OperaTempMin As New Integer
+    Public OperaTempMax As New Integer
     Public Power As New List(Of Integer)
     Public BuiltInThem As New List(Of String)
     Public BuiltInFan As New List(Of String)
@@ -1441,7 +1463,7 @@ Public Class ECSSSearchCriteria
     Public LampTest As New List(Of String)
     Public IlluminationOption As New List(Of String)
     Public VoltageType As New List(Of String)
-    Public Voltage As New List(Of Integer)
+    Public Voltage As New List(Of String)
     Public LensColor As New List(Of String)
 
     Public Function IsEmpty() As Boolean
@@ -1474,15 +1496,13 @@ Public Class ECSSSearchCriteria
         If Area.Count > 0 Then Return False
         If TempSwitchON.Count > 0 Then Return False
         If TempSwitchOFF.Count > 0 Then Return False
-        If RatedVolMax.Count > 0 Then Return False
-        If RatedVolMin.Count > 0 Then Return False
+        If RatedVolMax > 0 OrElse RatedVolMin > 0 Then Return False
         If SwitchTempON.Count > 0 Then Return False
         If SwitchTempOFF.Count > 0 Then Return False
         If [Types].Count > 0 Then Return False
         If BlockType.Count > 0 Then Return False
         If Contacts.Count > 0 Then Return False
-        If OperaTempMin.Count > 0 Then Return False
-        If OperaTempMax.Count > 0 Then Return False
+        If OperaTempMin > 0 OrElse OperaTempMax > 0 Then Return False
         If Power.Count > 0 Then Return False
         If BuiltInThem.Count > 0 Then Return False
         If BuiltInFan.Count > 0 Then Return False
@@ -1505,7 +1525,7 @@ Public Class ECSSSearchCriteria
         If Material.Count > 0 Then str = str & " Material: " & Miscelllaneous.ListToString(Material) & "; " Else str = str & ""
         If Certificates.Count > 0 Then str = str & " Certificates: " & Miscelllaneous.ListToString(Certificates) & "; " Else str = str & ""
 
-        If HeightMin > 0 OrElse HeightMax > 0 Then Return str = str & " Height: " & HeightMin & " - " & HeightMax & "; " Else str = str & ""
+        If HeightMin > 0 OrElse HeightMax > 0 Then str = str & " Height: " & HeightMin & " - " & HeightMax & "; " Else str = str & ""
         If WidthMin > 0 OrElse WidthMax > 0 Then str = str & " Width: " & WidthMin & " - " & WidthMax & "; " Else str = str & ""
         If DepthMin > 0 OrElse DepthMax > 0 Then str = str & " Depth: " & DepthMin & " - " & DepthMax & "; " Else str = str & ""
         If Mount.Count > 0 Then str = str & " Mount: " & Miscelllaneous.ListToString(Mount) & "; " Else str = str & ""
@@ -1528,15 +1548,13 @@ Public Class ECSSSearchCriteria
         If Area.Count > 0 Then str = str & " Area Class: " & Miscelllaneous.ListToString(Area) & "; " Else str = str & ""
         If TempSwitchON.Count > 0 Then str = str & " Temp Switch ON: " & Miscelllaneous.ListToString(TempSwitchON) & "; " Else str = str & ""
         If TempSwitchOFF.Count > 0 Then str = str & " Temp Switch OFF: " & Miscelllaneous.ListToString(TempSwitchOFF) & "; " Else str = str & ""
-        If RatedVolMax.Count > 0 Then str = str & " Rated Voltage Max: " & Miscelllaneous.ListToString(RatedVolMax) & "; " Else str = str & ""
-        If RatedVolMin.Count > 0 Then str = str & " Rated Voltage Min: " & Miscelllaneous.ListToString(RatedVolMin) & "; " Else str = str & ""
+        If RatedVolMin > 0 OrElse RatedVolMax > 0 Then str = str & " Rated Voltage: " & RatedVolMin & " - " & RatedVolMax & "; " Else str = str & ""
         If SwitchTempON.Count > 0 Then str = str & " Switch Temp ON: " & Miscelllaneous.ListToString(SwitchTempON) & "; " Else str = str & ""
         If SwitchTempOFF.Count > 0 Then str = str & " Switch Temp OFF: " & Miscelllaneous.ListToString(SwitchTempOFF) & "; " Else str = str & ""
         If [Types].Count > 0 Then str = str & " Types: " & Miscelllaneous.ListToString([Types]) & "; " Else str = str & ""
         If BlockType.Count > 0 Then str = str & " Block Type: " & Miscelllaneous.ListToString(BlockType) & "; " Else str = str & ""
         If Contacts.Count > 0 Then str = str & " Contacts: " & Miscelllaneous.ListToString(Contacts) & "; " Else str = str & ""
-        If OperaTempMin.Count > 0 Then str = str & " Opera Temp Min: " & Miscelllaneous.ListToString(OperaTempMin) & "; " Else str = str & ""
-        If OperaTempMax.Count > 0 Then str = str & " Opera Temp Max: " & Miscelllaneous.ListToString(OperaTempMax) & "; " Else str = str & ""
+        If OperaTempMin > 0 OrElse OperaTempMax > 0 Then str = str & " Operation Temprture: " & OperaTempMin & " - " & OperaTempMax & "; " Else str = str & ""
         If Power.Count > 0 Then str = str & " Power: " & Miscelllaneous.ListToString(Power) & "; " Else str = str & ""
         If BuiltInThem.Count > 0 Then str = str & " Built-In Themometer: " & Miscelllaneous.ListToString(BuiltInThem) & "; " Else str = str & ""
         If BuiltInFan.Count > 0 Then str = str & " Built-In Fan: " & Miscelllaneous.ListToString(BuiltInFan) & "; " Else str = str & ""

@@ -56,6 +56,7 @@
     Private Sub dtb_SelectionChanged(sender As Object, e As EventArgs) Handles dtb.SelectionChanged
         Me.lblMin.Text = Me.dtb.SelectedMin
         Me.lblMax.Text = Me.dtb.SelectedMax
+        RaiseEvent TrackBarSelectionChanged(Me, e)
     End Sub
 
     Public Sub Reset()
@@ -65,6 +66,7 @@
     End Sub
 
     Public Event TrackBarMouseUp(sender As Object, e As MouseEventArgs)
+    Public Event TrackBarSelectionChanged(sender As Object, e As EventArgs)
     Private Sub dtb_MouseUp(sender As Object, e As MouseEventArgs) Handles dtb.MouseUp
         RaiseEvent TrackBarMouseUp(Me, e)
     End Sub

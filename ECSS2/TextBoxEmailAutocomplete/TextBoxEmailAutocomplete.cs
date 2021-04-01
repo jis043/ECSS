@@ -177,6 +177,9 @@ namespace CustomControls
                 case (Keys.Escape):
                 case (Keys.Tab):
                 case (Keys.Enter):
+                    if (TextKeyDown  != null)
+                        TextKeyDown(this, e);
+                    break;
                 case (Keys.ControlKey):
                 case (Keys.ShiftKey):
                 case (Keys.PageUp):
@@ -238,19 +241,25 @@ namespace CustomControls
 
         private void UpdateListBox(string keyword)
         {
+            lbSuggestions.BeginUpdate(); 
             lbSuggestions.Items.Clear();
             string[] list = GetListOfMatchingStrings(keyword, MaxSuggestions);
             if ((list.Length > 0) && (!String.IsNullOrEmpty(list[0])))
             {
+                lbSuggestions.BringToFront();
+                lbSuggestions.Show();
+                this.BringToFront();
                 lbSuggestions.Height = Math.Min( (this.Height - this.tbInput.Height), (lbSuggestions.ItemHeight * list.Length) + 4); // Don't know where the 4 pixels come from
                 lbSuggestions.Items.AddRange(list);
                 lbSuggestions.SelectedIndex = 0;
-                lbSuggestions.Show();
+             
+                this.Refresh();
             }
             else
             {
                 lbSuggestions.Hide();
             }
+            lbSuggestions.EndUpdate();
         }
 
         private string[] GetListOfMatchingStrings(string key) { return GetListOfMatchingStrings(key, -1); }
@@ -458,5 +467,21 @@ namespace CustomControls
                 }
             }
         }
+
+        public event EventHandler ValueChanged;
+        private void tbInput_TextChanged(object sender, EventArgs e)
+        {
+            if (ValueChanged != null)
+                ValueChanged(this, e);
+        }
+
+        public event EventHandler TextValidating;
+        private void tbInput_Validating(object sender, CancelEventArgs e)
+        {
+            if (TextValidating != null)
+                TextValidating(this, e);
+        }
+
+        public event EventHandler TextKeyDown;
     }
 }

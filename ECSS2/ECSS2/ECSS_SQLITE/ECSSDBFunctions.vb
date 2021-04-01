@@ -186,7 +186,7 @@
     Public Shared Function UpdateUserConfig() As Boolean
         Try
             If UserDB Is Nothing Then Return False
-            Dim SQL As String = "UPDATE USERSTTINGS SET MultiKeywords = " & CInt(GlobalSettings.MultiKeywords) & " , MaxDisplay= " & GlobalSettings.MaxDisplay &
+            Dim SQL As String = "UPDATE USERSETTINGS SET MultiKeywords = " & CInt(GlobalSettings.MultiKeywords) & " , MaxDisplay= " & GlobalSettings.MaxDisplay &
                 ", UnitType= " & CInt(GlobalSettings.SystemUnit) & ", AlwaysOnTop= " & CInt(GlobalSettings.AlwaysOnTop) & " ;"
             Return UserDB.DBModify(SQL)
         Catch ex As Exception

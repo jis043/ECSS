@@ -7,30 +7,54 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ECSS2", "ECSS2\ECSS2.vbproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextBoxEmailAutocomplete", "TextBoxEmailAutocomplete\TextBoxEmailAutocomplete.csproj", "{9C00839C-B8AF-442E-899A-B376808B7794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpannedDataGridViewNet2", "SpannedDataGridViewNet2\SpannedDataGridViewNet2.csproj", "{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Debug|x64.ActiveCfg = Debug|x64
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Debug|x64.Build.0 = Debug|x64
+		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Debug|x86.ActiveCfg = Debug|x86
+		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Debug|x86.Build.0 = Debug|x86
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Release|x64.ActiveCfg = Release|x64
 		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Release|x64.Build.0 = Release|x64
+		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Release|x86.ActiveCfg = Release|Any CPU
+		{1FC5B6E9-47F2-4632-B6E1-E31AE4656DBA}.Release|x86.Build.0 = Release|Any CPU
 		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|x64.Build.0 = Debug|Any CPU
+		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|x64.ActiveCfg = Debug|x64
+		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|x64.Build.0 = Debug|x64
+		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|x86.ActiveCfg = Debug|x86
+		{9C00839C-B8AF-442E-899A-B376808B7794}.Debug|x86.Build.0 = Debug|x86
 		{9C00839C-B8AF-442E-899A-B376808B7794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C00839C-B8AF-442E-899A-B376808B7794}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C00839C-B8AF-442E-899A-B376808B7794}.Release|x64.ActiveCfg = Release|Any CPU
 		{9C00839C-B8AF-442E-899A-B376808B7794}.Release|x64.Build.0 = Release|Any CPU
+		{9C00839C-B8AF-442E-899A-B376808B7794}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C00839C-B8AF-442E-899A-B376808B7794}.Release|x86.Build.0 = Release|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Debug|x64.ActiveCfg = Debug|x64
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Debug|x64.Build.0 = Debug|x64
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Debug|x86.ActiveCfg = Debug|x86
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Debug|x86.Build.0 = Debug|x86
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Release|x64.Build.0 = Release|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{2AB3E335-0E47-4EF6-B6A2-9EBF4B1967D0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

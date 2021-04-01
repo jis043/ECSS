@@ -22,5 +22,20 @@ ECSS
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:ECSS.My.Resources.Resources.apps_16x16">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ECSS.My.Resources.Resources.BOM">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:ECSS.My.Resources.Resources.pesticon_16x16">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 </members>
 </doc>

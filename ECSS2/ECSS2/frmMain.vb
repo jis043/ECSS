@@ -41,7 +41,7 @@ Public Class frmMain
             Me.ECSSParts.ReadPartsFromDB()
             BOMHelper.LoadBOM(Me.BOMdic)
             Me.UpdateDetail(Nothing, True)
-            Me.Updatefilters(Nothing)
+            Me.UpdateMainFilters(Nothing)
             Me.SetSmallSize()
         Catch ex As Exception
             MessageBox.Show("Error: Loading main dialouge." & vbCrLf & ex.ToString)
@@ -170,17 +170,15 @@ Public Class frmMain
                     If PTlist.Count = 1 Then
                         Me.ResetAllFilters()
                         Me.UpdateFiltersPerType(PTlist(0))
-                    Else
-                        Me.ResetAllFilters()
                     End If
                 End If
                 Me.FIRSTTIME = True
-                Me.Updatefilters(TempPartList)
+                Me.UpdateMainFilters(TempPartList)
                 Me.FIRSTTIME = False
             Else
-                Me.ResetAllFilters()
+                'Me.ResetAllFilters()
                 Me.FIRSTTIME = True
-                Me.Updatefilters(Nothing)
+                Me.UpdateMainFilters(Nothing)
                 Me.FIRSTTIME = False
             End If
 
@@ -362,11 +360,11 @@ Public Class frmMain
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim input As String = Me.txtSearchMulti.Text
-            If String.IsNullOrEmpty(input.Trim) = False AndAlso input.Contains(",") Then
+            If String.IsNullOrEmpty(input.Trim) = False AndAlso input.Contains(",") AndAlso (input.Last = " " OrElse input.Last = ",") Then
                 Dim iList = input.Split(",")
                 Dim tempkey As New List(Of String)
-                For i As Integer = 0 To iList.Count - 2
-                    tempkey.Add(iList(i).Trim)
+                For i As Integer = 0 To iList.Count - 1
+                    If String.IsNullOrEmpty(iList(i).Trim) = False Then tempkey.Add(iList(i).Trim)
                 Next
                 If Me.ECSSSearch.keyword.SequenceEqual(tempkey) = False Then
                     Me.ECSSSearch.keyword.Clear()
@@ -411,7 +409,15 @@ Public Class frmMain
         End Try
     End Sub
 
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        If Me.FIRSTTIME Then Exit Sub
+        If Me.txtSearch.Visible Then
+            Me.txtSearch_Validating(Me.txtSearch, Nothing)
+        Else
+            Me.txtSearch_Validating(Me.txtSearchMulti, Nothing)
+        End If
 
+    End Sub
     Private Sub txtSearch_Validating(sender As Object, e As CancelEventArgs) Handles txtSearch.Validating, txtSearchMulti.TextValidating
         If Me.FIRSTTIME Then Exit Sub
         Try
@@ -590,7 +596,7 @@ Public Class frmMain
                 Me.txtBOMTitle.Text = Me.BOMdic.Item(selectedBOM).BOMTitle
                 For i As Integer = 0 To Me.BOMdic.Item(selectedBOM).BOMList.Count - 1
                     Dim aPart = Me.BOMdic.Item(selectedBOM).BOMList(i)
-                    Me.dgvBOM.Rows.Add(i + 1, aPart.PartID, aPart.QTY, aPart.Manufacturer, aPart.Description, aPart.Note)
+                    Me.dgvBOM.Rows.Add(i + 1, aPart.QTY, aPart.PartID, aPart.Manufacturer, aPart.Description, aPart.Note)
                     If Me.BOMdic.Item(selectedBOM).BOMList.Where(Function(p) p.PartID = aPart.PartID).Count > 1 Then
                         Me.dgvBOM.Rows.Item(Me.dgvBOM.RowCount - 1).ErrorText = "Duplicate Part"
                     ElseIf aPart.QTY <= 0 Then
@@ -647,7 +653,7 @@ Public Class frmMain
                 End If
             End If
 
-            If e.ColumnIndex = 1 Then ' Part ID
+            If e.ColumnIndex = 2 Then ' Part ID
                 If String.IsNullOrEmpty(dgvBOM.Item(e.ColumnIndex, e.RowIndex).Value) = False Then
                     Dim partid As String = dgvBOM.Item(e.ColumnIndex, e.RowIndex).Value.ToString
                     If CurrentBOM(e.RowIndex).PartID <> partid Then
@@ -669,7 +675,7 @@ Public Class frmMain
                         Me.NeedSave = True
                     End If
                 End If
-            ElseIf e.ColumnIndex = 2 Then ' Qty
+            ElseIf e.ColumnIndex = 1 Then ' Qty
                 If String.IsNullOrEmpty(dgvBOM.Item(e.ColumnIndex, e.RowIndex).Value) = False Then
                     If IsNumeric(dgvBOM.Item(e.ColumnIndex, e.RowIndex).Value) Then
                         CurrentBOM(e.RowIndex).QTY = CInt(dgvBOM.Item(e.ColumnIndex, e.RowIndex).Value)
@@ -741,9 +747,9 @@ Public Class frmMain
         Dim pr As Diagnostics.Process = Nothing
         Try
             If Me.dgvBOM.Tag IsNot Nothing Then
-                OutputFile = AppDomain.CurrentDomain.BaseDirectory & Me.dgvBOM.Tag.ToString & ".xlsx"
-
                 Dim BOMs = Me.BOMdic.Item(Me.dgvBOM.Tag.ToString)
+
+                OutputFile = AppDomain.CurrentDomain.BaseDirectory & BOMs.BOMTitle & ".xlsx"
                 Dim excel = New Microsoft.Office.Interop.Excel.Application
                 Dim workbook = excel.Workbooks.Add()
                 excel.Worksheets.Add()
@@ -815,13 +821,13 @@ Public Class frmMain
     Private Sub clbPartType_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles clbPartType.ItemCheck, clbMaterial.ItemCheck, clbManufacturer.ItemCheck,
         clbCertificates.ItemCheck, clbMount.ItemCheck, clbNEMA.ItemCheck, clbOutputA.ItemCheck,
         clbOutputVol.ItemCheck, clbNormalV.ItemCheck, clbInputPhase.ItemCheck, clbClass.ItemCheck, clbGroup.ItemCheck, clbColor.ItemCheck,
-        clbViewAreaH.ItemCheck, clbViewAreaW.ItemCheck, clbFunction.ItemCheck, clbRatedVolMax.ItemCheck, clbRatedCurrent.ItemCheck,
-        clbSwitchTempON.ItemCheck, clbSwitchTempOFF.ItemCheck, clbType.ItemCheck, clbFunction.ItemCheck, clbRatedVolMax.ItemCheck,
-    clbRatedCurrent.ItemCheck, clbSwitchTempON.ItemCheck, clbSwitchTempOFF.ItemCheck, clbType.ItemCheck, clbRatedVolMin.ItemCheck,
-    clbBlockType.ItemCheck, clbContacts.ItemCheck, clbOperaTempMin.ItemCheck, clbOperaTempMax.ItemCheck, clbPower.ItemCheck,
+        clbViewAreaH.ItemCheck, clbViewAreaW.ItemCheck, clbFunction.ItemCheck, clbRatedCurrent.ItemCheck,
+        clbSwitchTempON.ItemCheck, clbSwitchTempOFF.ItemCheck, clbType.ItemCheck, clbFunction.ItemCheck,
+    clbRatedCurrent.ItemCheck, clbSwitchTempON.ItemCheck, clbSwitchTempOFF.ItemCheck, clbType.ItemCheck,
+    clbBlockType.ItemCheck, clbContacts.ItemCheck, clbPower.ItemCheck,
     clbBuiltInThem.ItemCheck, clbBuiltInFan.ItemCheck, clbArea.ItemCheck, clbTempCode.ItemCheck, clbFingersafe.ItemCheck,
     clbPowerModuleType.ItemCheck, clbLampTest.ItemCheck, clbIlluminationOption.ItemCheck, clbVoltageType.ItemCheck, clbVoltage.ItemCheck,
-    clbLenColor.ItemCheck
+    clbLenColor.ItemCheck, clbRatedVolMax.ItemCheck
         If Me.FIRSTTIME Then Exit Sub
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -993,20 +999,20 @@ Public Class frmMain
                         Dim m = clb.Items(e.Index).ToString
                         If Me.ECSSSearch.Functions.Contains(m) Then Me.ECSSSearch.Functions.Remove(m)
                     End If
-                Case clbRatedVolMax.Name
-                    If e.NewValue = CheckState.Checked Then
-                        If Me.ECSSSearch.RatedVolMax.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.RatedVolMax.Add(CInt(clb.Items(e.Index)))
-                    ElseIf e.NewValue = CheckState.Unchecked Then
-                        Dim m As Integer = CInt(clb.Items(e.Index))
-                        If Me.ECSSSearch.RatedVolMax.Contains(m) Then Me.ECSSSearch.RatedVolMax.Remove(m)
-                    End If
-                Case clbRatedVolMin.Name
-                    If e.NewValue = CheckState.Checked Then
-                        If Me.ECSSSearch.RatedVolMin.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.RatedVolMin.Add(CInt(clb.Items(e.Index)))
-                    ElseIf e.NewValue = CheckState.Unchecked Then
-                        Dim m As Integer = CInt(clb.Items(e.Index))
-                        If Me.ECSSSearch.RatedVolMin.Contains(m) Then Me.ECSSSearch.RatedVolMin.Remove(m)
-                    End If
+                'Case clbRatedVolMax.Name
+                '    If e.NewValue = CheckState.Checked Then
+                '        If Me.ECSSSearch.RatedVolMax.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.RatedVolMax.Add(CInt(clb.Items(e.Index)))
+                '    ElseIf e.NewValue = CheckState.Unchecked Then
+                '        Dim m As Integer = CInt(clb.Items(e.Index))
+                '        If Me.ECSSSearch.RatedVolMax.Contains(m) Then Me.ECSSSearch.RatedVolMax.Remove(m)
+                '    End If
+                'Case clbRatedVolMin.Name
+                '    If e.NewValue = CheckState.Checked Then
+                '        If Me.ECSSSearch.RatedVolMin.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.RatedVolMin.Add(CInt(clb.Items(e.Index)))
+                '    ElseIf e.NewValue = CheckState.Unchecked Then
+                '        Dim m As Integer = CInt(clb.Items(e.Index))
+                '        If Me.ECSSSearch.RatedVolMin.Contains(m) Then Me.ECSSSearch.RatedVolMin.Remove(m)
+                '    End If
                 Case clbSwitchTempON.Name
                     If e.NewValue = CheckState.Checked Then
                         If Me.ECSSSearch.SwitchTempON.Contains(clb.Items(e.Index).ToString) = False Then Me.ECSSSearch.SwitchTempON.Add(clb.Items(e.Index).ToString)
@@ -1035,20 +1041,20 @@ Public Class frmMain
                         Dim m = clb.Items(e.Index).ToString
                         If Me.ECSSSearch.Contacts.Contains(m) Then Me.ECSSSearch.Contacts.Remove(m)
                     End If
-                Case clbOperaTempMin.Name
-                    If e.NewValue = CheckState.Checked Then
-                        If Me.ECSSSearch.OperaTempMin.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.OperaTempMin.Add(CInt(clb.Items(e.Index)))
-                    ElseIf e.NewValue = CheckState.Unchecked Then
-                        Dim m As Integer = CInt(clb.Items(e.Index))
-                        If Me.ECSSSearch.OperaTempMin.Contains(m) Then Me.ECSSSearch.OperaTempMin.Remove(m)
-                    End If
-                Case clbOperaTempMax.Name
-                    If e.NewValue = CheckState.Checked Then
-                        If Me.ECSSSearch.OperaTempMax.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.OperaTempMax.Add(CInt(clb.Items(e.Index)))
-                    ElseIf e.NewValue = CheckState.Unchecked Then
-                        Dim m As Integer = CInt(clb.Items(e.Index))
-                        If Me.ECSSSearch.OperaTempMax.Contains(m) Then Me.ECSSSearch.OperaTempMax.Remove(m)
-                    End If
+                'Case clbOperaTempMin.Name
+                '    If e.NewValue = CheckState.Checked Then
+                '        If Me.ECSSSearch.OperaTempMin.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.OperaTempMin.Add(CInt(clb.Items(e.Index)))
+                '    ElseIf e.NewValue = CheckState.Unchecked Then
+                '        Dim m As Integer = CInt(clb.Items(e.Index))
+                '        If Me.ECSSSearch.OperaTempMin.Contains(m) Then Me.ECSSSearch.OperaTempMin.Remove(m)
+                '    End If
+                'Case clbOperaTempMax.Name
+                '    If e.NewValue = CheckState.Checked Then
+                '        If Me.ECSSSearch.OperaTempMax.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.OperaTempMax.Add(CInt(clb.Items(e.Index)))
+                '    ElseIf e.NewValue = CheckState.Unchecked Then
+                '        Dim m As Integer = CInt(clb.Items(e.Index))
+                '        If Me.ECSSSearch.OperaTempMax.Contains(m) Then Me.ECSSSearch.OperaTempMax.Remove(m)
+                '    End If
                 Case clbPower.Name
                     If e.NewValue = CheckState.Checked Then
                         If Me.ECSSSearch.Power.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.Power.Add(CInt(clb.Items(e.Index)))
@@ -1121,9 +1127,9 @@ Public Class frmMain
                     End If
                 Case clbVoltage.Name
                     If e.NewValue = CheckState.Checked Then
-                        If Me.ECSSSearch.Voltage.Contains(CInt(clb.Items(e.Index))) = False Then Me.ECSSSearch.Voltage.Add(CInt(clb.Items(e.Index)))
+                        If Me.ECSSSearch.Voltage.Contains(clb.Items(e.Index).ToString) = False Then Me.ECSSSearch.Voltage.Add(clb.Items(e.Index).ToString)
                     ElseIf e.NewValue = CheckState.Unchecked Then
-                        Dim m As Integer = CInt(clb.Items(e.Index))
+                        Dim m = clb.Items(e.Index).ToString
                         If Me.ECSSSearch.Voltage.Contains(m) Then Me.ECSSSearch.Voltage.Remove(m)
                     End If
                 Case clbLenColor.Name
@@ -1147,18 +1153,24 @@ Public Class frmMain
     Private Sub btnClean_Click(sender As Object, e As EventArgs) Handles btnClean.Click
         If Me.FIRSTTIME Then Exit Sub
         Try
+            Me.SetSmallSize()
             Me.lstPart.Items.Clear()
             Me.ECSSSearch = New ECSSSearchCriteria
             Me.UnselectAllFilters()
             Me.UpdateDetail(Nothing, True)
             Me.ResetAllFilters()
-            Me.SetSmallSize()
             Me.lblFilterDisplay.Text = ""
             Me.lblError.Visible = False
             Me.lblTotal.Text = ""
-            Me.txtSearch.Text = ""
-            Me.txtSearch.SelectAll()
-            Me.txtSearch.Focus()
+            If GlobalSettings.MultiKeywords Then
+                Me.txtSearchMulti.Text = ""
+                Me.txtSearchMulti.Focus()
+            Else
+                Me.txtSearch.Text = ""
+                Me.txtSearch.SelectAll()
+                Me.txtSearch.Focus()
+            End If
+
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
@@ -1314,7 +1326,7 @@ Public Class frmMain
                     Exit Sub
                 End If
 
-                If Me.BOMdic.Where(Function(k) k.Value.BOMTitle.ToUpper = str.ToUpper).Count > 0 Then
+                If Me.BOMdic.Where(Function(k) k.Value.BOMTitle.ToUpper = str.ToUpper).Count > 0 AndAlso aList.BOMTitle.ToUpper <> str.ToUpper Then
                     MessageBox.Show("BOM Title already exists, please choose a different title!", "BOM Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     Me.txtBOMTitle.Text = aList.BOMTitle
                     Me.txtBOMTitle.SelectAll()
@@ -1403,9 +1415,21 @@ Public Class frmMain
 
         If Me.dgvDetail.CurrentCell.GetType.Name = GetType(DataGridViewButtonCell).Name Then
             Me.menuAddBOM_Click(sender, Nothing)
+        ElseIf Me.dgvDetail.CurrentCell.GetType.Name = GetType(SpannedDataGridViewNet2.DataGridViewTextBoxCellEx).Name AndAlso Me.dgvDetail.CurrentCell.Value.ToString.ToUpper.StartsWith("HTTP") Then
+            Process.Start(Me.dgvDetail.CurrentCell.Value.ToString)
         End If
     End Sub
 
+    Private Sub dgvDetail_CellMouseMove(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dgvDetail.CellMouseMove
+        If Me.dgvDetail.Rows(e.RowIndex).Cells(e.ColumnIndex).Value IsNot Nothing AndAlso Me.dgvDetail.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString.ToUpper.StartsWith("HTTP") Then
+            Me.Cursor = Cursors.Hand
+        ElseIf Me.dgvDetail.Rows(e.RowIndex).Cells(e.ColumnIndex).GetType.Name = GetType(DataGridViewButtonCell).Name Then
+            Me.Cursor = Cursors.Hand
+        End If
+    End Sub
+    Private Sub dgvDetail_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDetail.CellMouseLeave
+        Me.Cursor = Cursors.Default
+    End Sub
 
     Private Sub menuAddBOM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim aBOMList As OneBOMList = Nothing
@@ -1470,10 +1494,12 @@ Public Class frmMain
                 End If
             Next
 
-            Me.Updatefilters(Nothing)
+            Me.UpdateMainFilters(Nothing)
             Me.dtbDepth.Reset()
             Me.dtbHeight.Reset()
             Me.dtbWidth.Reset()
+            Me.dtbOperaTemp.Reset()
+            Me.dtbRatedVol.Reset()
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         Finally
@@ -1503,21 +1529,18 @@ Public Class frmMain
         Me.palSwitchTempOFF.Visible = False
         Me.palSwitchTempON.Visible = False
         Me.palRatedCurrent.Visible = False
-        Me.palRatedVolMax.Visible = False
         Me.palFunction.Visible = False
         Me.palViewAreaW.Visible = False
         Me.palViewAreaH.Visible = False
         Me.palFunction.Visible = False
-        Me.palRatedVolMax.Visible = False
+        Me.palRatedVol.Visible = False
         Me.palRatedCurrent.Visible = False
         Me.palSwitchTempON.Visible = False
         Me.palSwitchTempOFF.Visible = False
         Me.palType.Visible = False
-        Me.palRatedVolMin.Visible = False
         Me.palBlockType.Visible = False
         Me.palContacts.Visible = False
-        Me.palOperaTempMin.Visible = False
-        Me.palOperaTempMax.Visible = False
+        Me.palOperaTemp.Visible = False
         Me.palPower.Visible = False
         Me.palBuiltInThem.Visible = False
         Me.palBuiltInFan.Visible = False
@@ -1530,11 +1553,12 @@ Public Class frmMain
         Me.palVoltageType.Visible = False
         Me.palVoltage.Visible = False
         Me.palLenColor.Visible = False
+        Me.palRatedVolMax.Visible = False
 
     End Sub
 
 
-    Private Sub Updatefilters(ByVal TempPartList As List(Of ECSSParts.OnePart))
+    Private Sub UpdateMainFilters(ByVal TempPartList As List(Of ECSSParts.OnePart))
         If Me.ECSSParts Is Nothing Then Exit Sub
         Try
 
@@ -1610,11 +1634,17 @@ Public Class frmMain
 
     Private Sub UpdateFiltersPerType(ByVal CurrentType As ECSSParts.PART_TYPE)
 
-        Dim crList, mList, MountList, NElist, OVList, OAList, NVList, IPList, Clist, GList, tyList, FList As New List(Of String)
-        Dim hlist, Wlist, Dlist, VHList, VWList, RVMList, RCList, TSOList, TSFList As New List(Of Integer)
+        Dim crList, mList, MountList, NElist, IPList, Clist, GList, tyList, FList As New List(Of String)
+        Dim hlist, Wlist, Dlist, VHList, VWList, RVMList, TSOList, TSFList, OVList, NVList As New List(Of Integer)
+        Dim OAList As New List(Of Single)
+        Dim RCList As New List(Of Single)
         Dim PartList As List(Of ECSSParts.OnePart)
         If CurrentType = ECSSParts.PART_TYPE.NONE Then Exit Sub
         Try
+            Me.lblFilterFunction.Text = "Functions"
+            Me.lblFilterType.Text = "Types"
+            Me.lblFilterColor.Text = "Color"
+
             PartList = Me.ECSSParts.PartDic.Where(Function(p) p.Value.PartType = CurrentType).Select(Function(p) p.Value).ToList
             If PartList Is Nothing OrElse PartList.Count = 0 Then Exit Sub
             If PartList IsNot Nothing Then
@@ -1648,12 +1678,12 @@ Public Class frmMain
 
                         Case ECSSParts.PART_TYPE.POWER_SUPPLY
                             OVList = (From aPart In PartList Group By g = aPart.aPowerSupply.Output_Vol Into itemlst = Group, Count()
-                                      Order By g).Select(Function(p) p.g.ToString).ToList
+                                      Order By g).Select(Function(p) CInt(p.g)).ToList
 
                             OAList = (From aPart In PartList Group By g = aPart.aPowerSupply.Output_Current Into itemlst = Group, Count()
-                                      Order By g).Select(Function(p) p.g.ToString).ToList
+                                      Order By g).Select(Function(p) CSng(p.g)).ToList
                             NVList = (From aPart In PartList Group By g = aPart.aPowerSupply.Normal_Vol_Min_AC Into itemlst = Group, Count()
-                                      Order By g).Select(Function(p) p.g.ToString).ToList
+                                      Order By g).Select(Function(p) CInt(p.g)).ToList
 
                             IPList = (From aPart In PartList Group By g = aPart.aPowerSupply.Input_Phase Into itemlst = Group, Count()
                                       Order By g).Select(Function(p) p.g.ToString).ToList
@@ -1665,19 +1695,25 @@ Public Class frmMain
                             Me.clbOutputVol.Items.Clear()
                             OVList = OVList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OVList.Sort()
-                            Me.clbOutputVol.Items.AddRange(OVList.ToArray)
+                            For Each i As Integer In OVList
+                                Me.clbOutputVol.Items.Add(i)
+                            Next
                             Me.UpdateCheckList(Me.clbOutputVol, Me.ECSSSearch.outputV)
 
                             Me.clbOutputA.Items.Clear()
                             OAList = OAList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OAList.Sort()
-                            Me.clbOutputA.Items.AddRange(OAList.ToArray)
+                            For Each i As Single In OAList
+                                Me.clbOutputA.Items.Add(i)
+                            Next
                             Me.UpdateCheckList(Me.clbOutputA, Me.ECSSSearch.outputA)
 
                             Me.clbNormalV.Items.Clear()
                             NVList = NVList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             NVList.Sort()
-                            Me.clbNormalV.Items.AddRange(NVList.ToArray)
+                            For Each i As Integer In NVList
+                                Me.clbNormalV.Items.Add(i)
+                            Next
                             Me.UpdateCheckList(Me.clbNormalV, Me.ECSSSearch.NormalV)
 
                             Me.clbInputPhase.Items.Clear()
@@ -1729,18 +1765,25 @@ Public Class frmMain
                             Me.clbMaterial.Items.AddRange(mList.ToArray)
                             Me.UpdateCheckList(Me.clbMaterial, Me.ECSSSearch.Material)
 
-
                             hlist = hlist.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbHeight.Min = hlist.Min : Me.dtbHeight.SelectedMin = hlist.Min
-                            Me.dtbHeight.Max = hlist.Max : Me.dtbHeight.SelectedMax = hlist.Max
+                            Me.dtbHeight.Min = hlist.Min : Me.lblHeightMin.Text = Miscelllaneous.MM2INCH(hlist.Min) & " Inch"
+                            Me.dtbHeight.Max = hlist.Max : Me.lblHeightMax.Text = Miscelllaneous.MM2INCH(hlist.Max) & " Inch"
+                            Me.dtbHeight.SelectedMin = IIf(Me.ECSSSearch.HeightMin > 0, Me.ECSSSearch.HeightMin, hlist.Min)
+                            Me.dtbHeight.SelectedMax = IIf(Me.ECSSSearch.HeightMax > 0, Me.ECSSSearch.HeightMax, hlist.Max)
+
 
                             Wlist = Wlist.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbWidth.Min = Wlist.Min : Me.dtbWidth.SelectedMin = Wlist.Min
-                            Me.dtbWidth.Max = Wlist.Max : Me.dtbWidth.SelectedMax = Wlist.Max
+                            Me.dtbWidth.Min = Wlist.Min : Me.lblWidthMin.Text = Miscelllaneous.MM2INCH(Wlist.Min) & " Inch"
+                            Me.dtbWidth.Max = Wlist.Max : Me.lblWidthMax.Text = Miscelllaneous.MM2INCH(Wlist.Max) & " Inch"
+                            Me.dtbWidth.SelectedMin = IIf(Me.ECSSSearch.WidthMin > 0, Me.ECSSSearch.WidthMin, Wlist.Min)
+                            Me.dtbWidth.SelectedMax = IIf(Me.ECSSSearch.WidthMax > 0, Me.ECSSSearch.WidthMax, Wlist.Max)
 
                             Dlist = Dlist.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbDepth.Min = Dlist.Min : Me.dtbDepth.SelectedMin = Dlist.Min
-                            Me.dtbDepth.Max = Dlist.Max : Me.dtbDepth.SelectedMax = Dlist.Max
+                            Me.dtbDepth.Min = Dlist.Min : Me.lblDepthMin.Text = Miscelllaneous.MM2INCH(Dlist.Min) & " Inch"
+                            Me.dtbDepth.Max = Dlist.Max : Me.lblDepthMax.Text = Miscelllaneous.MM2INCH(Dlist.Max) & " Inch"
+                            Me.dtbDepth.SelectedMin = IIf(Me.ECSSSearch.DepthMin > 0, Me.ECSSSearch.DepthMin, Dlist.Min)
+                            Me.dtbDepth.SelectedMax = IIf(Me.ECSSSearch.DepthMax > 0, Me.ECSSSearch.DepthMax, Dlist.Max)
+
 
                             Me.clbMount.Items.Clear()
                             MountList = MountList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
@@ -1757,6 +1800,7 @@ Public Class frmMain
                             Me.palDepth.Visible = True
                             Me.palMount.Visible = True
                             Me.palNEMA.Visible = True
+                            Me.palMaterial.Visible = True
 
                         Case ECSSParts.PART_TYPE.WINDOW_KIT
 
@@ -1837,7 +1881,7 @@ Public Class frmMain
                                 Me.clbRatedVolMax.Items.Add(i)
                             Next
                             Me.palRatedVolMax.Visible = True
-                            Me.UpdateCheckList(Me.clbRatedVolMax, Me.ECSSSearch.RatedVolMax)
+                            Me.UpdateCheckList(Me.clbRatedVolMax, Me.ECSSSearch.RatedVol)
 
                             Me.clbRatedCurrent.Items.Clear()
                             For Each i As Integer In RCList
@@ -1878,7 +1922,7 @@ Public Class frmMain
                                 Me.clbRatedVolMax.Items.Add(i)
                             Next
                             Me.palRatedVolMax.Visible = True
-                            Me.UpdateCheckList(Me.clbRatedVolMax, Me.ECSSSearch.RatedVolMax)
+                            Me.UpdateCheckList(Me.clbRatedVolMax, Me.ECSSSearch.RatedVol)
 
                             Me.clbRatedCurrent.Items.Clear()
                             For Each i As Integer In RCList
@@ -2007,19 +2051,12 @@ Public Class frmMain
                             Me.palContacts.Visible = True
                             Me.UpdateCheckList(Me.clbContacts, Me.ECSSSearch.Contacts)
 
-                            Me.clbOperaTempMin.Items.Clear()
-                            For Each i As Integer In OTMList
-                                Me.clbOperaTempMin.Items.Add(i)
-                            Next
-                            Me.palOperaTempMin.Visible = True
-                            Me.UpdateCheckList(Me.clbOperaTempMin, Me.ECSSSearch.OperaTempMin)
 
-                            Me.clbOperaTempMax.Items.Clear()
-                            For Each i As Integer In OTXList
-                                Me.clbOperaTempMax.Items.Add(i)
-                            Next
-                            Me.palOperaTempMax.Visible = True
-                            Me.UpdateCheckList(Me.clbOperaTempMax, Me.ECSSSearch.OperaTempMax)
+                            OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Me.ECSSSearch.OperaTempMin > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Me.ECSSSearch.OperaTempMax > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.palOperaTemp.Visible = True
 
                             Me.clbArea.Items.Clear()
                             AList = AList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
@@ -2028,6 +2065,13 @@ Public Class frmMain
                             Me.UpdateCheckList(Me.clbArea, Me.ECSSSearch.Area)
 
                         Case ECSSParts.PART_TYPE.SELECTOR_SWITCH, ECSSParts.PART_TYPE.PUSH_BUTTON, ECSSParts.PART_TYPE.ESTOP
+                            If CurrentType = ECSSParts.PART_TYPE.SELECTOR_SWITCH Then
+                                Me.lblFilterFunction.Text = "Operator Function"
+                                Me.lblFilterType.Text = "Operator Type"
+                            ElseIf CurrentType = ECSSParts.PART_TYPE.PUSH_BUTTON Then
+                                Me.lblFilterColor.Text = "Color Cap"
+                            End If
+
                             For Each aPart In PartList
                                 If aPart.aNonIlluminate IsNot Nothing AndAlso aPart.aNonIlluminate.NEMA_TYPE IsNot Nothing Then
                                     For Each str As String In aPart.aNonIlluminate.NEMA_TYPE
@@ -2074,11 +2118,13 @@ Public Class frmMain
                             Me.palType.Visible = True
                             Me.UpdateCheckList(Me.clbType, Me.ECSSSearch.Types)
 
-                            Me.clbColor.Items.Clear()
-                            CoList = CoList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.clbColor.Items.AddRange(CoList.ToArray)
-                            Me.palColor.Visible = True
-                            Me.UpdateCheckList(Me.clbColor, Me.ECSSSearch.Color)
+                            If CurrentType <> ECSSParts.PART_TYPE.ESTOP Then
+                                Me.clbColor.Items.Clear()
+                                CoList = CoList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                                Me.clbColor.Items.AddRange(CoList.ToArray)
+                                Me.palColor.Visible = True
+                                Me.UpdateCheckList(Me.clbColor, Me.ECSSSearch.Color)
+                            End If
 
                             Me.clbBlockType.Items.Clear()
                             CBTList = CBTList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
@@ -2092,19 +2138,12 @@ Public Class frmMain
                             Me.palContacts.Visible = True
                             Me.UpdateCheckList(Me.clbContacts, Me.ECSSSearch.Contacts)
 
-                            Me.clbOperaTempMin.Items.Clear()
-                            For Each i As Integer In OTMList
-                                Me.clbOperaTempMin.Items.Add(i)
-                            Next
-                            Me.palOperaTempMin.Visible = True
-                            Me.UpdateCheckList(Me.clbOperaTempMin, Me.ECSSSearch.OperaTempMin)
 
-                            Me.clbOperaTempMax.Items.Clear()
-                            For Each i As Integer In OTXList
-                                Me.clbOperaTempMax.Items.Add(i)
-                            Next
-                            Me.palOperaTempMax.Visible = True
-                            Me.UpdateCheckList(Me.clbOperaTempMax, Me.ECSSSearch.OperaTempMax)
+                            OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Me.ECSSSearch.OperaTempMin > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Me.ECSSSearch.OperaTempMax > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.palOperaTemp.Visible = True
 
                             Me.clbArea.Items.Clear()
                             AList = AList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
@@ -2164,19 +2203,11 @@ Public Class frmMain
                             Me.palPower.Visible = True
                             Me.UpdateCheckList(Me.clbPower, Me.ECSSSearch.Power)
 
-                            Me.clbRatedVolMin.Items.Clear()
-                            For Each i As Integer In RVMList
-                                Me.clbRatedVolMin.Items.Add(i)
-                            Next
-                            Me.palRatedVolMin.Visible = True
-                            Me.UpdateCheckList(Me.clbRatedVolMin, Me.ECSSSearch.RatedVolMin)
-
-                            Me.clbRatedVolMax.Items.Clear()
-                            For Each i As Integer In RVXList
-                                Me.clbRatedVolMax.Items.Add(i)
-                            Next
-                            Me.palRatedVolMax.Visible = True
-                            Me.UpdateCheckList(Me.clbRatedVolMax, Me.ECSSSearch.RatedVolMax)
+                            RVMList = RVMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            RVXList = RVXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            Me.dtbRatedVol.Min = RVMList.Min : Me.dtbRatedVol.SelectedMin = IIf(Me.ECSSSearch.RatedVolMin > 0, Me.ECSSSearch.RatedVolMin, RVMList.Min)
+                            Me.dtbRatedVol.Max = RVXList.Max : Me.dtbRatedVol.SelectedMax = IIf(Me.ECSSSearch.RatedVolMax > 0, Me.ECSSSearch.RatedVolMax, RVXList.Max)
+                            Me.palRatedVol.Visible = True
 
                             Me.palBuiltInFan.Visible = True
                             Me.palBuiltInThem.Visible = True
@@ -2228,8 +2259,35 @@ Public Class frmMain
             If MList.Contains(CInt(clb.Items(i))) Then clb.SetItemChecked(i, True)
         Next
     End Sub
+    Private Sub UpdateCheckList(ByVal clb As CheckedListBox, ByVal MList As List(Of Single))
+        If clb Is Nothing OrElse MList Is Nothing OrElse MList.Count = 0 Then Exit Sub
+        For i As Integer = 0 To clb.Items.Count - 1
+            If MList.Contains(CInt(clb.Items(i))) Then clb.SetItemChecked(i, True)
+        Next
+    End Sub
 
-    Private Sub dtbWidth_TrackBarMouseUp(sender As Object, e As MouseEventArgs) Handles dtbWidth.TrackBarMouseUp, dtbDepth.TrackBarMouseUp, dtbHeight.TrackBarMouseUp
+    Private Sub dtbWidth_TrackBarSelectionChanged(sender As Object, e As EventArgs) Handles dtbWidth.TrackBarSelectionChanged, dtbDepth.TrackBarSelectionChanged, dtbHeight.TrackBarSelectionChanged
+        If Me.FIRSTTIME Then Exit Sub
+        Try
+            Dim dtb As DoubleTrackBarWithLabels = DirectCast(sender, DoubleTrackBarWithLabels)
+            Select Case dtb.Name
+                Case dtbWidth.Name
+                    Me.lblWidthMin.Text = Miscelllaneous.MM2INCH(dtb.SelectedMin) & " Inch"
+                    Me.lblWidthMax.Text = Miscelllaneous.MM2INCH(dtb.SelectedMax) & " Inch"
+                Case dtbHeight.Name
+                    Me.lblHeightMin.Text = Miscelllaneous.MM2INCH(dtb.SelectedMin) & " Inch"
+                    Me.lblHeightMax.Text = Miscelllaneous.MM2INCH(dtb.SelectedMax) & " Inch"
+                Case dtbDepth.Name
+                    Me.lblDepthMin.Text = Miscelllaneous.MM2INCH(dtb.SelectedMin) & " Inch"
+                    Me.lblDepthMax.Text = Miscelllaneous.MM2INCH(dtb.SelectedMax) & " Inch"
+            End Select
+
+        Catch ex As Exception
+            MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
+        End Try
+    End Sub
+    Private Sub dtbWidth_TrackBarMouseUp(sender As Object, e As MouseEventArgs) Handles dtbWidth.TrackBarMouseUp, dtbDepth.TrackBarMouseUp, dtbHeight.TrackBarMouseUp,
+        dtbRatedVol.TrackBarMouseUp, dtbOperaTemp.TrackBarMouseUp
         If Me.FIRSTTIME Then Exit Sub
         Try
             Dim dtb As DoubleTrackBarWithLabels = DirectCast(sender, DoubleTrackBarWithLabels)
@@ -2244,6 +2302,7 @@ Public Class frmMain
                     If Me.ECSSSearch.HeightMin <> dtb.SelectedMin OrElse Me.ECSSSearch.HeightMax <> dtb.SelectedMax Then
                         Me.ECSSSearch.HeightMin = dtb.SelectedMin
                         Me.ECSSSearch.HeightMax = dtb.SelectedMax
+
                         Me.LoadlstPart()
                     End If
                 Case dtbDepth.Name
@@ -2252,12 +2311,25 @@ Public Class frmMain
                         Me.ECSSSearch.DepthMax = dtb.SelectedMax
                         Me.LoadlstPart()
                     End If
+                Case dtbRatedVol.Name
+                    If Me.ECSSSearch.RatedVolMin <> dtb.SelectedMin OrElse Me.ECSSSearch.RatedVolMax <> dtb.SelectedMax Then
+                        Me.ECSSSearch.RatedVolMin = dtb.SelectedMin
+                        Me.ECSSSearch.RatedVolMax = dtb.SelectedMax
+                        Me.LoadlstPart()
+                    End If
+                Case dtbOperaTemp.Name
+                    If Me.ECSSSearch.OperaTempMin <> dtb.SelectedMin OrElse Me.ECSSSearch.OperaTempMax <> dtb.SelectedMax Then
+                        Me.ECSSSearch.OperaTempMin = dtb.SelectedMin
+                        Me.ECSSSearch.OperaTempMax = dtb.SelectedMax
+                        Me.LoadlstPart()
+                    End If
             End Select
 
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
     End Sub
+
 
 
 #End Region

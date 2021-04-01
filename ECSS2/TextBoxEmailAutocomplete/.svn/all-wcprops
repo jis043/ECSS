@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/7/trunk/TextBoxEmailAutocomplete
+END
+license.txt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/5/trunk/TextBoxEmailAutocomplete/license.txt
+END
+TextBoxEmailAutocomplete.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5/trunk/TextBoxEmailAutocomplete/TextBoxEmailAutocomplete.csproj
+END
+TextBoxEmailAutocomplete.resx
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5/trunk/TextBoxEmailAutocomplete/TextBoxEmailAutocomplete.resx
+END
+TextBoxEmailAutocomplete.Designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/6/trunk/TextBoxEmailAutocomplete/TextBoxEmailAutocomplete.Designer.cs
+END
+TextBoxEmailAutocomplete.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/7/trunk/TextBoxEmailAutocomplete/TextBoxEmailAutocomplete.cs
+END

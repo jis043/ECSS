@@ -42,8 +42,10 @@ namespace CustomControls
             this.tbInput.Size = new System.Drawing.Size(400, 20);
             this.tbInput.TabIndex = 0;
             this.tbInput.Text = "line1\r\nline2\r\nline3";
+            this.tbInput.TextChanged += new System.EventHandler(this.tbInput_TextChanged);
             this.tbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyDown);
             this.tbInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyUp);
+            this.tbInput.Validating += new System.ComponentModel.CancelEventHandler(this.tbInput_Validating);
             // 
             // lbSuggestions
             // 

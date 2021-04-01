@@ -21,6 +21,7 @@ Public Class frmAddBOM
         Else
             Me.radNew.Checked = True
         End If
+        Me.TopMost = True
     End Sub
 
 
@@ -92,7 +93,7 @@ Public Class frmAddBOM
             Me.CurrentBOM.BOMTitle = Me.txtName.Text.Trim
             Me.CurrentBOM.BOMID = "BOM" & Date.Now.ToString("yyyyMMddHHmmss")
             Me.BOMdic.Add(Me.CurrentBOM.BOMID, Me.CurrentBOM)
-
+            ECSSDBFunctions.InsertOneBOM(Me.CurrentBOM, True)
         ElseIf Me.radExisting.Checked Then
             If Me.cboBOM.SelectedIndex < Me.BOMdic.Count Then
                 Me.CurrentBOM = Me.BOMdic.ElementAt(Me.cboBOM.SelectedIndex).Value
