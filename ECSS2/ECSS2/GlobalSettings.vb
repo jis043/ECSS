@@ -11,7 +11,7 @@
     Public Const ECSS_TITLE As String = "Engineering Components Search Systems"
     Public Const MAIN_VER As Integer = 0
     Public Const SUB_VER As Integer = 5
-    Public Const MIN_VER As Integer = 5
+    Public Const MIN_VER As Integer = 10
 
     Public Shared SystemUnit As UNITTYPE = UNITTYPE.METRIC
     Public Shared MaxDisplay As Integer = 1000

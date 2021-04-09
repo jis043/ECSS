@@ -820,7 +820,7 @@ Public Class frmMain
 
     Private Sub clbPartType_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles clbPartType.ItemCheck, clbMaterial.ItemCheck, clbManufacturer.ItemCheck,
         clbCertificates.ItemCheck, clbMount.ItemCheck, clbNEMA.ItemCheck, clbOutputA.ItemCheck,
-        clbOutputVol.ItemCheck, clbNormalV.ItemCheck, clbInputPhase.ItemCheck, clbClass.ItemCheck, clbGroup.ItemCheck, clbColor.ItemCheck,
+        clbOutputVol.ItemCheck, clbInputPhase.ItemCheck, clbClass.ItemCheck, clbGroup.ItemCheck, clbColor.ItemCheck,
         clbViewAreaH.ItemCheck, clbViewAreaW.ItemCheck, clbFunction.ItemCheck, clbRatedCurrent.ItemCheck,
         clbSwitchTempON.ItemCheck, clbSwitchTempOFF.ItemCheck, clbType.ItemCheck, clbFunction.ItemCheck,
     clbRatedCurrent.ItemCheck, clbSwitchTempON.ItemCheck, clbSwitchTempOFF.ItemCheck, clbType.ItemCheck,
@@ -890,13 +890,13 @@ Public Class frmMain
                         Dim m = clb.Items(e.Index).ToString
                         If Me.ECSSSearch.outputA.Contains(m) Then Me.ECSSSearch.outputA.Remove(m)
                     End If
-                Case clbNormalV.Name
-                    If e.NewValue = CheckState.Checked Then
-                        If Me.ECSSSearch.NormalV.Contains(clb.Items(e.Index).ToString) = False Then Me.ECSSSearch.NormalV.Add(clb.Items(e.Index).ToString)
-                    ElseIf e.NewValue = CheckState.Unchecked Then
-                        Dim m = clb.Items(e.Index).ToString
-                        If Me.ECSSSearch.NormalV.Contains(m) Then Me.ECSSSearch.NormalV.Remove(m)
-                    End If
+                'Case clbNormalV.Name
+                '    If e.NewValue = CheckState.Checked Then
+                '        If Me.ECSSSearch.NormalV.Contains(clb.Items(e.Index).ToString) = False Then Me.ECSSSearch.NormalV.Add(clb.Items(e.Index).ToString)
+                '    ElseIf e.NewValue = CheckState.Unchecked Then
+                '        Dim m = clb.Items(e.Index).ToString
+                '        If Me.ECSSSearch.NormalV.Contains(m) Then Me.ECSSSearch.NormalV.Remove(m)
+                '    End If
                 Case clbInputPhase.Name
                     If e.NewValue = CheckState.Checked Then
                         If Me.ECSSSearch.InputPhase.Contains(clb.Items(e.Index).ToString) = False Then Me.ECSSSearch.InputPhase.Add(clb.Items(e.Index).ToString)
@@ -1500,6 +1500,7 @@ Public Class frmMain
             Me.dtbWidth.Reset()
             Me.dtbOperaTemp.Reset()
             Me.dtbRatedVol.Reset()
+            Me.dtbNormalV.Reset()
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         Finally
@@ -1635,7 +1636,7 @@ Public Class frmMain
     Private Sub UpdateFiltersPerType(ByVal CurrentType As ECSSParts.PART_TYPE)
 
         Dim crList, mList, MountList, NElist, IPList, Clist, GList, tyList, FList As New List(Of String)
-        Dim hlist, Wlist, Dlist, VHList, VWList, RVMList, TSOList, TSFList, OVList, NVList As New List(Of Integer)
+        Dim hlist, Wlist, Dlist, VHList, VWList, RVMList, TSOList, TSFList, OVList, NVMList, NVXList As New List(Of Integer)
         Dim OAList As New List(Of Single)
         Dim RCList As New List(Of Single)
         Dim PartList As List(Of ECSSParts.OnePart)
@@ -1644,6 +1645,7 @@ Public Class frmMain
             Me.lblFilterFunction.Text = "Functions"
             Me.lblFilterType.Text = "Types"
             Me.lblFilterColor.Text = "Color"
+            Me.lblFilterClass.Text = "Class"
 
             PartList = Me.ECSSParts.PartDic.Where(Function(p) p.Value.PartType = CurrentType).Select(Function(p) p.Value).ToList
             If PartList Is Nothing OrElse PartList.Count = 0 Then Exit Sub
@@ -1682,8 +1684,10 @@ Public Class frmMain
 
                             OAList = (From aPart In PartList Group By g = aPart.aPowerSupply.Output_Current Into itemlst = Group, Count()
                                       Order By g).Select(Function(p) CSng(p.g)).ToList
-                            NVList = (From aPart In PartList Group By g = aPart.aPowerSupply.Normal_Vol_Min_AC Into itemlst = Group, Count()
-                                      Order By g).Select(Function(p) CInt(p.g)).ToList
+                            NVMList = (From aPart In PartList Group By g = aPart.aPowerSupply.Normal_Vol_Min_AC Into itemlst = Group, Count()
+                                       Order By g).Select(Function(p) CInt(p.g)).ToList
+                            NVXList = (From aPart In PartList Group By g = aPart.aPowerSupply.Normal_Vol_Max_AC Into itemlst = Group, Count()
+                                       Order By g).Select(Function(p) CInt(p.g)).ToList
 
                             IPList = (From aPart In PartList Group By g = aPart.aPowerSupply.Input_Phase Into itemlst = Group, Count()
                                       Order By g).Select(Function(p) p.g.ToString).ToList
@@ -1708,13 +1712,11 @@ Public Class frmMain
                             Next
                             Me.UpdateCheckList(Me.clbOutputA, Me.ECSSSearch.outputA)
 
-                            Me.clbNormalV.Items.Clear()
-                            NVList = NVList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            NVList.Sort()
-                            For Each i As Integer In NVList
-                                Me.clbNormalV.Items.Add(i)
-                            Next
-                            Me.UpdateCheckList(Me.clbNormalV, Me.ECSSSearch.NormalV)
+                            NVMList = NVMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            NVXList = NVXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            Me.dtbNormalV.Min = NVMList.Min : Me.dtbNormalV.SelectedMin = IIf(Me.ECSSSearch.NormalVMin > 0, Me.ECSSSearch.NormalVMin, NVMList.Min)
+                            Me.dtbNormalV.Max = NVXList.Max : Me.dtbNormalV.SelectedMax = IIf(Me.ECSSSearch.NormalVMax > 0, Me.ECSSSearch.NormalVMax, NVXList.Max)
+                            Me.palNormalV.Visible = True
 
                             Me.clbInputPhase.Items.Clear()
                             IPList = IPList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
@@ -1901,6 +1903,7 @@ Public Class frmMain
                             Me.clbClass.Items.AddRange(Clist.ToArray)
                             Me.palClass.Visible = True
                             Me.UpdateCheckList(Me.clbClass, Me.ECSSSearch.Class)
+                            Me.lblFilterClass.Text = "Area Classification"
 
                         Case ECSSParts.PART_TYPE.TEMP_SWITCH
 
@@ -2175,7 +2178,6 @@ Public Class frmMain
                                 Me.clbFunction.Items.Clear()
                                 FList = FList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                                 Me.clbFunction.Items.AddRange(FList.ToArray)
-                                Me.lblFilterFunction.Text = "Functions"
                                 Me.palFunction.Visible = True
                                 Me.UpdateCheckList(Me.clbFunction, Me.ECSSSearch.Functions)
                             End If
@@ -2287,7 +2289,7 @@ Public Class frmMain
         End Try
     End Sub
     Private Sub dtbWidth_TrackBarMouseUp(sender As Object, e As MouseEventArgs) Handles dtbWidth.TrackBarMouseUp, dtbDepth.TrackBarMouseUp, dtbHeight.TrackBarMouseUp,
-        dtbRatedVol.TrackBarMouseUp, dtbOperaTemp.TrackBarMouseUp
+        dtbRatedVol.TrackBarMouseUp, dtbOperaTemp.TrackBarMouseUp, dtbNormalV.TrackBarMouseUp
         If Me.FIRSTTIME Then Exit Sub
         Try
             Dim dtb As DoubleTrackBarWithLabels = DirectCast(sender, DoubleTrackBarWithLabels)
@@ -2321,6 +2323,12 @@ Public Class frmMain
                     If Me.ECSSSearch.OperaTempMin <> dtb.SelectedMin OrElse Me.ECSSSearch.OperaTempMax <> dtb.SelectedMax Then
                         Me.ECSSSearch.OperaTempMin = dtb.SelectedMin
                         Me.ECSSSearch.OperaTempMax = dtb.SelectedMax
+                        Me.LoadlstPart()
+                    End If
+                Case dtbNormalV.Name
+                    If Me.ECSSSearch.NormalVMin <> dtb.SelectedMin OrElse Me.ECSSSearch.NormalVMax <> dtb.SelectedMax Then
+                        Me.ECSSSearch.NormalVMin = dtb.SelectedMin
+                        Me.ECSSSearch.NormalVMax = dtb.SelectedMax
                         Me.LoadlstPart()
                     End If
             End Select

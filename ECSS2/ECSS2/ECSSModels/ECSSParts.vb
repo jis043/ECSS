@@ -896,7 +896,7 @@
 
         If Not PartMatchFilterOTV(aPart, searchCondition.outputV) Then Return False
         If Not PartMatchFilterOTA(aPart, searchCondition.outputA) Then Return False
-        If Not PartMatchFilterNorV(aPart, searchCondition.NormalV) Then Return False
+        If Not PartMatchFilterNorV(aPart, searchCondition) Then Return False
         If Not PartMatchFilterInputP(aPart, searchCondition.InputPhase) Then Return False
         If Not PartMatchFilterClass(aPart, searchCondition.Class) Then Return False
         If Not PartMatchFilterGroup(aPart, searchCondition.Group) Then Return False
@@ -1074,12 +1074,17 @@
         If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(CSng(aPart.aPowerSupply.Output_Current)) Then filterMatches = True
         Return filterMatches
     End Function
-    Public Function PartMatchFilterNorV(ByVal aPart As OnePart, ByVal MList As List(Of String)) As Boolean
-        If MList Is Nothing Then Return True
-        If MList.Count = 0 Then Return True
+    Public Function PartMatchFilterNorV(ByVal aPart As OnePart, ByVal searchCondition As ECSSSearchCriteria) As Boolean
         If aPart Is Nothing Then Return False
         Dim filterMatches As Boolean = False
-        If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Normal_Vol_Min_AC) Then filterMatches = True
+        If searchCondition.NormalVMax = 0 AndAlso searchCondition.NormalVMin = 0 Then Return True
+
+        If aPart.aPowerSupply IsNot Nothing Then
+            If searchCondition.NormalVMin = 0 AndAlso aPart.aPowerSupply.Normal_Vol_Max_AC <= searchCondition.NormalVMax Then Return True
+            If searchCondition.NormalVMax = 0 AndAlso aPart.aPowerSupply.Normal_Vol_Min_AC >= searchCondition.NormalVMin Then Return True
+            If aPart.aPowerSupply.Normal_Vol_Min_AC >= searchCondition.NormalVMin AndAlso aPart.aPowerSupply.Normal_Vol_Max_AC <= searchCondition.NormalVMax Then Return True
+        End If
+
         Return filterMatches
     End Function
 
@@ -1428,7 +1433,8 @@ Public Class ECSSSearchCriteria
 
     Public outputV As New List(Of Integer)
     Public outputA As New List(Of Single)
-    Public NormalV As New List(Of String)
+    Public NormalVMin As New Integer
+    Public NormalVMax As New Integer
     Public InputPhase As New List(Of String)
     Public [Class] As New List(Of String)
     Public Group As New List(Of String)
@@ -1481,7 +1487,7 @@ Public Class ECSSSearchCriteria
 
         If outputV.Count > 0 Then Return False
         If outputA.Count > 0 Then Return False
-        If NormalV.Count > 0 Then Return False
+        If NormalVMax > 0 OrElse NormalVMin > 0 Then Return False
         If InputPhase.Count > 0 Then Return False
         If [Class].Count > 0 Then Return False
         If Group.Count > 0 Then Return False
@@ -1533,7 +1539,7 @@ Public Class ECSSSearchCriteria
 
         If outputV.Count > 0 Then str = str & " Output Voltage: " & Miscelllaneous.ListToString(outputV) & "; " Else str = str & ""
         If outputA.Count > 0 Then str = str & " Output Current: " & Miscelllaneous.ListToString(outputA) & "; " Else str = str & ""
-        If NormalV.Count > 0 Then str = str & " Normal Voltage: " & Miscelllaneous.ListToString(NormalV) & "; " Else str = str & ""
+        If NormalVMin > 0 OrElse NormalVMax > 0 Then str = str & " Normal Voltage: " & NormalVMin & " - " & NormalVMax & "; " Else str = str & ""
         If InputPhase.Count > 0 Then str = str & " Input Phase: " & Miscelllaneous.ListToString(InputPhase) & "; " Else str = str & ""
         If [Class].Count > 0 Then str = str & " Class: " & Miscelllaneous.ListToString([Class]) & "; " Else str = str & ""
         If Group.Count > 0 Then str = str & " Group Phase: " & Miscelllaneous.ListToString(Group) & "; " Else str = str & ""
