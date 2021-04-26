@@ -24,13 +24,13 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.palSearch = New System.Windows.Forms.Panel()
         Me.lblTotal = New System.Windows.Forms.Label()
         Me.lblFilterDisplay = New ECSS.GrowLabel()
@@ -189,6 +189,7 @@ Partial Class frmMain
         Me.Column5 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
         Me.Column6 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
         Me.palBOM = New System.Windows.Forms.Panel()
+        Me.btnDelBOM = New System.Windows.Forms.Button()
         Me.txtBOMTitle = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnBottom = New System.Windows.Forms.Button()
@@ -353,7 +354,7 @@ Partial Class frmMain
         Me.btnClean.Name = "btnClean"
         Me.btnClean.Size = New System.Drawing.Size(77, 23)
         Me.btnClean.TabIndex = 3
-        Me.btnClean.Text = "Clean"
+        Me.btnClean.Text = "Clear"
         Me.btnClean.UseVisualStyleBackColor = True
         '
         'btnSearch
@@ -939,9 +940,9 @@ Partial Class frmMain
         Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(1, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(119, 13)
+        Me.Label19.Size = New System.Drawing.Size(139, 13)
         Me.Label19.TabIndex = 11
-        Me.Label19.Text = "Switch Off Temperature"
+        Me.Label19.Text = "Switch Off Temperature (°C)"
         '
         'clbSwitchTempOFF
         '
@@ -971,9 +972,9 @@ Partial Class frmMain
         Me.Label18.AutoSize = True
         Me.Label18.Location = New System.Drawing.Point(1, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(119, 13)
+        Me.Label18.Size = New System.Drawing.Size(139, 13)
         Me.Label18.TabIndex = 11
-        Me.Label18.Text = "Switch On Temperature"
+        Me.Label18.Text = "Switch On Temperature (°C)"
         '
         'clbSwitchTempON
         '
@@ -1271,9 +1272,9 @@ Partial Class frmMain
         Me.Label37.AutoSize = True
         Me.Label37.Location = New System.Drawing.Point(1, 0)
         Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(116, 13)
+        Me.Label37.Size = New System.Drawing.Size(136, 13)
         Me.Label37.TabIndex = 11
-        Me.Label37.Text = "Operation Temperature"
+        Me.Label37.Text = "Operation Temperature (°C)"
         '
         'palRatedVol
         '
@@ -1302,9 +1303,9 @@ Partial Class frmMain
         Me.Label21.AutoSize = True
         Me.Label21.Location = New System.Drawing.Point(1, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(91, 13)
+        Me.Label21.Size = New System.Drawing.Size(108, 13)
         Me.Label21.TabIndex = 11
-        Me.Label21.Text = "Rated Voltage (V)"
+        Me.Label21.Text = "Rated Voltage (V AC)"
         '
         'palNormalV
         '
@@ -1333,9 +1334,9 @@ Partial Class frmMain
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(1, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(95, 13)
+        Me.Label2.Size = New System.Drawing.Size(120, 13)
         Me.Label2.TabIndex = 11
-        Me.Label2.Text = "Normal Voltage (V)"
+        Me.Label2.Text = "Norminal Voltage (V AC)"
         '
         'palRatedVolMax
         '
@@ -1490,9 +1491,9 @@ Partial Class frmMain
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(1, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(37, 13)
+        Me.Label9.Size = New System.Drawing.Size(51, 13)
         Me.Label9.TabIndex = 11
-        Me.Label9.Text = "Mount"
+        Me.Label9.Text = "Mounting"
         '
         'clbMount
         '
@@ -1896,42 +1897,42 @@ Partial Class frmMain
         Me.dgvDetail.AllowUserToDeleteRows = False
         Me.dgvDetail.AllowUserToResizeColumns = False
         Me.dgvDetail.AllowUserToResizeRows = False
-        DataGridViewCellStyle8.BackColor = System.Drawing.Color.Honeydew
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        Me.dgvDetail.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Honeydew
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        Me.dgvDetail.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvDetail.BackgroundColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDetail.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDetail.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dgvDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDetail.ColumnHeadersVisible = False
         Me.dgvDetail.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6})
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvDetail.DefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvDetail.DefaultCellStyle = DataGridViewCellStyle3
         Me.dgvDetail.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvDetail.Location = New System.Drawing.Point(0, 0)
         Me.dgvDetail.MultiSelect = False
         Me.dgvDetail.Name = "dgvDetail"
         Me.dgvDetail.ReadOnly = True
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvDetail.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvDetail.RowHeadersVisible = False
         Me.dgvDetail.ScrollBars = System.Windows.Forms.ScrollBars.None
         Me.dgvDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
@@ -1997,6 +1998,7 @@ Partial Class frmMain
         '
         'palBOM
         '
+        Me.palBOM.Controls.Add(Me.btnDelBOM)
         Me.palBOM.Controls.Add(Me.txtBOMTitle)
         Me.palBOM.Controls.Add(Me.Label4)
         Me.palBOM.Controls.Add(Me.btnBottom)
@@ -2016,6 +2018,16 @@ Partial Class frmMain
         Me.palBOM.Size = New System.Drawing.Size(1064, 681)
         Me.palBOM.TabIndex = 2
         Me.palBOM.Visible = False
+        '
+        'btnDelBOM
+        '
+        Me.btnDelBOM.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnDelBOM.Location = New System.Drawing.Point(3, 646)
+        Me.btnDelBOM.Name = "btnDelBOM"
+        Me.btnDelBOM.Size = New System.Drawing.Size(167, 23)
+        Me.btnDelBOM.TabIndex = 13
+        Me.btnDelBOM.Text = "Delete Selected BOM"
+        Me.btnDelBOM.UseVisualStyleBackColor = True
         '
         'txtBOMTitle
         '
@@ -2143,37 +2155,37 @@ Partial Class frmMain
         '
         'colIndex
         '
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.colIndex.DefaultCellStyle = DataGridViewCellStyle12
-        Me.colIndex.HeaderText = "Num"
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.colIndex.DefaultCellStyle = DataGridViewCellStyle5
+        Me.colIndex.HeaderText = "Item No."
         Me.colIndex.Name = "colIndex"
         Me.colIndex.ReadOnly = True
         Me.colIndex.Width = 70
         '
         'colQty
         '
-        Me.colQty.HeaderText = "Qty"
+        Me.colQty.HeaderText = "Qty."
         Me.colQty.Name = "colQty"
         Me.colQty.Width = 50
         '
         'ColBOMPartID
         '
-        Me.ColBOMPartID.HeaderText = "Part ID"
+        Me.ColBOMPartID.HeaderText = "Part No."
         Me.ColBOMPartID.Name = "ColBOMPartID"
         Me.ColBOMPartID.Width = 120
         '
         'ColManu
         '
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.White
-        Me.ColManu.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.White
+        Me.ColManu.DefaultCellStyle = DataGridViewCellStyle6
         Me.ColManu.HeaderText = "Manufacturer"
         Me.ColManu.Name = "ColManu"
         Me.ColManu.Width = 120
         '
         'ColDesp
         '
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.White
-        Me.ColDesp.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.White
+        Me.ColDesp.DefaultCellStyle = DataGridViewCellStyle7
         Me.ColDesp.HeaderText = "Description"
         Me.ColDesp.Name = "ColDesp"
         Me.ColDesp.Width = 180
@@ -2186,11 +2198,13 @@ Partial Class frmMain
         '
         'TreeBOM
         '
+        Me.TreeBOM.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TreeBOM.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TreeBOM.Dock = System.Windows.Forms.DockStyle.Left
         Me.TreeBOM.Location = New System.Drawing.Point(0, 0)
         Me.TreeBOM.Name = "TreeBOM"
-        Me.TreeBOM.Size = New System.Drawing.Size(170, 681)
+        Me.TreeBOM.Size = New System.Drawing.Size(170, 640)
         Me.TreeBOM.TabIndex = 0
         '
         'MyContextMenu
@@ -2207,7 +2221,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.palBOM)
         Me.HelpButton = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.Text = "Form1"
         Me.palSearch.ResumeLayout(False)
@@ -2468,12 +2481,6 @@ Partial Class frmMain
     Friend WithEvents lblDepthMin As Label
     Friend WithEvents lblWidthMax As Label
     Friend WithEvents lblWidthMin As Label
-    Friend WithEvents colIndex As DataGridViewTextBoxColumn
-    Friend WithEvents colQty As DataGridViewTextBoxColumn
-    Friend WithEvents ColBOMPartID As DataGridViewTextBoxColumn
-    Friend WithEvents ColManu As DataGridViewTextBoxColumn
-    Friend WithEvents ColDesp As DataGridViewTextBoxColumn
-    Friend WithEvents ColNote As DataGridViewTextBoxColumn
     Friend WithEvents palOperaTemp As Panel
     Friend WithEvents dtbOperaTemp As DoubleTrackBarWithLabels
     Friend WithEvents Label37 As Label
@@ -2492,4 +2499,11 @@ Partial Class frmMain
     Friend WithEvents palNormalV As Panel
     Friend WithEvents dtbNormalV As DoubleTrackBarWithLabels
     Friend WithEvents Label2 As Label
+    Friend WithEvents colIndex As DataGridViewTextBoxColumn
+    Friend WithEvents colQty As DataGridViewTextBoxColumn
+    Friend WithEvents ColBOMPartID As DataGridViewTextBoxColumn
+    Friend WithEvents ColManu As DataGridViewTextBoxColumn
+    Friend WithEvents ColDesp As DataGridViewTextBoxColumn
+    Friend WithEvents ColNote As DataGridViewTextBoxColumn
+    Friend WithEvents btnDelBOM As Button
 End Class

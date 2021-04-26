@@ -35,8 +35,9 @@ Partial Class frmGeneralSettings
         Me.colUnit = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.tabAbout = New System.Windows.Forms.TabPage()
         Me.palAbout = New System.Windows.Forms.Panel()
-        Me.lblAbout = New System.Windows.Forms.Label()
         Me.lblVersion = New System.Windows.Forms.Label()
+        Me.lblAbout = New System.Windows.Forms.Label()
+        Me.btnApply = New System.Windows.Forms.Button()
         Me.TabGeneral.SuspendLayout()
         Me.tabSettings.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -74,6 +75,7 @@ Partial Class frmGeneralSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnApply)
         Me.GroupBox1.Controls.Add(Me.chkOnTop)
         Me.GroupBox1.Controls.Add(Me.txtMax)
         Me.GroupBox1.Controls.Add(Me.Label1)
@@ -120,7 +122,7 @@ Partial Class frmGeneralSettings
         Me.chkMultiKeywords.Name = "chkMultiKeywords"
         Me.chkMultiKeywords.Size = New System.Drawing.Size(184, 17)
         Me.chkMultiKeywords.TabIndex = 0
-        Me.chkMultiKeywords.Text = "Enable Multipal Keywords Search"
+        Me.chkMultiKeywords.Text = "Enable Multiple Keywords Search"
         Me.chkMultiKeywords.UseVisualStyleBackColor = True
         '
         'tabUnit
@@ -180,6 +182,15 @@ Partial Class frmGeneralSettings
         Me.palAbout.Size = New System.Drawing.Size(329, 298)
         Me.palAbout.TabIndex = 0
         '
+        'lblVersion
+        '
+        Me.lblVersion.AutoSize = True
+        Me.lblVersion.Location = New System.Drawing.Point(32, 98)
+        Me.lblVersion.Name = "lblVersion"
+        Me.lblVersion.Size = New System.Drawing.Size(39, 13)
+        Me.lblVersion.TabIndex = 1
+        Me.lblVersion.Text = "Label2"
+        '
         'lblAbout
         '
         Me.lblAbout.Location = New System.Drawing.Point(32, 40)
@@ -189,14 +200,14 @@ Partial Class frmGeneralSettings
         Me.lblAbout.Text = "Engineering Components Search Systems" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Copyright 2021 Prexeco. All rights Reser" &
     "ved." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Design and Developed by Sam S, Mark L, Randy L"
         '
-        'lblVersion
+        'btnApply
         '
-        Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(32, 98)
-        Me.lblVersion.Name = "lblVersion"
-        Me.lblVersion.Size = New System.Drawing.Size(39, 13)
-        Me.lblVersion.TabIndex = 1
-        Me.lblVersion.Text = "Label2"
+        Me.btnApply.Location = New System.Drawing.Point(252, 273)
+        Me.btnApply.Name = "btnApply"
+        Me.btnApply.Size = New System.Drawing.Size(75, 23)
+        Me.btnApply.TabIndex = 4
+        Me.btnApply.Text = "Apply"
+        Me.btnApply.UseVisualStyleBackColor = True
         '
         'frmGeneralSettings
         '
@@ -233,4 +244,5 @@ Partial Class frmGeneralSettings
     Friend WithEvents chkMultiKeywords As CheckBox
     Friend WithEvents chkOnTop As CheckBox
     Friend WithEvents lblVersion As Label
+    Friend WithEvents btnApply As Button
 End Class

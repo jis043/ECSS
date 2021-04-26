@@ -174,12 +174,13 @@ Public Class frmMain
                 End If
                 Me.FIRSTTIME = True
                 Me.UpdateMainFilters(TempPartList)
+                Me.FocusOnOneFilter()
                 Me.FIRSTTIME = False
             Else
                 'Me.ResetAllFilters()
-                Me.FIRSTTIME = True
-                Me.UpdateMainFilters(Nothing)
-                Me.FIRSTTIME = False
+                'Me.FIRSTTIME = True
+                'Me.UpdateMainFilters(Nothing)
+                'Me.FIRSTTIME = False
             End If
 
             Me.lstPart.EndUpdate()
@@ -246,7 +247,7 @@ Public Class frmMain
                    aPart.PartType = ECSSParts.PART_TYPE.THEROMOSTAT OrElse
                    aPart.PartType = ECSSParts.PART_TYPE.PILOT_LIGHT OrElse
                    aPart.PartType = ECSSParts.PART_TYPE.HEATER Then
-                    Me.dgvDetail.Rows.Add("Height", aPart.Height & " (mm)", "Width", aPart.Width & " (mm)", "Depth", aPart.Depth & " (mm)")
+                    Me.dgvDetail.Rows.Add("Height", Miscelllaneous.NumberToGoodString(aPart.Height) & " (mm)", "Width", Miscelllaneous.NumberToGoodString(aPart.Width) & " (mm)", "Depth", Miscelllaneous.NumberToGoodString(aPart.Depth) & " (mm)")
                 End If
 
                 Select Case aPart.PartType
@@ -262,8 +263,8 @@ Public Class frmMain
 
                     Case ECSSParts.PART_TYPE.ENCLOSURE
                         Me.dgvDetail.Rows.Add("Color", aPart.aEnclosure.Color, "NEMA Type", Miscelllaneous.ListToString(aPart.aEnclosure.NEMA_Type), "Window", aPart.aEnclosure.Window)
-                        Me.dgvDetail.Rows.Add("Mount Type", aPart.aEnclosure.MountType, "Mount ID", Miscelllaneous.ListToString(aPart.aEnclosure.MountID), "Mount Height", aPart.aEnclosure.MountHeight)
-                        Me.dgvDetail.Rows.Add("Mount Width", aPart.aEnclosure.MountWidth, "PDF", aPart.PDF, "", "")
+                        Me.dgvDetail.Rows.Add("Mount Type", aPart.aEnclosure.MountType, "Mount ID", Miscelllaneous.ListToString(aPart.aEnclosure.MountID), "Mount Height", aPart.aEnclosure.MountHeight & " (mm)")
+                        Me.dgvDetail.Rows.Add("Mount Width", aPart.aEnclosure.MountWidth & " (mm)", "PDF", aPart.PDF, "", "")
                         Dim cell As SpannedDataGridViewNet2.DataGridViewTextBoxCellEx = Me.dgvDetail.Rows(4).Cells(3)
                         cell.ColumnSpan = 3
 
@@ -281,41 +282,45 @@ Public Class frmMain
                         Me.dgvDetail.Rows.Add("Cutout Height", aPart.aWindowKit.CutoutHeight & " (mm)", "Cutout Width", aPart.aWindowKit.CutoutWidth & " (mm)", "", "")
 
                     Case ECSSParts.PART_TYPE.THEROMOSTAT
-                        Me.dgvDetail.Rows.Add("Monut", aPart.aTheromostat.Monut, "Rated_Vol_Max", aPart.aTheromostat.Rated_Vol_Max & " (V)", "Rated_Current", aPart.aTheromostat.Rated_Current & " (A)")
-                        Me.dgvDetail.Rows.Add("Function", aPart.aTheromostat.TheroFunction, "Adjust Min", aPart.aTheromostat.AdjustMin, "Adjust Max", aPart.aTheromostat.AdjustMax)
+                        Me.dgvDetail.Rows.Add("Mounting", aPart.aTheromostat.Monut, "Rated_Vol_Max", aPart.aTheromostat.Rated_Vol_Max & " (V)", "Rated_Current", aPart.aTheromostat.Rated_Current & " (A)")
+                        Me.dgvDetail.Rows.Add("Function", aPart.aTheromostat.TheroFunction, "Adjust Min", aPart.aTheromostat.AdjustMin & " (°C)", "Adjust Max", aPart.aTheromostat.AdjustMax & " (°C)")
                         Me.dgvDetail.Rows.Add("Opera Temp Min", aPart.aTheromostat.Opera_Temp_Min & " (°C)", "Opera Temp Max", aPart.aTheromostat.Opera_Temp_Max & " (°C)", "Weight", aPart.aTheromostat.Weight & " (kg)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aTheromostat.Area_Class, "Class", aPart.aTheromostat.Part_Class, "Gas Group", aPart.aTheromostat.Gas_Group)
                         Me.dgvDetail.Rows.Add("Temp. Code", aPart.aTheromostat.Temp_Code, "", "", "", "")
                     Case ECSSParts.PART_TYPE.TEMP_SWITCH
-                        Me.dgvDetail.Rows.Add("Monut", aPart.aTempSwitch.Monut, "Rated_Vol_Max", aPart.aTempSwitch.Rated_Vol_Max & " (V)", "Rated_Current", aPart.aTempSwitch.Rated_Current & " (A)")
-                        Me.dgvDetail.Rows.Add("Function", aPart.aTempSwitch.SwitchFunction, "Switch_Temp_ON", aPart.aTempSwitch.Switch_Temp_ON, "Switch_Temp_OFF", aPart.aTempSwitch.Switch_Temp_OFF)
+                        Me.dgvDetail.Rows.Add("Mounting", aPart.aTempSwitch.Monut, "Rated_Vol_Max", aPart.aTempSwitch.Rated_Vol_Max & " (V)", "Rated_Current", aPart.aTempSwitch.Rated_Current & " (A)")
+                        Me.dgvDetail.Rows.Add("Function", aPart.aTempSwitch.SwitchFunction, "Switch On Temperature", aPart.aTempSwitch.Switch_Temp_ON, "Switch Off Temperature ", aPart.aTempSwitch.Switch_Temp_OFF)
                         Me.dgvDetail.Rows.Add("Opera Temp Min", aPart.aTempSwitch.Opera_Temp_Min & " (°C)", "Opera Temp Max", aPart.aTempSwitch.Opera_Temp_Max & " (°C)", "Weight", aPart.aTempSwitch.Weight & " (kg)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aTempSwitch.Area_Class, "Class", aPart.aTempSwitch.Part_Class, "Gas Group", aPart.aTempSwitch.Gas_Group)
-                        Me.dgvDetail.Rows.Add("Temp. Code", aPart.aTempSwitch.Temp_Code, "Adjustable", aPart.aTempSwitch.Temp_Code, "", "")
+                        Me.dgvDetail.Rows.Add("Temp. Code", aPart.aTempSwitch.Temp_Code, "Adjustable", aPart.aTempSwitch.Adjustable, "", "")
                     Case ECSSParts.PART_TYPE.PILOT_LIGHT
                         Me.dgvDetail.Rows.Add("NEMA Type", Miscelllaneous.ListToString(aPart.aPilotLight.NEMA_TYPE), "Material", aPart.aPilotLight.Material, "Fingersafe Guard", aPart.aPilotLight.Fingersafe)
                         Me.dgvDetail.Rows.Add("Power Module", aPart.aPilotLight.Power_Module, "Lamp Test", aPart.aPilotLight.Lamp_Test, "Illumination", aPart.aPilotLight.Illumination)
-                        Me.dgvDetail.Rows.Add("Contact Blocks Type", aPart.aPilotLight.Contact_Blocks_Type, "Voltage Type", aPart.aPilotLight.Voltage_Type, "Voltage", aPart.aPilotLight.Voltage & " (A)")
+                        Me.dgvDetail.Rows.Add("Contact Blocks Type", aPart.aPilotLight.Contact_Blocks_Type, "Voltage Type", aPart.aPilotLight.Voltage_Type, "Voltage", aPart.aPilotLight.Voltage & " (V)")
                         Me.dgvDetail.Rows.Add("Contacts", aPart.aPilotLight.Contacts, "Store Temp Min", aPart.aPilotLight.Stor_temp_min & " (°C)", "Store Temp Max", aPart.aPilotLight.Stor_temp_max & " (°C)")
                         Me.dgvDetail.Rows.Add("Opera Temp Min", aPart.aPilotLight.Opera_temp_min & " (°C)", "Opera Temp Max", aPart.aPilotLight.Opera_temp_max & " (°C)", "Weight", aPart.aPilotLight.Weight & " (kg)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aPilotLight.Area_Class, "Class", aPart.aPilotLight.Class, "Gas Groups", aPart.aPilotLight.Gas_Groups)
-                        Me.dgvDetail.Rows.Add("Temp. Code", aPart.aPilotLight.Temp_Code, "Link", aPart.link, "Lens Color", aPart.aPilotLight.Lens_Color)
+                        Me.dgvDetail.Rows.Add("Temp. Code", aPart.aPilotLight.Temp_Code, "Web Link", aPart.link, "Lens Color", aPart.aPilotLight.Lens_Color)
                     Case ECSSParts.PART_TYPE.HEATER
                         Me.dgvDetail.Rows.Add("Power", aPart.aHeater.Power & " (W)", "Rated Vol Max", aPart.aHeater.Rated_Vol_Max & " (V)", "Rated Vol Min", aPart.aHeater.Rated_Vol_MIN & " (V)")
-                        Me.dgvDetail.Rows.Add("Frequency", Miscelllaneous.ListToString(aPart.aHeater.Frequency) & " (Hz)", "BuiltIn Thermostat", aPart.aHeater.BuiltIn_Thermostat, "BuiltIn Fan", aPart.aHeater.BuiltIn_Fan)
-                        Me.dgvDetail.Rows.Add("Datasheet", aPart.aHeater.Datasheet, "Temp. Code", aPart.aHeater.Temp_Code, "Weight", aPart.aHeater.Weight & " (kg)")
+                        Me.dgvDetail.Rows.Add("Frequency", Miscelllaneous.ListToString(aPart.aHeater.Frequency) & " (Hz)", "Built-In Thermostat", aPart.aHeater.BuiltIn_Thermostat, "Built-In Fan", aPart.aHeater.BuiltIn_Fan)
+                        Me.dgvDetail.Rows.Add("Datasheet", aPart.aHeater.Datasheet, "Temp. Code", aPart.aHeater.Temp_Code, "Weight", Miscelllaneous.NumberToGoodString(aPart.aHeater.Weight) & " (kg)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aHeater.Area_Class, "Class", aPart.aHeater.Class, "Gas Groups", aPart.aHeater.Gas_Groups)
-                        Me.dgvDetail.Rows.Add("Link", aPart.link, "", "", "", "")
+                        Me.dgvDetail.Rows.Add("Web Link", aPart.link, "", "", "", "")
                         Dim cell As SpannedDataGridViewNet2.DataGridViewTextBoxCellEx = Me.dgvDetail.Rows(6).Cells(1)
                         cell.ColumnSpan = 3
 
                     Case ECSSParts.PART_TYPE.SELECTOR_SWITCH, ECSSParts.PART_TYPE.ESTOP, ECSSParts.PART_TYPE.PUSH_BUTTON
                         Me.dgvDetail.Rows.Add("NEMA Type", Miscelllaneous.ListToString(aPart.aNonIlluminate.NEMA_TYPE), "Material", aPart.aNonIlluminate.Material, "Fingersafe Guard", aPart.aNonIlluminate.Fingersafe)
-                        Me.dgvDetail.Rows.Add("Operation Type", aPart.aNonIlluminate.OperatorType, "Functions", aPart.aNonIlluminate.Functions, "MushroomHead", aPart.aNonIlluminate.MushroomHead)
+                        If aPart.PartType = ECSSParts.PART_TYPE.ESTOP Then
+                            Me.dgvDetail.Rows.Add("Head Type", aPart.aNonIlluminate.OperatorType, "Functions", aPart.aNonIlluminate.Functions, "", "")
+                        Else
+                            Me.dgvDetail.Rows.Add("Operation Type", aPart.aNonIlluminate.OperatorType, "Functions", aPart.aNonIlluminate.Functions, "MushroomHead", aPart.aNonIlluminate.MushroomHead)
+                        End If
                         Me.dgvDetail.Rows.Add("Contact Blocks Type", aPart.aNonIlluminate.Contact_Blocks_Type, "Store Temp Min", aPart.aNonIlluminate.Stor_temp_min & " (°C)", "Store Temp Max", aPart.aNonIlluminate.Stor_temp_max & " (°C)")
                         Me.dgvDetail.Rows.Add("Contacts", aPart.aNonIlluminate.Contacts, "Opera Temp Min", aPart.aNonIlluminate.Opera_temp_min & " (°C)", "Opera Temp Max", aPart.aNonIlluminate.Opera_temp_max & " (°C)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aNonIlluminate.Area_Class, "Class", aPart.aNonIlluminate.Class, "Gas Groups", aPart.aNonIlluminate.Gas_Groups)
-                        Me.dgvDetail.Rows.Add("Temp. Code", aPart.aNonIlluminate.Temp_Code, "Link", aPart.link, "Color", aPart.aNonIlluminate.Color)
+                        Me.dgvDetail.Rows.Add("Temp. Code", aPart.aNonIlluminate.Temp_Code, "Web Link", aPart.link, "Color", aPart.aNonIlluminate.Color)
                 End Select
 
                 'add button 
@@ -572,14 +577,18 @@ Public Class frmMain
 
         Me.TreeBOM.Nodes.Clear()
         If Me.BOMdic Is Nothing OrElse Me.BOMdic.Count = 0 Then Exit Sub
+        Dim SelectedIndex As Integer = 0
         Try
             Me.TreeBOM.BeginUpdate()
-            For Each kvp In Me.BOMdic
+            For Each kvp In Me.BOMdic.Reverse
                 Me.TreeBOM.Nodes.Add(kvp.Value.BOMTitle)
                 Me.TreeBOM.Nodes(Me.TreeBOM.Nodes.Count - 1).Tag = kvp.Key
+                If Me.dgvBOM.Tag IsNot Nothing AndAlso kvp.Key = Me.dgvBOM.Tag.ToString Then
+                    SelectedIndex = Me.TreeBOM.Nodes.Count - 1
+                End If
             Next
             Me.TreeBOM.EndUpdate()
-            Me.TreeBOM.SelectedNode = Me.TreeBOM.Nodes(0)
+            Me.TreeBOM.SelectedNode = Me.TreeBOM.Nodes(SelectedIndex)
             Me.TreeBOM.Focus()
             UpdateBOMList()
         Catch ex As Exception
@@ -663,7 +672,13 @@ Public Class frmMain
                             CurrentBOM(e.RowIndex).Manufacturer = Me.ECSSParts.PartDic(partid).Manufacturer
                             dgvBOM.Item(4, e.RowIndex).Value = Me.ECSSParts.PartDic(partid).Description
                             CurrentBOM(e.RowIndex).Description = Me.ECSSParts.PartDic(partid).Description
-                            dgvBOM.Rows(e.RowIndex).ErrorText = ""
+                            Dim count As Integer = CurrentBOM.Where(Function(b) b.PartID = partid).Count
+                            If count > 1 Then
+                                dgvBOM.Rows(e.RowIndex).ErrorText = "Part ID does not exist!"
+                            Else
+                                dgvBOM.Rows(e.RowIndex).ErrorText = ""
+                            End If
+
                         Else
                             CurrentBOM(e.RowIndex).PartID = partid
                             dgvBOM.Item(3, e.RowIndex).Value = ""
@@ -763,11 +778,11 @@ Public Class frmMain
                 DirectCast(activeSheet.Cells(1, 2), Microsoft.Office.Interop.Excel.Range).Value = BOMs.BOMTitle
                 DirectCast(activeSheet.Cells(1, 2), Microsoft.Office.Interop.Excel.Range).Font.Bold = True
 
-                DirectCast(activeSheet.Cells(2, 1), Microsoft.Office.Interop.Excel.Range).Value = "Num"
+                DirectCast(activeSheet.Cells(2, 1), Microsoft.Office.Interop.Excel.Range).Value = "Item No."
                 DirectCast(activeSheet.Cells(2, 1), Microsoft.Office.Interop.Excel.Range).Font.Bold = True
-                DirectCast(activeSheet.Cells(2, 2), Microsoft.Office.Interop.Excel.Range).Value = "Part ID"
+                DirectCast(activeSheet.Cells(2, 2), Microsoft.Office.Interop.Excel.Range).Value = "Qty."
                 DirectCast(activeSheet.Cells(2, 2), Microsoft.Office.Interop.Excel.Range).Font.Bold = True
-                DirectCast(activeSheet.Cells(2, 3), Microsoft.Office.Interop.Excel.Range).Value = "Qty"
+                DirectCast(activeSheet.Cells(2, 3), Microsoft.Office.Interop.Excel.Range).Value = "Part No."
                 DirectCast(activeSheet.Cells(2, 3), Microsoft.Office.Interop.Excel.Range).Font.Bold = True
                 DirectCast(activeSheet.Cells(2, 4), Microsoft.Office.Interop.Excel.Range).Value = "Manufacturer"
                 DirectCast(activeSheet.Cells(2, 4), Microsoft.Office.Interop.Excel.Range).Font.Bold = True
@@ -1140,7 +1155,7 @@ Public Class frmMain
                         If Me.ECSSSearch.LensColor.Contains(m) Then Me.ECSSSearch.LensColor.Remove(m)
                     End If
             End Select
-
+            Me.palFilter.Tag = clb.Name
             Me.LoadlstPart()
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
@@ -1342,6 +1357,29 @@ Public Class frmMain
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
     End Sub
+
+    Private Sub btnDelBOM_Click(sender As Object, e As EventArgs) Handles btnDelBOM.Click
+        If Me.FIRSTTIME Then Exit Sub
+        Try
+            Dim selectedBOM As String = dgvBOM.Tag.ToString
+            If dgvBOM.SelectedRows.Count = 0 Then Exit Sub
+            If Me.BOMdic.ContainsKey(selectedBOM) Then
+                Dim aList = Me.BOMdic.Item(selectedBOM)
+                If aList IsNot Nothing AndAlso MessageBox.Show("Do you want to delete " & aList.BOMTitle & " from Database?", "Delete BOM", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                    If ECSSDBFunctions.DeleteOneBOM(aList.BOMID) Then
+                        MessageBox.Show("Successfully delete " & aList.BOMTitle & " from Database.")
+                        Me.dgvBOM.Tag = ""
+                        Me.BOMdic.Remove(selectedBOM)
+                        Me.UpdateTreeView()
+                    End If
+                End If
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
+        End Try
+    End Sub
+
 #End Region
 
     Private Sub frmMain_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
@@ -1436,7 +1474,8 @@ Public Class frmMain
         Dim qty As Integer
         If Me.FIRSTTIME Then Exit Sub
         Try
-            Dim frm As New frmAddBOM(Me.BOMdic)
+            Dim selectedBOM As String = IIf(Me.dgvBOM.Tag = Nothing, "", Me.dgvBOM.Tag).ToString
+            Dim frm As New frmAddBOM(Me.BOMdic, selectedBOM)
             If frm.ShowDialog = DialogResult.OK Then
                 aBOMList = frm.CurrentBOM
                 qty = frm.QTY
@@ -1455,6 +1494,7 @@ Public Class frmMain
                                 aBOMList.BOMList.Add(aBOM)
                                 If ECSSDBFunctions.InsertOneBOM(Me.BOMdic.Item(aBOM.BOMID), False) Then
                                     MessageBox.Show("Add one part into BOM.")
+                                    Me.dgvBOM.Tag = aBOM.BOMID
                                 End If
                             End If
                         End If
@@ -1475,6 +1515,36 @@ Public Class frmMain
 
 
 #Region "Filter"
+
+    Private Sub FocusOnOneFilter()
+        If Me.palFilter.Tag = Nothing Then Exit Sub
+        Try
+            Dim ctrlName As String = Me.palFilter.Tag
+            For Each ctrl As Control In Me.palFilter.Controls
+                If TypeOf ctrl Is Panel Then
+                    Dim IsFocus As Boolean = False
+                    For Each c In ctrl.Controls
+                        If TypeOf c Is CheckedListBox Then
+                            Dim clb = DirectCast(c, CheckedListBox)
+                            If clb.Name = ctrlName Then IsFocus = True : Exit For
+                        End If
+                        If TypeOf c Is DoubleTrackBarWithLabels Then
+                            Dim clb = DirectCast(c, DoubleTrackBarWithLabels)
+                            If clb.Name = ctrlName Then IsFocus = True : Exit For
+                        End If
+                    Next
+                    If IsFocus Then
+                        ctrl.Select()
+                        ctrl.Focus()
+                        Exit For
+                    End If
+                End If
+            Next
+        Catch ex As Exception
+            MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
+        End Try
+    End Sub
+
 
     Private Sub UnselectAllFilters()
         Me.FIRSTTIME = True
@@ -1696,6 +1766,14 @@ Public Class frmMain
                             GList = (From aPart In PartList Group By g = aPart.aPowerSupply.Gas_Group Into itemlst = Group, Count()
                                      Order By g).Select(Function(p) p.g.ToString).ToList
 
+                            Dim AList = (From aPart In PartList Group By g = aPart.aPowerSupply.Area_Class Into itemlst = Group, Count()
+                                         Order By g).Select(Function(p) p.g).ToList
+
+                            Dim OTMList = (From aPart In PartList Group By g = aPart.aPowerSupply.Opera_temp_min Into itemlst = Group, Count()
+                                           Order By g).Select(Function(p) p.g).ToList
+                            Dim OTXList = (From aPart In PartList Group By g = aPart.aPowerSupply.Opera_temp_max Into itemlst = Group, Count()
+                                           Order By g).Select(Function(p) p.g).ToList
+
                             Me.clbOutputVol.Items.Clear()
                             OVList = OVList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OVList.Sort()
@@ -1734,6 +1812,18 @@ Public Class frmMain
                             Me.clbGroup.Items.AddRange(GList.ToArray)
                             Me.UpdateCheckList(Me.clbGroup, Me.ECSSSearch.Group)
 
+                            Me.clbArea.Items.Clear()
+                            AList = AList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            Me.clbArea.Items.AddRange(AList.ToArray)
+                            Me.palArea.Visible = True
+                            Me.UpdateCheckList(Me.clbArea, Me.ECSSSearch.Area)
+
+                            OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.palOperaTemp.Visible = True
+
                             Me.palOutputV.Visible = True
                             Me.palOutputA.Visible = True
                             Me.palNormalV.Visible = True
@@ -1768,24 +1858,23 @@ Public Class frmMain
                             Me.UpdateCheckList(Me.clbMaterial, Me.ECSSSearch.Material)
 
                             hlist = hlist.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbHeight.Min = hlist.Min : Me.lblHeightMin.Text = Miscelllaneous.MM2INCH(hlist.Min) & " Inch"
-                            Me.dtbHeight.Max = hlist.Max : Me.lblHeightMax.Text = Miscelllaneous.MM2INCH(hlist.Max) & " Inch"
                             Me.dtbHeight.SelectedMin = IIf(Me.ECSSSearch.HeightMin > 0, Me.ECSSSearch.HeightMin, hlist.Min)
                             Me.dtbHeight.SelectedMax = IIf(Me.ECSSSearch.HeightMax > 0, Me.ECSSSearch.HeightMax, hlist.Max)
-
+                            Me.dtbHeight.Min = hlist.Min : Me.lblHeightMin.Text = Miscelllaneous.MM2INCH(Me.dtbHeight.SelectedMin) & " Inch"
+                            Me.dtbHeight.Max = hlist.Max : Me.lblHeightMax.Text = Miscelllaneous.MM2INCH(Me.dtbHeight.SelectedMax) & " Inch"
 
                             Wlist = Wlist.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbWidth.Min = Wlist.Min : Me.lblWidthMin.Text = Miscelllaneous.MM2INCH(Wlist.Min) & " Inch"
-                            Me.dtbWidth.Max = Wlist.Max : Me.lblWidthMax.Text = Miscelllaneous.MM2INCH(Wlist.Max) & " Inch"
                             Me.dtbWidth.SelectedMin = IIf(Me.ECSSSearch.WidthMin > 0, Me.ECSSSearch.WidthMin, Wlist.Min)
                             Me.dtbWidth.SelectedMax = IIf(Me.ECSSSearch.WidthMax > 0, Me.ECSSSearch.WidthMax, Wlist.Max)
+                            Me.dtbWidth.Min = Wlist.Min : Me.lblWidthMin.Text = Miscelllaneous.MM2INCH(Me.dtbWidth.SelectedMin) & " Inch"
+                            Me.dtbWidth.Max = Wlist.Max : Me.lblWidthMax.Text = Miscelllaneous.MM2INCH(Me.dtbWidth.SelectedMax) & " Inch"
+
 
                             Dlist = Dlist.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbDepth.Min = Dlist.Min : Me.lblDepthMin.Text = Miscelllaneous.MM2INCH(Dlist.Min) & " Inch"
-                            Me.dtbDepth.Max = Dlist.Max : Me.lblDepthMax.Text = Miscelllaneous.MM2INCH(Dlist.Max) & " Inch"
                             Me.dtbDepth.SelectedMin = IIf(Me.ECSSSearch.DepthMin > 0, Me.ECSSSearch.DepthMin, Dlist.Min)
                             Me.dtbDepth.SelectedMax = IIf(Me.ECSSSearch.DepthMax > 0, Me.ECSSSearch.DepthMax, Dlist.Max)
-
+                            Me.dtbDepth.Min = Dlist.Min : Me.lblDepthMin.Text = Miscelllaneous.MM2INCH(Me.dtbDepth.SelectedMin) & " Inch"
+                            Me.dtbDepth.Max = Dlist.Max : Me.lblDepthMax.Text = Miscelllaneous.MM2INCH(Me.dtbDepth.SelectedMax) & " Inch"
 
                             Me.clbMount.Items.Clear()
                             MountList = MountList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
@@ -2057,8 +2146,8 @@ Public Class frmMain
 
                             OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Me.ECSSSearch.OperaTempMin > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
-                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Me.ECSSSearch.OperaTempMax > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
                             Me.palOperaTemp.Visible = True
 
                             Me.clbArea.Items.Clear()
@@ -2144,8 +2233,8 @@ Public Class frmMain
 
                             OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Me.ECSSSearch.OperaTempMin > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
-                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Me.ECSSSearch.OperaTempMax > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
                             Me.palOperaTemp.Visible = True
 
                             Me.clbArea.Items.Clear()
@@ -2332,11 +2421,13 @@ Public Class frmMain
                         Me.LoadlstPart()
                     End If
             End Select
-
+            Me.palFilter.Tag = dtb.Name
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
     End Sub
+
+
 
 
 

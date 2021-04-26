@@ -4,8 +4,10 @@ Public Class frmAddBOM
     Public CurrentBOM As OneBOMList
     Public QTY As Integer
     Private BOMdic As New Dictionary(Of String, OneBOMList)
-    Public Sub New(ByVal Bdic As Dictionary(Of String, OneBOMList))
+    Private SelectedBOM As String
+    Public Sub New(ByVal Bdic As Dictionary(Of String, OneBOMList), ByVal sBOM As String)
         Me.BOMdic = Bdic
+        Me.SelectedBOM = sBOM
         ' This call is required by the designer.
         InitializeComponent()
 
@@ -26,12 +28,14 @@ Public Class frmAddBOM
 
 
     Private Sub UpdateBOMcombolist()
+        Dim selectedIndex As Integer = 0
         Me.cboBOM.Items.Clear()
         If Me.BOMdic Is Nothing OrElse Me.BOMdic.Count > 0 Then
-            For Each kvp In Me.BOMdic
+            For Each kvp In Me.BOMdic.Reverse
                 Me.cboBOM.Items.Add(kvp.Value.BOMTitle)
+                If kvp.Key = Me.SelectedBOM Then selectedIndex = Me.cboBOM.Items.Count - 1
             Next
-            Me.cboBOM.SelectedIndex = 0
+            Me.cboBOM.SelectedIndex = selectedIndex
         End If
     End Sub
 
@@ -93,6 +97,7 @@ Public Class frmAddBOM
             Me.CurrentBOM.BOMTitle = Me.txtName.Text.Trim
             Me.CurrentBOM.BOMID = "BOM" & Date.Now.ToString("yyyyMMddHHmmss")
             Me.BOMdic.Add(Me.CurrentBOM.BOMID, Me.CurrentBOM)
+
             ECSSDBFunctions.InsertOneBOM(Me.CurrentBOM, True)
         ElseIf Me.radExisting.Checked Then
             If Me.cboBOM.SelectedIndex < Me.BOMdic.Count Then

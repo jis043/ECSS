@@ -56,6 +56,18 @@
         Return str.Substring(0, str.Length - 1)
     End Function
 
+    Public Shared Function NumberToGoodString(ByVal i As Integer) As String
+        If i = 0 Then Return "N/A"
+        If i = Integer.MinValue OrElse i = Integer.MaxValue Then Return "null"
+        Return i.ToString
+    End Function
+
+    Public Shared Function NumberToGoodString(ByVal i As Double) As String
+        If i = 0 Then Return "N/A"
+        If i = Double.MinValue OrElse i = Double.MaxValue Then Return "null"
+        Return i.ToString
+    End Function
+
     Public Shared Function MM2INCH(ByVal m As Integer) As String
         Return String.Format("{0:F1}", m / 25.4)
     End Function

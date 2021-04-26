@@ -104,7 +104,7 @@
             Public Rated_Vol_Max As Integer
             Public Rated_Current As Single
             Public SwitchFunction As String = ""
-            Public Adjustable As Boolean
+            Public Adjustable As String = ""
             Public Switch_Temp_ON As Integer
             Public Switch_Temp_OFF As Integer
             Public Opera_Temp_Min As Integer
@@ -446,7 +446,14 @@
                     Next
                 End If
                 If String.IsNullOrEmpty(kvp.Value.PartID) = False Then
-                    If Me.Keywords.Contains(kvp.Value.PartID.Trim) = False Then Me.Keywords.Add(kvp.Value.PartID.Trim)
+                    If kvp.Value.PartID.Contains("|") Then
+                        Dim tList = kvp.Value.PartID.Split("|")
+                        For Each s As String In tList
+                            If Me.Keywords.Contains(s.Trim) = False Then Me.Keywords.Add(s.Trim)
+                        Next
+                    Else
+                        If Me.Keywords.Contains(kvp.Value.PartID.Trim) = False Then Me.Keywords.Add(kvp.Value.PartID.Trim)
+                    End If
                 End If
                 If String.IsNullOrEmpty(kvp.Value.Manufacturer) = False Then
                     If Me.Keywords.Contains(kvp.Value.Manufacturer.Trim) = False Then Me.Keywords.Add(kvp.Value.Manufacturer.Trim)
@@ -719,7 +726,7 @@
             aPart.aTempSwitch.Opera_Temp_Min = CInt(oneRow("Opera_Temp_Min"))
             aPart.aTempSwitch.Opera_Temp_Max = CInt(oneRow("Opera_Temp_Max"))
             aPart.aTempSwitch.Weight = CDbl(oneRow("Weight"))
-            aPart.aTempSwitch.Adjustable = CBool(oneRow("Adjustable"))
+            aPart.aTempSwitch.Adjustable = oneRow("Adjustable").ToString
             aPart.aTempSwitch.Area_Class = oneRow("Area_Class").ToString
             aPart.aTempSwitch.Part_Class = oneRow("Class").ToString
             aPart.aTempSwitch.Gas_Group = oneRow("Gas_Group").ToString
@@ -843,9 +850,9 @@
             aPart.aNonIlluminate.OperatorType = oneRow("OperatorType").ToString
             aPart.aNonIlluminate.Functions = oneRow("Functions").ToString
             aPart.aNonIlluminate.MushroomHead = oneRow("MushroomHead").ToString
-            aPart.aNonIlluminate.Color = oneRow("Color").ToString
-            aPart.aNonIlluminate.Contact_Blocks_Type = oneRow("Contact_Blocks_Type").ToString
-            aPart.aNonIlluminate.Contacts = oneRow("Contacts").ToString
+            aPart.aNonIlluminate.Color = oneRow("Color").ToString.Trim
+            aPart.aNonIlluminate.Contact_Blocks_Type = oneRow("Contact_Blocks_Type").ToString.Trim
+            aPart.aNonIlluminate.Contacts = oneRow("Contacts").ToString.Trim
             aPart.aNonIlluminate.Opera_temp_min = CInt(oneRow("Opera_temp_min"))
             aPart.aNonIlluminate.Opera_temp_max = CInt(oneRow("Opera_temp_max"))
             aPart.aNonIlluminate.Stor_temp_min = CInt(oneRow("Stor_temp_min"))
@@ -1103,6 +1110,8 @@
         If aPart Is Nothing Then Return False
         Dim filterMatches As Boolean = False
         If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.SupplyClass) Then filterMatches = True
+        If aPart.aHeater IsNot Nothing AndAlso MList.Contains(aPart.aHeater.Class) Then filterMatches = True
+        If aPart.aNonIlluminate IsNot Nothing AndAlso MList.Contains(aPart.aNonIlluminate.Class) Then filterMatches = True
         Return filterMatches
     End Function
 
@@ -1112,6 +1121,7 @@
         If aPart Is Nothing Then Return False
         Dim filterMatches As Boolean = False
         If aPart.aPowerSupply IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Gas_Group) Then filterMatches = True
+        If aPart.aHeater IsNot Nothing AndAlso MList.Contains(aPart.aPowerSupply.Gas_Group) Then filterMatches = True
         Return filterMatches
     End Function
 
@@ -1179,7 +1189,13 @@
         Dim filterMatches As Boolean = False
         If aPart.aTheromostat IsNot Nothing AndAlso MList.Contains(aPart.aTheromostat.TheroFunction) Then filterMatches = True
         If aPart.aTempSwitch IsNot Nothing AndAlso MList.Contains(aPart.aTempSwitch.SwitchFunction) Then filterMatches = True
-        If aPart.aNonIlluminate IsNot Nothing AndAlso MList.Contains(aPart.aNonIlluminate.Functions) Then filterMatches = True
+        If aPart.aNonIlluminate IsNot Nothing Then
+            If aPart.PartType = PART_TYPE.PUSH_BUTTON Then
+                If MList.Contains(aPart.aNonIlluminate.MushroomHead) Then filterMatches = True
+            Else
+                If MList.Contains(aPart.aNonIlluminate.Functions) Then filterMatches = True
+            End If
+        End If
         Return filterMatches
     End Function
 
@@ -1290,6 +1306,13 @@
             If searchCondition.OperaTempMax = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Min >= searchCondition.OperaTempMin Then Return True
             If aPart.aTempSwitch.Opera_Temp_Min >= searchCondition.OperaTempMin AndAlso aPart.aTempSwitch.Opera_Temp_Max <= searchCondition.OperaTempMax Then Return True
         End If
+
+        If aPart.aPowerSupply IsNot Nothing Then
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aPowerSupply.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aPowerSupply.Opera_temp_min >= searchCondition.OperaTempMin Then Return True
+            If aPart.aPowerSupply.Opera_temp_min >= searchCondition.OperaTempMin AndAlso aPart.aPowerSupply.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+        End If
+
         Return filterMatches
     End Function
 
@@ -1526,7 +1549,7 @@ Public Class ECSSSearchCriteria
 
     Public Overrides Function ToString() As String
         Dim str As String = ""
-        If PartType.Count > 0 Then str = str & " Categaries: " & Miscelllaneous.ListToString(PartType) & "; " Else str = str & ""
+        If PartType.Count > 0 Then str = str & " Categories: " & Miscelllaneous.ListToString(PartType) & "; " Else str = str & ""
         If Manufacturer.Count > 0 Then str = str & " Manufacturer: " & Miscelllaneous.ListToString(Manufacturer) & "; " Else str = str & ""
         If Material.Count > 0 Then str = str & " Material: " & Miscelllaneous.ListToString(Material) & "; " Else str = str & ""
         If Certificates.Count > 0 Then str = str & " Certificates: " & Miscelllaneous.ListToString(Certificates) & "; " Else str = str & ""

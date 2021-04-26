@@ -174,7 +174,7 @@
         Try
             If UserDB Is Nothing Then Return Nothing
             Dim Result As DataTable
-            Dim sql As String = "SELECT l.BOMTITLE, l.CREATETIME, i.* FROM BOMITEM i, BOMLIST l WHERE l.BOMNAME = i.BOMNAME ORDER BY l.createtime DESC"
+            Dim sql As String = "SELECT l.BOMTITLE, l.CREATETIME, i.* FROM BOMITEM i, BOMLIST l WHERE l.BOMNAME = i.BOMNAME ORDER BY l.createtime"
             Result = UserDB.DBSelectWithDataTable(sql)
             Return Result
         Catch ex As Exception
@@ -213,6 +213,19 @@
             Return UserDB.DBModify(SQL)
         Catch ex As Exception
             MessageBox.Show(ex.ToString, "insert bom", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Shared Function DeleteOneBOM(ByVal BOMID As String) As Boolean
+        Try
+            If UserDB Is Nothing Then Return False
+            Dim SQL As String = ""
+            SQL = SQL & "DELETE FROM BOMITEM WHERE BOMNAME = '" & BOMID & "';" & vbCrLf
+            SQL = SQL & "DELETE FROM BOMLIST WHERE BOMNAME = '" & BOMID & "';" & vbCrLf
+            Return UserDB.DBModify(SQL)
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "delete bom", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
         End Try
     End Function
