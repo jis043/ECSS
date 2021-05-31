@@ -24,7 +24,8 @@ Partial Class frmGeneralSettings
     Private Sub InitializeComponent()
         Me.TabGeneral = New System.Windows.Forms.TabControl()
         Me.tabSettings = New System.Windows.Forms.TabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.grpGeneral = New System.Windows.Forms.GroupBox()
+        Me.btnApply = New System.Windows.Forms.Button()
         Me.chkOnTop = New System.Windows.Forms.CheckBox()
         Me.txtMax = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -33,15 +34,24 @@ Partial Class frmGeneralSettings
         Me.listUnit = New System.Windows.Forms.ListView()
         Me.colVar = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colUnit = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.tabAuth = New System.Windows.Forms.TabPage()
+        Me.lblAuthLevel = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.btnAuth = New System.Windows.Forms.Button()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.txtAuthCode = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtMachine = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.tabAbout = New System.Windows.Forms.TabPage()
         Me.palAbout = New System.Windows.Forms.Panel()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.lblAbout = New System.Windows.Forms.Label()
-        Me.btnApply = New System.Windows.Forms.Button()
         Me.TabGeneral.SuspendLayout()
         Me.tabSettings.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.grpGeneral.SuspendLayout()
         Me.tabUnit.SuspendLayout()
+        Me.tabAuth.SuspendLayout()
         Me.tabAbout.SuspendLayout()
         Me.palAbout.SuspendLayout()
         Me.SuspendLayout()
@@ -51,6 +61,7 @@ Partial Class frmGeneralSettings
         Me.TabGeneral.Alignment = System.Windows.Forms.TabAlignment.Left
         Me.TabGeneral.Controls.Add(Me.tabSettings)
         Me.TabGeneral.Controls.Add(Me.tabUnit)
+        Me.TabGeneral.Controls.Add(Me.tabAuth)
         Me.TabGeneral.Controls.Add(Me.tabAbout)
         Me.TabGeneral.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabGeneral.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
@@ -65,7 +76,7 @@ Partial Class frmGeneralSettings
         '
         'tabSettings
         '
-        Me.tabSettings.Controls.Add(Me.GroupBox1)
+        Me.tabSettings.Controls.Add(Me.grpGeneral)
         Me.tabSettings.Location = New System.Drawing.Point(104, 4)
         Me.tabSettings.Name = "tabSettings"
         Me.tabSettings.Size = New System.Drawing.Size(335, 304)
@@ -73,20 +84,29 @@ Partial Class frmGeneralSettings
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'grpGeneral
         '
-        Me.GroupBox1.Controls.Add(Me.btnApply)
-        Me.GroupBox1.Controls.Add(Me.chkOnTop)
-        Me.GroupBox1.Controls.Add(Me.txtMax)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.chkMultiKeywords)
-        Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(335, 304)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "General Settings"
+        Me.grpGeneral.Controls.Add(Me.btnApply)
+        Me.grpGeneral.Controls.Add(Me.chkOnTop)
+        Me.grpGeneral.Controls.Add(Me.txtMax)
+        Me.grpGeneral.Controls.Add(Me.Label1)
+        Me.grpGeneral.Controls.Add(Me.chkMultiKeywords)
+        Me.grpGeneral.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpGeneral.Location = New System.Drawing.Point(0, 0)
+        Me.grpGeneral.Name = "grpGeneral"
+        Me.grpGeneral.Size = New System.Drawing.Size(335, 304)
+        Me.grpGeneral.TabIndex = 1
+        Me.grpGeneral.TabStop = False
+        Me.grpGeneral.Text = "General Settings"
+        '
+        'btnApply
+        '
+        Me.btnApply.Location = New System.Drawing.Point(252, 273)
+        Me.btnApply.Name = "btnApply"
+        Me.btnApply.Size = New System.Drawing.Size(75, 23)
+        Me.btnApply.TabIndex = 4
+        Me.btnApply.Text = "Apply"
+        Me.btnApply.UseVisualStyleBackColor = True
         '
         'chkOnTop
         '
@@ -161,6 +181,94 @@ Partial Class frmGeneralSettings
         Me.colUnit.Text = "Unit"
         Me.colUnit.Width = 120
         '
+        'tabAuth
+        '
+        Me.tabAuth.Controls.Add(Me.lblAuthLevel)
+        Me.tabAuth.Controls.Add(Me.Label4)
+        Me.tabAuth.Controls.Add(Me.btnAuth)
+        Me.tabAuth.Controls.Add(Me.btnEdit)
+        Me.tabAuth.Controls.Add(Me.txtAuthCode)
+        Me.tabAuth.Controls.Add(Me.Label3)
+        Me.tabAuth.Controls.Add(Me.txtMachine)
+        Me.tabAuth.Controls.Add(Me.Label2)
+        Me.tabAuth.Location = New System.Drawing.Point(104, 4)
+        Me.tabAuth.Name = "tabAuth"
+        Me.tabAuth.Size = New System.Drawing.Size(335, 304)
+        Me.tabAuth.TabIndex = 3
+        Me.tabAuth.Text = "Authorization"
+        Me.tabAuth.UseVisualStyleBackColor = True
+        '
+        'lblAuthLevel
+        '
+        Me.lblAuthLevel.AutoSize = True
+        Me.lblAuthLevel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAuthLevel.Location = New System.Drawing.Point(156, 133)
+        Me.lblAuthLevel.Name = "lblAuthLevel"
+        Me.lblAuthLevel.Size = New System.Drawing.Size(63, 20)
+        Me.lblAuthLevel.TabIndex = 7
+        Me.lblAuthLevel.Text = "Label5"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(15, 136)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(100, 13)
+        Me.Label4.TabIndex = 6
+        Me.Label4.Text = "Authorization Level:"
+        '
+        'btnAuth
+        '
+        Me.btnAuth.Location = New System.Drawing.Point(187, 89)
+        Me.btnAuth.Name = "btnAuth"
+        Me.btnAuth.Size = New System.Drawing.Size(119, 23)
+        Me.btnAuth.TabIndex = 5
+        Me.btnAuth.Text = "Authorization"
+        Me.btnAuth.UseVisualStyleBackColor = True
+        '
+        'btnEdit
+        '
+        Me.btnEdit.Location = New System.Drawing.Point(106, 89)
+        Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(75, 23)
+        Me.btnEdit.TabIndex = 4
+        Me.btnEdit.Text = "Edit Code"
+        Me.btnEdit.UseVisualStyleBackColor = True
+        '
+        'txtAuthCode
+        '
+        Me.txtAuthCode.Location = New System.Drawing.Point(106, 63)
+        Me.txtAuthCode.Name = "txtAuthCode"
+        Me.txtAuthCode.ReadOnly = True
+        Me.txtAuthCode.Size = New System.Drawing.Size(200, 20)
+        Me.txtAuthCode.TabIndex = 3
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(15, 66)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(85, 13)
+        Me.Label3.TabIndex = 2
+        Me.Label3.Text = "Activation Code:"
+        '
+        'txtMachine
+        '
+        Me.txtMachine.Location = New System.Drawing.Point(106, 27)
+        Me.txtMachine.Name = "txtMachine"
+        Me.txtMachine.ReadOnly = True
+        Me.txtMachine.Size = New System.Drawing.Size(200, 20)
+        Me.txtMachine.TabIndex = 1
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(15, 30)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(65, 13)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Machine ID:"
+        '
         'tabAbout
         '
         Me.tabAbout.Controls.Add(Me.palAbout)
@@ -200,15 +308,6 @@ Partial Class frmGeneralSettings
         Me.lblAbout.Text = "Engineering Components Search Systems" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Copyright 2021 Prexeco. All rights Reser" &
     "ved." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Design and Developed by Sam S, Mark L, Randy L"
         '
-        'btnApply
-        '
-        Me.btnApply.Location = New System.Drawing.Point(252, 273)
-        Me.btnApply.Name = "btnApply"
-        Me.btnApply.Size = New System.Drawing.Size(75, 23)
-        Me.btnApply.TabIndex = 4
-        Me.btnApply.Text = "Apply"
-        Me.btnApply.UseVisualStyleBackColor = True
-        '
         'frmGeneralSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -219,9 +318,11 @@ Partial Class frmGeneralSettings
         Me.Text = "Settings"
         Me.TabGeneral.ResumeLayout(False)
         Me.tabSettings.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.grpGeneral.ResumeLayout(False)
+        Me.grpGeneral.PerformLayout()
         Me.tabUnit.ResumeLayout(False)
+        Me.tabAuth.ResumeLayout(False)
+        Me.tabAuth.PerformLayout()
         Me.tabAbout.ResumeLayout(False)
         Me.palAbout.ResumeLayout(False)
         Me.palAbout.PerformLayout()
@@ -238,11 +339,20 @@ Partial Class frmGeneralSettings
     Friend WithEvents palAbout As Panel
     Friend WithEvents lblAbout As Label
     Friend WithEvents tabSettings As TabPage
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents grpGeneral As GroupBox
     Friend WithEvents txtMax As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents chkMultiKeywords As CheckBox
     Friend WithEvents chkOnTop As CheckBox
     Friend WithEvents lblVersion As Label
     Friend WithEvents btnApply As Button
+    Friend WithEvents tabAuth As TabPage
+    Friend WithEvents lblAuthLevel As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents btnAuth As Button
+    Friend WithEvents btnEdit As Button
+    Friend WithEvents txtAuthCode As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txtMachine As TextBox
+    Friend WithEvents Label2 As Label
 End Class

@@ -18,7 +18,8 @@ Public Class frmGeneralSettings
             Me.txtMax.Text = GlobalSettings.MaxDisplay
             Me.lblVersion.Text = GlobalSettings.GetCurrentVersion & " (Demo)"
             LoadUnit()
-
+            LoadAuthorization()
+            Me.grpGeneral.Enabled = Authorization.IsAuthorized
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
@@ -41,6 +42,22 @@ Public Class frmGeneralSettings
             Miscelllaneous.PaintAlternatingBackColor(Me.listUnit, Color.White, Color.Honeydew)
 
         End If
+    End Sub
+
+    Private Sub LoadAuthorization()
+        Me.lblAuthLevel.Text = ""
+        If String.IsNullOrEmpty(GlobalSettings.MachineID) Then GlobalSettings.MachineID = Authorization.GenMachineID()
+        Me.txtMachine.Text = GlobalSettings.MachineID
+        If String.IsNullOrEmpty(GlobalSettings.RegistrationKey) Then
+            Me.txtAuthCode.Text = ""
+            Me.txtAuthCode.ReadOnly = False
+            Me.txtAuthCode.SelectAll()
+            Me.txtAuthCode.Focus()
+        Else
+            Me.txtAuthCode.Text = GlobalSettings.RegistrationKey
+            Me.txtAuthCode.ReadOnly = True
+        End If
+        Me.lblAuthLevel.Text = Authorization.AuthorizationName
     End Sub
 
     Private Sub TabControl1_DrawItem(ByVal sender As Object, ByVal e As System.Windows.Forms.DrawItemEventArgs) Handles TabGeneral.DrawItem
@@ -100,4 +117,48 @@ Public Class frmGeneralSettings
         End Try
     End Sub
 
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+        Me.txtAuthCode.ReadOnly = False
+        Me.txtAuthCode.SelectAll()
+        Me.txtAuthCode.Focus()
+    End Sub
+
+    Private Sub btnAuth_Click(sender As Object, e As EventArgs) Handles btnAuth.Click
+        Dim code As String = Me.txtAuthCode.Text.Trim
+
+        If String.IsNullOrEmpty(code) Then
+            MessageBox.Show("Please input Authorizaion Code!", "Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.txtAuthCode.ReadOnly = False
+            Me.txtAuthCode.SelectAll()
+            Me.txtAuthCode.Focus()
+            Exit Sub
+        ElseIf code <> System.Text.RegularExpressions.Regex.Replace(code, "[^a-zA-Z0-9-]", "") Then
+            MessageBox.Show("Authorizaion Code contains invalid character!", "Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.txtAuthCode.ReadOnly = False
+            Me.txtAuthCode.SelectAll()
+            Me.txtAuthCode.Focus()
+            Exit Sub
+        Else
+            GlobalSettings.RegistrationKey = code
+            Me.lblAuthLevel.Text = Authorization.Verfication.ToString
+            If Authorization.Verfication = Authorization.AUTHORIZATION_LEVEL.NONE Then
+                MessageBox.Show("Authorizaion Code is incorrect, please try again!", "Authorization", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Me.txtAuthCode.ReadOnly = False
+                Me.txtAuthCode.SelectAll()
+                Me.txtAuthCode.Focus()
+                Exit Sub
+            Else
+                Try
+                    If ECSSDBFunctions.UpdateAuthorization() Then
+                        MessageBox.Show("Restart the program to finish the Authorization procedure.", "Authorization", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Application.Exit()
+                    End If
+
+                Catch ex As Exception
+                    MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
+                End Try
+            End If
+            Me.txtAuthCode.ReadOnly = True
+        End If
+    End Sub
 End Class

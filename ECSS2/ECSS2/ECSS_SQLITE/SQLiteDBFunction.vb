@@ -13,7 +13,7 @@ Public Class SQLiteDBFunctions
 
     End Sub
 
-    Public Sub New(ByVal dbpath As String)
+    Public Sub New(ByVal dbpath As String, ByVal NeedPassword As Boolean)
         Try
             'If System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(dbpath)) = False Then
             '    System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dbpath))
@@ -22,39 +22,39 @@ Public Class SQLiteDBFunctions
                 System.IO.File.Create(dbpath).Dispose()
             End If
             Me.DBPath = dbpath
-            Me.DBConnect()
+            Me.DBConnect(NeedPassword)
         Catch ex As Exception
             MessageBox.Show("Exception when open exiting SQLite file, Try to reset a new DB file." & vbCrLf & ex.ToString)
         End Try
     End Sub
 
-    Public Sub New(ByVal dbpath As String, ByVal IsDistr As Boolean)
-        'This only use fro SVSOILS
-        Try
-            If System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(dbpath)) = False Then
-                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dbpath))
-            End If
-            If System.IO.File.Exists(dbpath) = False Then
-                System.IO.File.Create(dbpath).Dispose()
-            End If
-            Me.DBPath = dbpath
-            Me.IsDistrDB = IsDistr
-            If IsDistrDB Then
-                DBConnect_Distr5()
-            Else
-                DBConnect_SV5()
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Exception when open exiting SQLite file, Try to reset a new DB file." & vbCrLf & ex.ToString)
-        End Try
+    'Public Sub New(ByVal dbpath As String, ByVal IsDistr As Boolean)
+    '    'This only use fro SVSOILS
+    '    Try
+    '        If System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(dbpath)) = False Then
+    '            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(dbpath))
+    '        End If
+    '        If System.IO.File.Exists(dbpath) = False Then
+    '            System.IO.File.Create(dbpath).Dispose()
+    '        End If
+    '        Me.DBPath = dbpath
+    '        Me.IsDistrDB = IsDistr
+    '        If IsDistrDB Then
+    '            DBConnect_Distr5()
+    '        Else
+    '            DBConnect_SV5()
+    '        End If
+    '    Catch ex As Exception
+    '        MessageBox.Show("Exception when open exiting SQLite file, Try to reset a new DB file." & vbCrLf & ex.ToString)
+    '    End Try
 
-    End Sub
+    'End Sub
 
-    Public Sub DBConnect()
+    Public Sub DBConnect(Optional ByVal NeedPassword As Boolean = False)
         SQLconnect = New SQLite.SQLiteConnection()
         SQLconnect.ConnectionString = "Data Source=" & Me.DBPath & ";"
+        If NeedPassword Then SQLconnect.SetPassword(GlobalSettings.CODEBOOK)
         SQLconnect.Open()
-
     End Sub
 
     Public Sub DBConnect_SV5()
@@ -265,38 +265,38 @@ Public Class SQLiteDBFunctions
         End Try
     End Function
 
-    'Public Shared Sub EncryptSQLiteFile(ByVal DBFile As String)
-    '    Dim SQLconnect As SQLiteConnection = Nothing
-    '    Try
-    '        If System.IO.File.Exists(DBFile) Then
-    '            SQLconnect = New SQLite.SQLiteConnection()
-    '            SQLconnect.ConnectionString = "Data Source=" & DBFile & ";"
-    '            SQLconnect.Open()
-    '            SQLconnect.ChangePassword(SVS.GlobalSettings.SQLitePassword)
-    '            'SVS.GlobalSettings.IsSQLiteDatabaseFileEncrypted = True
-    '        End If
-    '    Catch ex As Exception
-    '        If ex.Message.Contains("not a database") Then
-    '            'The db file is encrypted already.
-    '            Exit Sub
-    '        End If
-    '    Finally
-    '        If SQLconnect IsNot Nothing Then SQLconnect.Close()
-    '    End Try
-    'End Sub
+    Public Shared Sub EncryptSQLiteFile(ByVal DBFile As String)
+        Dim SQLconnect As SQLiteConnection = Nothing
+        Try
+            If System.IO.File.Exists(DBFile) Then
+                SQLconnect = New SQLite.SQLiteConnection()
+                SQLconnect.ConnectionString = "Data Source=" & DBFile & ";"
+                SQLconnect.Open()
+                SQLconnect.ChangePassword(GlobalSettings.CODEBOOK)
+                'SVS.GlobalSettings.IsSQLiteDatabaseFileEncrypted = True
+            End If
+        Catch ex As Exception
+            If ex.Message.Contains("not a database") Then
+                'The db file is encrypted already.
+                Exit Sub
+            End If
+        Finally
+            If SQLconnect IsNot Nothing Then SQLconnect.Close()
+        End Try
+    End Sub
 
-    'Public Shared Sub DecryptSQLiteFile(ByVal DBFile As String)
-    '    Dim SQLconnect As SQLiteConnection = Nothing
-    '    If System.IO.File.Exists(DBFile) Then
-    '        SQLconnect = New SQLite.SQLiteConnection()
-    '        SQLconnect.ConnectionString = "Data Source=" & DBFile & ";"
-    '        SQLconnect.SetPassword(SVS.GlobalSettings.SQLitePassword)
-    '        SQLconnect.Open()
-    '        SQLconnect.ChangePassword("")
-    '        SQLconnect.Close()
-    '        'SVS.GlobalSettings.IsSQLiteDatabaseFileEncrypted = False
-    '    End If
-    'End Sub
+    Public Shared Sub DecryptSQLiteFile(ByVal DBFile As String)
+        Dim SQLconnect As SQLiteConnection = Nothing
+        If System.IO.File.Exists(DBFile) Then
+            SQLconnect = New SQLite.SQLiteConnection()
+            SQLconnect.ConnectionString = "Data Source=" & DBFile & ";"
+            SQLconnect.SetPassword(GlobalSettings.CODEBOOK)
+            SQLconnect.Open()
+            SQLconnect.ChangePassword("")
+            SQLconnect.Close()
+            'SVS.GlobalSettings.IsSQLiteDatabaseFileEncrypted = False
+        End If
+    End Sub
 
 End Class
 

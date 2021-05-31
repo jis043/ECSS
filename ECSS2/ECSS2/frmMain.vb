@@ -10,7 +10,7 @@ Public Class frmMain
     ' Declare a Hashtable array in which to store the groups.
     Private groupTables() As Hashtable
     Private NeedSave As Boolean = False
-    Private FullSizeHeight As Integer
+    Private FullSizeHeight As Integer = 720
 
     Private Const ColManufacturerWidthDefault As Integer = 100
     Private Const ColHighlightWidthDefault As Integer = 250
@@ -34,15 +34,23 @@ Public Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-            ECSSDBFunctions.UserDB = New SQLiteDBFunctions(GlobalSettings.ECSSUSER_DB)
-            ECSSDBFunctions.PartDB = New SQLiteDBFunctions(GlobalSettings.ECSS_DB)
+            ECSSDBFunctions.UserDB = New SQLiteDBFunctions(GlobalSettings.ECSSUSER_DB, False)
             GlobalSettings.LoadUserConfig()
+
+            If Authorization.IsDevelopement Then
+                SQLiteDBFunctions.DecryptSQLiteFile(GlobalSettings.ECSS_DB)
+                ECSSDBFunctions.PartDB = New SQLiteDBFunctions(GlobalSettings.ECSS_DB, False)
+            Else
+                SQLiteDBFunctions.EncryptSQLiteFile(GlobalSettings.ECSS_DB)
+                ECSSDBFunctions.PartDB = New SQLiteDBFunctions(GlobalSettings.ECSS_DB, True)
+            End If
 
             Me.ECSSParts.ReadPartsFromDB()
             BOMHelper.LoadBOM(Me.BOMdic)
             Me.UpdateDetail(Nothing, True)
             Me.UpdateMainFilters(Nothing)
             Me.SetSmallSize()
+            GlobalSettings.MachineID = Authorization.GenMachineID
         Catch ex As Exception
             MessageBox.Show("Error: Loading main dialouge." & vbCrLf & ex.ToString)
         End Try
@@ -68,19 +76,34 @@ Public Class frmMain
         End Try
     End Sub
 
+    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+
+        If WindowState = FormWindowState.Maximized Then
+            Me.btnBOM.Visible = True
+        ElseIf WindowState = FormWindowState.Minimized Then
+
+        ElseIf Me.Height = SmallSizeHeight Then
+            If Me.ECSSSearch.IsEmpty = False Then
+                Me.CleanAll(False)
+            End If
+            Me.btnBOM.Visible = False
+        Else
+            Me.FullSizeHeight = Math.Max(Me.Height, SmallSizeHeight)
+        End If
+    End Sub
+
 
     Private Sub SetTitle()
-        Me.Text = GlobalSettings.COMPANY & ": " & GlobalSettings.ECSS_TITLE & " -- ( " & GlobalSettings.GetDEMOVersion & " )"
+        Me.Text = GlobalSettings.COMPANY & ": " & GlobalSettings.ECSS_TITLE & " -- ( " & GlobalSettings.GetCurrentVersion & " ) -- [" & Authorization.AuthorizationName & "]"
     End Sub
 
     Private Sub SetSmallSize()
-        Me.FullSizeHeight = Me.Height
-        Me.Height = SmallSizeHeight
+        If Me.Height <> SmallSizeHeight Then Me.Height = SmallSizeHeight
         Me.btnBOM.Visible = False
     End Sub
 
     Private Sub SetFullSize()
-        Me.Height = Me.FullSizeHeight
+        If Me.Height <> Me.FullSizeHeight Then Me.Height = Me.FullSizeHeight
         Me.btnBOM.Visible = True
     End Sub
 
@@ -118,7 +141,11 @@ Public Class frmMain
 
             Dim aPart As ECSSParts.OnePart = Nothing
             For i As Integer = 0 To TempPartList.Count - 1
-                If i >= GlobalSettings.MaxDisplay Then Exit For
+                If Authorization.IsAuthorized Then
+                    If i >= GlobalSettings.MaxDisplay Then Exit For
+                Else
+                    If i >= 50 Then Exit For 'for non register user, only display 50 records
+                End If
                 aPart = TempPartList.Item(i)
                 Dim anItem As ListViewItem = New ListViewItem(aPart.PartID)   'ID  'Name
                 anItem.SubItems.Add(aPart.Manufacturer)
@@ -193,12 +220,23 @@ Public Class frmMain
                 Me.lstPart.Refresh()
             End If
 
-            If TempPartList.Count > GlobalSettings.MaxDisplay Then
-                Me.lblError.Text = "There are " & TempPartList.Count & " parts in the result, only display the first " & GlobalSettings.MaxDisplay & " records!"
-                Me.lblError.Visible = True
+
+            If Authorization.IsAuthorized Then
+                If TempPartList.Count > GlobalSettings.MaxDisplay Then
+                    Me.lblError.Text = "There are " & TempPartList.Count & " parts in the result, only display the first " & GlobalSettings.MaxDisplay & " records!"
+                    Me.lblError.Visible = True
+                Else
+                    Me.lblError.Visible = False
+                End If
             Else
-                Me.lblError.Visible = False
+                If TempPartList.Count > 50 Then
+                    Me.lblError.Text = "There are " & TempPartList.Count & " parts in the result,for non-authorized user, only display the first 50 records!"
+                    Me.lblError.Visible = True
+                Else
+                    Me.lblError.Visible = False
+                End If
             End If
+
             Me.UpdateDetail(Nothing, True)
 
             If TempPartList.Count > 0 AndAlso Me.Height = SmallSizeHeight Then
@@ -1165,10 +1203,9 @@ Public Class frmMain
     End Sub
 
 
-    Private Sub btnClean_Click(sender As Object, e As EventArgs) Handles btnClean.Click
-        If Me.FIRSTTIME Then Exit Sub
+    Private Sub CleanAll(ByVal resize As Boolean)
         Try
-            Me.SetSmallSize()
+            If resize Then Me.SetSmallSize()
             Me.lstPart.Items.Clear()
             Me.ECSSSearch = New ECSSSearchCriteria
             Me.UnselectAllFilters()
@@ -1189,6 +1226,11 @@ Public Class frmMain
         Catch ex As Exception
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
+    End Sub
+
+    Private Sub btnClean_Click(sender As Object, e As EventArgs) Handles btnClean.Click
+        If Me.FIRSTTIME Then Exit Sub
+        Me.CleanAll(True)
     End Sub
 
     Protected Overrides Function ProcessKeyPreview(ByRef m As System.Windows.Forms.Message) As Boolean
@@ -2426,7 +2468,6 @@ Public Class frmMain
             MessageBox.Show(System.Reflection.MethodInfo.GetCurrentMethod.Name & vbCrLf & ex.ToString)
         End Try
     End Sub
-
 
 
 

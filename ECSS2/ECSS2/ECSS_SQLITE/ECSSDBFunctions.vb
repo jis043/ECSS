@@ -183,6 +183,17 @@
         End Try
     End Function
 
+    Public Shared Function UpdateAuthorization() As Boolean
+        Try
+            If UserDB Is Nothing Then Return False
+            Dim SQL As String = "UPDATE USERSETTINGS SET Authorization = '" & GlobalSettings.RegistrationKey.Trim & "' ;"
+            Return UserDB.DBModify(SQL)
+        Catch ex As Exception
+            MessageBox.Show(ex.ToString, "insert bom", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
     Public Shared Function UpdateUserConfig() As Boolean
         Try
             If UserDB Is Nothing Then Return False

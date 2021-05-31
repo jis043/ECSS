@@ -101,9 +101,11 @@ Public Class frmAddBOM
             ECSSDBFunctions.InsertOneBOM(Me.CurrentBOM, True)
         ElseIf Me.radExisting.Checked Then
             If Me.cboBOM.SelectedIndex < Me.BOMdic.Count Then
-                Me.CurrentBOM = Me.BOMdic.ElementAt(Me.cboBOM.SelectedIndex).Value
-                Me.CurrentBOM.BOMTitle = Me.cboBOM.SelectedItem.ToString
-                Me.CurrentBOM.BOMID = Me.BOMdic.ElementAt(Me.cboBOM.SelectedIndex).Key
+                Dim tList = Me.BOMdic.Where(Function(b) b.Value.BOMTitle = Me.cboBOM.SelectedItem.ToString).Select(Function(b) b.Value)
+                If tList.Count > 0 Then Me.CurrentBOM = tList(0)
+                'Me.CurrentBOM =
+                'Me.CurrentBOM.BOMTitle = Me.cboBOM.SelectedItem.ToString
+                'Me.CurrentBOM.BOMID = Me.BOMdic.ElementAt(Me.cboBOM.SelectedIndex).Key
             Else
                 MessageBox.Show("BOM index error, please check.")
             End If

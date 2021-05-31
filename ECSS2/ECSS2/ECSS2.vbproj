@@ -146,6 +146,7 @@
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -167,6 +168,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECSSModels\Authorization.vb" />
     <Compile Include="ECSSModels\DoubleTrackBarWithLabels.Designer.vb">
       <DependentUpon>DoubleTrackBarWithLabels.vb</DependentUpon>
     </Compile>
@@ -192,6 +194,12 @@
       <DependentUpon>frmGeneralSettings.vb</DependentUpon>
     </Compile>
     <Compile Include="frmGeneralSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKeygen.Designer.vb">
+      <DependentUpon>frmKeygen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmKeygen.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.vb">
@@ -227,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmGeneralSettings.resx">
       <DependentUpon>frmGeneralSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmKeygen.resx">
+      <DependentUpon>frmKeygen.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>

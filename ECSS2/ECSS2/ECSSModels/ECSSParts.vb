@@ -214,7 +214,7 @@
                 Case PART_TYPE.POWER_SUPPLY
                     HL = "Output Voltage: " & Me.aPowerSupply.Output_Power & "; Output Current: " & Me.aPowerSupply.Output_Current & "; Norminal Voltage:" &
                         Me.aPowerSupply.Normal_Vol_Max_AC & " - " & Me.aPowerSupply.Normal_Vol_Min_AC & "; Input Phase:" & Me.aPowerSupply.Input_Phase &
-                        "; Operation Temp:" & Me.aPowerSupply.Opera_temp_max & " - " & Me.aPowerSupply.Opera_temp_min & ";Area: " & Me.aPowerSupply.Area_Class
+                        "; Operation Temp:" & Me.aPowerSupply.Opera_temp_max & " - " & Me.aPowerSupply.Opera_temp_min & " (°C) ;Area: " & Me.aPowerSupply.Area_Class
                 Case PART_TYPE.ENCLOSURE
                     HL = "NEMA:" & Miscelllaneous.ListToString(Me.aEnclosure.NEMA_Type) & "; Heiht: " & Me.Height & "; Width: " & Me.Width &
                         ";Depth: " & Me.Depth & ";Mounting Plate Part No: " & Miscelllaneous.ListToString(Me.aEnclosure.MountID)
@@ -225,7 +225,7 @@
                 Case PART_TYPE.TEMP_SWITCH
                     HL = "Rated Voltage Max:" & Me.aTempSwitch.Rated_Vol_Max & ";Rated Current: " & Me.aTempSwitch.Rated_Current &
                         "; Function: " & Me.aTempSwitch.SwitchFunction & "; Switch On Temperature: " & Me.aTempSwitch.Switch_Temp_ON &
-                        "; Switch Off Temperature: " & Me.aTempSwitch.Switch_Temp_OFF & ";Area: " & Me.aTempSwitch.Area_Class &
+                        " (°C) ; Switch Off Temperature: " & Me.aTempSwitch.Switch_Temp_OFF & " (°C) ;Area: " & Me.aTempSwitch.Area_Class &
                         ";Class: " & Me.aTempSwitch.Part_Class
                 Case PART_TYPE.THEROMOSTAT
                     HL = "Rated Voltage Max: " & Me.aTheromostat.Rated_Vol_Max & ";Rated Current: " & Me.aTheromostat.Rated_Current &
@@ -240,12 +240,12 @@
                         ";Lamp Test Options: " & Me.aPilotLight.Lamp_Test & ";Illumination Options: " & Me.aPilotLight.Illumination &
                         ";Voltage Type: " & Me.aPilotLight.Voltage_Type & ";Voltage: " & Me.aPilotLight.Voltage & ";Lens Color: " & Me.aPilotLight.Lens_Color &
                         ";Contact Blocks Type: " & Me.aPilotLight.Contact_Blocks_Type & ";Contacts: " & Me.aPilotLight.Contacts &
-                        ";OPERATION TEMP. MIN: " & Me.aPilotLight.Opera_temp_min & ";OPERATION TEMP. MAX: " & Me.aPilotLight.Opera_temp_max
+                        ";OPERATION TEMP. MIN: " & Me.aPilotLight.Opera_temp_min & " (°C) ;OPERATION TEMP. MAX: " & Me.aPilotLight.Opera_temp_max & " (°C)"
                 Case PART_TYPE.PUSH_BUTTON, PART_TYPE.SELECTOR_SWITCH, PART_TYPE.ESTOP
                     HL = "NEMA: " & Miscelllaneous.ListToString(Me.aNonIlluminate.NEMA_TYPE) & ";Type: " & Me.aNonIlluminate.OperatorType & ";Special Mushroom Head: " & Me.aNonIlluminate.MushroomHead &
                         "; Functions: " & Me.aNonIlluminate.Functions & "; Color: " & Me.aNonIlluminate.Color & "; Contact Blocks Type: " & Me.aNonIlluminate.Contact_Blocks_Type &
-                        "; Contacts: " & Me.aNonIlluminate.Contacts & "; Operation Temp Min: " & Me.aNonIlluminate.Opera_temp_min & "; Operation Temp Max: " & Me.aNonIlluminate.Opera_temp_max &
-                        ";Class: " & Me.aNonIlluminate.Class
+                        "; Contacts: " & Me.aNonIlluminate.Contacts & "; Operation Temp Min: " & Me.aNonIlluminate.Opera_temp_min & " (°C) ; Operation Temp Max: " & Me.aNonIlluminate.Opera_temp_max &
+                        " (°C) ;Class: " & Me.aNonIlluminate.Class
                 Case PART_TYPE.HEATER
                     HL = "Power: " & Me.aHeater.Power & " (W);Rated Voltage Min: " & Me.aHeater.Rated_Vol_MIN &
                         " (V);Rated Voltage Max: " & Me.aHeater.Rated_Vol_Max & " (V);Built-in Thermostat: " & Me.aHeater.BuiltIn_Thermostat &
@@ -336,23 +336,7 @@
         If Me.PartDic Is Nothing Then Me.PartDic = New Dictionary(Of String, OnePart)
         Try
             Me.PartDic.Clear()
-            Dim Result As DataTable = ECSSDBFunctions.SelectTransformer
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneTransformer(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
-
-            Result = ECSSDBFunctions.SelectPowerSupply
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOnePowerSupply(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
-
-            Result = ECSSDBFunctions.SelectEnclosure
+            Dim Result As DataTable = ECSSDBFunctions.SelectEnclosure
             If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
                 For Each oneRow As DataRow In Result.Rows
                     Dim apart = AddOneEnclosure(oneRow)
@@ -360,70 +344,90 @@
                 Next
             End If
 
-            Result = ECSSDBFunctions.SelectServitPost
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneServitPost(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
+
+            If Authorization.IsDevelopement Then  ' developer only
+                Result = ECSSDBFunctions.SelectServitPost
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneServitPost(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
+
+                Result = ECSSDBFunctions.SelectBreatherDrain
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneBreatherDrain(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
+
+                Result = ECSSDBFunctions.SelectWindowKit
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneWindowKit(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
             End If
 
-            Result = ECSSDBFunctions.SelectBreatherDrain
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneBreatherDrain(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
+            If Authorization.IsAuthorized Then
+                Result = ECSSDBFunctions.SelectTransformer
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneTransformer(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
 
-            Result = ECSSDBFunctions.SelectWindowKit
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneWindowKit(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
+                Result = ECSSDBFunctions.SelectPowerSupply
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOnePowerSupply(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
 
-            Result = ECSSDBFunctions.SelectTempSwitch
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneTempSwitch(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
+                Result = ECSSDBFunctions.SelectTempSwitch
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneTempSwitch(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
 
-            Result = ECSSDBFunctions.SelectTheromostat
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneTheromostat(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
+                Result = ECSSDBFunctions.SelectTheromostat
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneTheromostat(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
 
-            Result = ECSSDBFunctions.SelectPilotLight
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOnePilotLight(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
+                Result = ECSSDBFunctions.SelectPilotLight
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOnePilotLight(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
 
-            Result = ECSSDBFunctions.SelectHeater
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneHeater(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
-            End If
+                Result = ECSSDBFunctions.SelectHeater
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneHeater(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
 
-            Result = ECSSDBFunctions.SelectNonIlluminate
-            If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
-                For Each oneRow As DataRow In Result.Rows
-                    Dim apart = AddOneNonIlluminate(oneRow)
-                    If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
-                Next
+                Result = ECSSDBFunctions.SelectNonIlluminate
+                If Result IsNot Nothing OrElse Result.Rows.Count > 0 Then
+                    For Each oneRow As DataRow In Result.Rows
+                        Dim apart = AddOneNonIlluminate(oneRow)
+                        If apart IsNot Nothing AndAlso Me.PartDic.ContainsKey(apart.PartID) = False Then Me.PartDic.Add(apart.PartID, apart)
+                    Next
+                End If
             End If
-
             Return Me.GenerateKeywords
         Catch ex As Exception
             Debug.Print(ex.ToString)
