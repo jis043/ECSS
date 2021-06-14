@@ -37,5 +37,119 @@ ECSS
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="T:ECSS.ECSSSOAP.ECSSWSDL">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.#ctor">
+<remarks/>
+</member>
+<member name="E:ECSS.ECSSSOAP.ECSSWSDL.helloCompleted">
+<remarks/>
+</member>
+<member name="E:ECSS.ECSSSOAP.ECSSWSDL.GetQuerySQL_SV5_WSDLCompleted">
+<remarks/>
+</member>
+<member name="E:ECSS.ECSSSOAP.ECSSWSDL.GetQueryColumnTitle_SV5_WSDLCompleted">
+<remarks/>
+</member>
+<member name="E:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQL_SV5_WSDLCompleted">
+<remarks/>
+</member>
+<member name="E:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQLCluster_SV5_WSDLCompleted">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.hello(System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.helloAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.helloAsync(System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.GetQuerySQL_SV5_WSDL(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.GetQuerySQL_SV5_WSDLAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.GetQuerySQL_SV5_WSDLAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.GetQueryColumnTitle_SV5_WSDL(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.GetQueryColumnTitle_SV5_WSDLAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.GetQueryColumnTitle_SV5_WSDLAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQL_SV5_WSDL(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQL_SV5_WSDLAsync(System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQL_SV5_WSDLAsync(System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQLCluster_SV5_WSDL(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQLCluster_SV5_WSDLAsync(System.String,System.String,System.String,System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQLCluster_SV5_WSDLAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.CancelAsync(System.Object)">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.helloCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.helloCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:ECSS.ECSSSOAP.helloCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.GetQuerySQL_SV5_WSDLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.GetQuerySQL_SV5_WSDLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:ECSS.ECSSSOAP.GetQuerySQL_SV5_WSDLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.GetQueryColumnTitle_SV5_WSDLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.GetQueryColumnTitle_SV5_WSDLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:ECSS.ECSSSOAP.GetQueryColumnTitle_SV5_WSDLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.ExecuateQuerySQL_SV5_WSDLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.ExecuateQuerySQL_SV5_WSDLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:ECSS.ECSSSOAP.ExecuateQuerySQL_SV5_WSDLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.ExecuateQuerySQLCluster_SV5_WSDLCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.ExecuateQuerySQLCluster_SV5_WSDLCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:ECSS.ECSSSOAP.ExecuateQuerySQLCluster_SV5_WSDLCompletedEventArgs.Result">
+<remarks/>
+</member>
 </members>
 </doc>

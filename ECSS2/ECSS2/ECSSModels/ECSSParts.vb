@@ -1091,9 +1091,9 @@
         If searchCondition.NormalVMax = 0 AndAlso searchCondition.NormalVMin = 0 Then Return True
 
         If aPart.aPowerSupply IsNot Nothing Then
-            If searchCondition.NormalVMin = 0 AndAlso aPart.aPowerSupply.Normal_Vol_Max_AC <= searchCondition.NormalVMax Then Return True
-            If searchCondition.NormalVMax = 0 AndAlso aPart.aPowerSupply.Normal_Vol_Min_AC >= searchCondition.NormalVMin Then Return True
-            If aPart.aPowerSupply.Normal_Vol_Min_AC >= searchCondition.NormalVMin AndAlso aPart.aPowerSupply.Normal_Vol_Max_AC <= searchCondition.NormalVMax Then Return True
+            If searchCondition.NormalVMin = 0 AndAlso aPart.aPowerSupply.Normal_Vol_Max_AC >= searchCondition.NormalVMax Then Return True
+            If searchCondition.NormalVMax = 0 AndAlso aPart.aPowerSupply.Normal_Vol_Min_AC <= searchCondition.NormalVMin Then Return True
+            If aPart.aPowerSupply.Normal_Vol_Min_AC <= searchCondition.NormalVMin AndAlso aPart.aPowerSupply.Normal_Vol_Max_AC >= searchCondition.NormalVMax Then Return True
         End If
 
         Return filterMatches
@@ -1294,27 +1294,27 @@
         If searchCondition.OperaTempMin = 0 AndAlso searchCondition.OperaTempMax = 0 Then Return True
 
         If aPart.aPilotLight IsNot Nothing Then
-            If searchCondition.OperaTempMin = 0 AndAlso aPart.aPilotLight.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
-            If searchCondition.OperaTempMax = 0 AndAlso aPart.aPilotLight.Opera_temp_min >= searchCondition.OperaTempMin Then Return True
-            If aPart.aPilotLight.Opera_temp_min >= searchCondition.OperaTempMin AndAlso aPart.aPilotLight.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aPilotLight.Opera_temp_max >= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aPilotLight.Opera_temp_min <= searchCondition.OperaTempMin Then Return True
+            If aPart.aPilotLight.Opera_temp_min <= searchCondition.OperaTempMin AndAlso aPart.aPilotLight.Opera_temp_max >= searchCondition.OperaTempMax Then Return True
         End If
 
         If aPart.aNonIlluminate IsNot Nothing Then
-            If searchCondition.OperaTempMin = 0 AndAlso aPart.aNonIlluminate.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
-            If searchCondition.OperaTempMax = 0 AndAlso aPart.aNonIlluminate.Opera_temp_min >= searchCondition.OperaTempMin Then Return True
-            If aPart.aNonIlluminate.Opera_temp_min >= searchCondition.OperaTempMin AndAlso aPart.aNonIlluminate.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aNonIlluminate.Opera_temp_max >= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aNonIlluminate.Opera_temp_min <= searchCondition.OperaTempMin Then Return True
+            If aPart.aNonIlluminate.Opera_temp_min <= searchCondition.OperaTempMin AndAlso aPart.aNonIlluminate.Opera_temp_max >= searchCondition.OperaTempMax Then Return True
         End If
 
         If aPart.aTempSwitch IsNot Nothing Then
-            If searchCondition.OperaTempMin = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Max <= searchCondition.OperaTempMax Then Return True
-            If searchCondition.OperaTempMax = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Min >= searchCondition.OperaTempMin Then Return True
-            If aPart.aTempSwitch.Opera_Temp_Min >= searchCondition.OperaTempMin AndAlso aPart.aTempSwitch.Opera_Temp_Max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Max >= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aTempSwitch.Opera_Temp_Min <= searchCondition.OperaTempMin Then Return True
+            If aPart.aTempSwitch.Opera_Temp_Min <= searchCondition.OperaTempMin AndAlso aPart.aTempSwitch.Opera_Temp_Max >= searchCondition.OperaTempMax Then Return True
         End If
 
         If aPart.aPowerSupply IsNot Nothing Then
-            If searchCondition.OperaTempMin = 0 AndAlso aPart.aPowerSupply.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
-            If searchCondition.OperaTempMax = 0 AndAlso aPart.aPowerSupply.Opera_temp_min >= searchCondition.OperaTempMin Then Return True
-            If aPart.aPowerSupply.Opera_temp_min >= searchCondition.OperaTempMin AndAlso aPart.aPowerSupply.Opera_temp_max <= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMin = 0 AndAlso aPart.aPowerSupply.Opera_temp_max >= searchCondition.OperaTempMax Then Return True
+            If searchCondition.OperaTempMax = 0 AndAlso aPart.aPowerSupply.Opera_temp_min <= searchCondition.OperaTempMin Then Return True
+            If aPart.aPowerSupply.Opera_temp_min <= searchCondition.OperaTempMin AndAlso aPart.aPowerSupply.Opera_temp_max >= searchCondition.OperaTempMax Then Return True
         End If
 
         Return filterMatches
@@ -1587,7 +1587,17 @@ Public Class ECSSSearchCriteria
         If [Types].Count > 0 Then str = str & " Types: " & Miscelllaneous.ListToString([Types]) & "; " Else str = str & ""
         If BlockType.Count > 0 Then str = str & " Block Type: " & Miscelllaneous.ListToString(BlockType) & "; " Else str = str & ""
         If Contacts.Count > 0 Then str = str & " Contacts: " & Miscelllaneous.ListToString(Contacts) & "; " Else str = str & ""
-        If OperaTempMin > 0 OrElse OperaTempMax > 0 Then str = str & " Operation Temprture: " & OperaTempMin & " - " & OperaTempMax & "; " Else str = str & ""
+
+        If OperaTempMin = 0 AndAlso Math.Abs(OperaTempMax) > 0 Then
+            str = str & " Operation Temprture: > " & OperaTempMax & "; "
+        ElseIf Math.Abs(OperaTempMin) > 0 AndAlso OperaTempMax = 0 Then
+            str = str & " Operation Temprture: < " & OperaTempMin & "; "
+        ElseIf Math.Abs(OperaTempMin) > 0 AndAlso Math.Abs(OperaTempMax) > 0 Then
+            str = str & " Operation Temprture: " & OperaTempMin & " - " & OperaTempMax & "; "
+        Else
+            str = str & ""
+        End If
+
         If Power.Count > 0 Then str = str & " Power: " & Miscelllaneous.ListToString(Power) & "; " Else str = str & ""
         If BuiltInThem.Count > 0 Then str = str & " Built-In Themometer: " & Miscelllaneous.ListToString(BuiltInThem) & "; " Else str = str & ""
         If BuiltInFan.Count > 0 Then str = str & " Built-In Fan: " & Miscelllaneous.ListToString(BuiltInFan) & "; " Else str = str & ""

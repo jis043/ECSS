@@ -288,13 +288,21 @@ Public Class SQLiteDBFunctions
     Public Shared Sub DecryptSQLiteFile(ByVal DBFile As String)
         Dim SQLconnect As SQLiteConnection = Nothing
         If System.IO.File.Exists(DBFile) Then
-            SQLconnect = New SQLite.SQLiteConnection()
-            SQLconnect.ConnectionString = "Data Source=" & DBFile & ";"
-            SQLconnect.SetPassword(GlobalSettings.CODEBOOK)
-            SQLconnect.Open()
-            SQLconnect.ChangePassword("")
-            SQLconnect.Close()
-            'SVS.GlobalSettings.IsSQLiteDatabaseFileEncrypted = False
+            Try
+                SQLconnect = New SQLite.SQLiteConnection()
+                SQLconnect.ConnectionString = "Data Source=" & DBFile & ";"
+                SQLconnect.SetPassword(GlobalSettings.CODEBOOK)
+                SQLconnect.Open()
+                SQLconnect.ChangePassword("")
+                SQLconnect.Close()
+            Catch ex As Exception
+                If TypeOf ex Is System.Data.SQLite.SQLiteException AndAlso DirectCast(ex, System.Data.SQLite.SQLiteException).ErrorCode = 26 Then
+                    Debug.Print("Not Error!")
+                Else
+                    Debug.Print("DB Error")
+                End If
+            End Try
+
         End If
     End Sub
 

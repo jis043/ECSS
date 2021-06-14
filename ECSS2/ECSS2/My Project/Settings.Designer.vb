@@ -53,6 +53,16 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://testdomain/ECSSWSDL/server_wsdl.php")>  _
+        Public ReadOnly Property ECSS_ECSSSOAP_ECSSWSDL() As String
+            Get
+                Return CType(Me("ECSS_ECSSSOAP_ECSSWSDL"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

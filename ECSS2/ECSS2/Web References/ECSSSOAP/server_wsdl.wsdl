@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:ECSSWSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:ECSSWSDL" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:ECSSWSDL">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="helloRequest">
+    <wsdl:part name="name" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="helloResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="GetQuerySQL_SV5_WSDLRequest">
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="pwd" type="xsd:string" />
+    <wsdl:part name="sql" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="GetQuerySQL_SV5_WSDLResponse">
+    <wsdl:part name="return" type="SOAP-ENC:Array" />
+  </wsdl:message>
+  <wsdl:message name="GetQueryColumnTitle_SV5_WSDLRequest">
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="pwd" type="xsd:string" />
+    <wsdl:part name="sql" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="GetQueryColumnTitle_SV5_WSDLResponse">
+    <wsdl:part name="return" type="SOAP-ENC:Array" />
+  </wsdl:message>
+  <wsdl:message name="ExecuateQuerySQL_SV5_WSDLRequest">
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="pwd" type="xsd:string" />
+    <wsdl:part name="sql" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecuateQuerySQL_SV5_WSDLResponse">
+    <wsdl:part name="return" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ExecuateQuerySQLCluster_SV5_WSDLRequest">
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="pwd" type="xsd:string" />
+    <wsdl:part name="sql" type="xsd:string" />
+    <wsdl:part name="delimiter" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="ExecuateQuerySQLCluster_SV5_WSDLResponse">
+    <wsdl:part name="return" type="SOAP-ENC:Array" />
+  </wsdl:message>
+  <wsdl:portType name="ECSSWSDLPortType">
+    <wsdl:operation name="hello">
+      <documentation>Say hello to the caller</documentation>
+      <wsdl:input message="tns:helloRequest" />
+      <wsdl:output message="tns:helloResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQuerySQL_SV5_WSDL">
+      <wsdl:input message="tns:GetQuerySQL_SV5_WSDLRequest" />
+      <wsdl:output message="tns:GetQuerySQL_SV5_WSDLResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryColumnTitle_SV5_WSDL">
+      <wsdl:input message="tns:GetQueryColumnTitle_SV5_WSDLRequest" />
+      <wsdl:output message="tns:GetQueryColumnTitle_SV5_WSDLResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuateQuerySQL_SV5_WSDL">
+      <wsdl:input message="tns:ExecuateQuerySQL_SV5_WSDLRequest" />
+      <wsdl:output message="tns:ExecuateQuerySQL_SV5_WSDLResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ExecuateQuerySQLCluster_SV5_WSDL">
+      <wsdl:input message="tns:ExecuateQuerySQLCluster_SV5_WSDLRequest" />
+      <wsdl:output message="tns:ExecuateQuerySQLCluster_SV5_WSDLResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ECSSWSDLBinding" type="tns:ECSSWSDLPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="hello">
+      <soap:operation soapAction="urn:ECSSWSDL#hello" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:ECSSWSDL" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:ECSSWSDL" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQuerySQL_SV5_WSDL">
+      <soap:operation soapAction="http://testdomain/ECSSWSDL/server_wsdl.php/GetQuerySQL_SV5_WSDL" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueryColumnTitle_SV5_WSDL">
+      <soap:operation soapAction="http://testdomain/ECSSWSDL/server_wsdl.php/GetQueryColumnTitle_SV5_WSDL" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuateQuerySQL_SV5_WSDL">
+      <soap:operation soapAction="http://testdomain/ECSSWSDL/server_wsdl.php/ExecuateQuerySQL_SV5_WSDL" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExecuateQuerySQLCluster_SV5_WSDL">
+      <soap:operation soapAction="http://testdomain/ECSSWSDL/server_wsdl.php/ExecuateQuerySQLCluster_SV5_WSDL" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ECSSWSDL">
+    <wsdl:port name="ECSSWSDLPort" binding="tns:ECSSWSDLBinding">
+      <soap:address location="http://testdomain/ECSSWSDL/server_wsdl.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

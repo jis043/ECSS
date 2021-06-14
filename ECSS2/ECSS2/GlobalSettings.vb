@@ -11,7 +11,7 @@
     Public Const ECSS_TITLE As String = "Engineering Components Search Systems"
     Public Const MAIN_VER As Integer = 0
     Public Const SUB_VER As Integer = 7
-    Public Const MIN_VER As Integer = 1
+    Public Const MIN_VER As Integer = 3
     Public Const CODEBOOK As String = "AlexLongYan"
 
     Public Shared SystemUnit As UNITTYPE = UNITTYPE.METRIC

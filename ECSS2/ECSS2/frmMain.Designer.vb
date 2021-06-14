@@ -174,12 +174,10 @@ Partial Class frmMain
         Me.lblError = New System.Windows.Forms.Label()
         Me.lstPart = New System.Windows.Forms.ListView()
         Me.colPartID = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColManufacturer = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColCerti1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColMaterial = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColHighlight = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColDescription = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColType = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.palDetail = New System.Windows.Forms.Panel()
         Me.dgvDetail = New System.Windows.Forms.DataGridView()
         Me.Column1 = New SpannedDataGridViewNet2.DataGridViewTextBoxColumnEx()
@@ -1825,7 +1823,7 @@ Partial Class frmMain
         'lstPart
         '
         Me.lstPart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lstPart.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colPartID, Me.ColManufacturer, Me.ColCerti1, Me.ColMaterial, Me.ColHighlight, Me.ColDescription, Me.ColType})
+        Me.lstPart.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colPartID, Me.ColType, Me.ColManufacturer, Me.ColCerti1, Me.ColDescription})
         Me.lstPart.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstPart.FullRowSelect = True
         Me.lstPart.GridLines = True
@@ -1845,6 +1843,12 @@ Partial Class frmMain
         Me.colPartID.Text = "Part ID"
         Me.colPartID.Width = 100
         '
+        'ColType
+        '
+        Me.ColType.Name = "ColType"
+        Me.ColType.Text = "Type"
+        Me.ColType.Width = 75
+        '
         'ColManufacturer
         '
         Me.ColManufacturer.Name = "ColManufacturer"
@@ -1858,29 +1862,11 @@ Partial Class frmMain
         Me.ColCerti1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.ColCerti1.Width = 130
         '
-        'ColMaterial
-        '
-        Me.ColMaterial.Name = "ColMaterial"
-        Me.ColMaterial.Text = "Material"
-        Me.ColMaterial.Width = 70
-        '
-        'ColHighlight
-        '
-        Me.ColHighlight.Name = "ColHighlight"
-        Me.ColHighlight.Text = "Highlights"
-        Me.ColHighlight.Width = 250
-        '
         'ColDescription
         '
         Me.ColDescription.Name = "ColDescription"
         Me.ColDescription.Text = "Description"
-        Me.ColDescription.Width = 170
-        '
-        'ColType
-        '
-        Me.ColType.Name = "ColType"
-        Me.ColType.Text = "Type"
-        Me.ColType.Width = 0
+        Me.ColDescription.Width = 350
         '
         'palDetail
         '
@@ -2337,8 +2323,6 @@ Partial Class frmMain
     Friend WithEvents colPartID As ColumnHeader
     Friend WithEvents ColManufacturer As ColumnHeader
     Friend WithEvents ColCerti As ColumnHeader
-    Friend WithEvents ColMaterial As ColumnHeader
-    Friend WithEvents ColHighlight As ColumnHeader
     Friend WithEvents ColDescription As ColumnHeader
     Friend WithEvents ColType As ColumnHeader
     Friend WithEvents clbPartType As CheckedListBox

@@ -16,6 +16,8 @@ Public Class frmMain
     Private Const ColHighlightWidthDefault As Integer = 250
     Private Const SmallSizeHeight As Integer = 75
 
+    Private WSDL As New ECSSSOAP.ECSSWSDL
+
     Public Sub New()
 
         ' This call is required by the designer.
@@ -36,6 +38,7 @@ Public Class frmMain
         Try
             ECSSDBFunctions.UserDB = New SQLiteDBFunctions(GlobalSettings.ECSSUSER_DB, False)
             GlobalSettings.LoadUserConfig()
+            GlobalSettings.MachineID = Authorization.GenMachineID
 
             If Authorization.IsDevelopement Then
                 SQLiteDBFunctions.DecryptSQLiteFile(GlobalSettings.ECSS_DB)
@@ -50,7 +53,7 @@ Public Class frmMain
             Me.UpdateDetail(Nothing, True)
             Me.UpdateMainFilters(Nothing)
             Me.SetSmallSize()
-            GlobalSettings.MachineID = Authorization.GenMachineID
+
         Catch ex As Exception
             MessageBox.Show("Error: Loading main dialouge." & vbCrLf & ex.ToString)
         End Try
@@ -83,10 +86,7 @@ Public Class frmMain
         ElseIf WindowState = FormWindowState.Minimized Then
 
         ElseIf Me.Height = SmallSizeHeight Then
-            If Me.ECSSSearch.IsEmpty = False Then
-                Me.CleanAll(False)
-            End If
-            Me.btnBOM.Visible = False
+            Me.btnBOM.Visible = (Not Me.ECSSSearch.IsEmpty)
         Else
             Me.FullSizeHeight = Math.Max(Me.Height, SmallSizeHeight)
         End If
@@ -148,48 +148,25 @@ Public Class frmMain
                 End If
                 aPart = TempPartList.Item(i)
                 Dim anItem As ListViewItem = New ListViewItem(aPart.PartID)   'ID  'Name
+                anItem.SubItems.Add(ECSSParts.GetTypeName(aPart.PartType))
                 anItem.SubItems.Add(aPart.Manufacturer)
                 anItem.SubItems.Add(Miscelllaneous.ListToString(aPart.Certificates))
-                Select Case aPart.PartType
-                    Case ECSSParts.PART_TYPE.TRANSFORMER
-                        anItem.SubItems.Add("")
-                    Case ECSSParts.PART_TYPE.POWER_SUPPLY
-                        anItem.SubItems.Add("")
-                    Case ECSSParts.PART_TYPE.ENCLOSURE
-                        anItem.SubItems.Add(aPart.aEnclosure.Material)
-                    Case ECSSParts.PART_TYPE.SERVIT_POST
-                        anItem.SubItems.Add(aPart.aServitPost.Material)
-                    Case ECSSParts.PART_TYPE.BREATHER_DRAIN
-                        anItem.SubItems.Add(aPart.aBreatherDrain.Material)
-                    Case ECSSParts.PART_TYPE.WINDOW_KIT
-                        anItem.SubItems.Add(aPart.aWindowKit.Material)
-                    Case ECSSParts.PART_TYPE.TEMP_SWITCH, ECSSParts.PART_TYPE.THEROMOSTAT
-                        anItem.SubItems.Add("")
-                    Case Else
-                        anItem.SubItems.Add("")
-                End Select
-                anItem.SubItems.Add(aPart.HighLight)
                 anItem.SubItems.Add(aPart.Description)
-                anItem.SubItems.Add(ECSSParts.GetTypeName(aPart.PartType))
                 anItem.Tag = aPart.PartID
                 Me.lstPart.Items.Add(anItem)
             Next
 
             If TempPartList.Count > 0 Then
                 groupTables = New Hashtable(2) {}
-                groupTables(0) = CreateGroupsTable(1) 'Manufacture
-                groupTables(1) = CreateGroupsTable(6) 'Part Type
+                groupTables(0) = CreateGroupsTable(2) 'Manufacture
+                groupTables(1) = CreateGroupsTable(1) 'Part Type
 
                 Dim PTlist = Me.GetPartTypeList(TempPartList)
                 If PTlist IsNot Nothing Then
                     If PTlist.Count = 1 Then
-                        Me.ColManufacturer.Width = 0
-                        Me.ColHighlight.Width = ColHighlightWidthDefault + ColManufacturerWidthDefault
-                        SetGroups(0, 1)
+                        SetGroups(0, 2)
                     Else
-                        Me.ColManufacturer.Width = ColManufacturerWidthDefault
-                        Me.ColHighlight.Width = ColHighlightWidthDefault
-                        SetGroups(1, 6)
+                        SetGroups(1, 1)
                     End If
                 End If
 
@@ -301,8 +278,8 @@ Public Class frmMain
 
                     Case ECSSParts.PART_TYPE.ENCLOSURE
                         Me.dgvDetail.Rows.Add("Color", aPart.aEnclosure.Color, "NEMA Type", Miscelllaneous.ListToString(aPart.aEnclosure.NEMA_Type), "Window", aPart.aEnclosure.Window)
-                        Me.dgvDetail.Rows.Add("Mount Type", aPart.aEnclosure.MountType, "Mount ID", Miscelllaneous.ListToString(aPart.aEnclosure.MountID), "Mount Height", aPart.aEnclosure.MountHeight & " (mm)")
-                        Me.dgvDetail.Rows.Add("Mount Width", aPart.aEnclosure.MountWidth & " (mm)", "PDF", aPart.PDF, "", "")
+                        Me.dgvDetail.Rows.Add("Mount Type", aPart.aEnclosure.MountType, "Mount Plate ID", Miscelllaneous.ListToString(aPart.aEnclosure.MountID), "Mount Plate Height", aPart.aEnclosure.MountHeight & " (mm)")
+                        Me.dgvDetail.Rows.Add("Mount Plate Width", aPart.aEnclosure.MountWidth & " (mm)", "PDF", aPart.PDF, "", "")
                         Dim cell As SpannedDataGridViewNet2.DataGridViewTextBoxCellEx = Me.dgvDetail.Rows(4).Cells(3)
                         cell.ColumnSpan = 3
 
@@ -681,6 +658,9 @@ Public Class frmMain
         Me.splPart.Visible = False
         Me.palSearch.Visible = False
         Me.palBOM.Visible = True
+        If Me.Height = SmallSizeHeight Then
+            Me.SetFullSize()
+        End If
     End Sub
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
@@ -835,8 +815,8 @@ Public Class frmMain
                     For i As Integer = 0 To BOMs.BOMList.Count - 1
                         Dim aPart = BOMs.BOMList(i)
                         DirectCast(activeSheet.Cells(row + i, 1), Microsoft.Office.Interop.Excel.Range).Value = i + 1
-                        DirectCast(activeSheet.Cells(row + i, 2), Microsoft.Office.Interop.Excel.Range).Value = aPart.PartID
-                        DirectCast(activeSheet.Cells(row + i, 3), Microsoft.Office.Interop.Excel.Range).Value = aPart.QTY
+                        DirectCast(activeSheet.Cells(row + i, 2), Microsoft.Office.Interop.Excel.Range).Value = aPart.QTY
+                        DirectCast(activeSheet.Cells(row + i, 3), Microsoft.Office.Interop.Excel.Range).Value = aPart.PartID
                         DirectCast(activeSheet.Cells(row + i, 4), Microsoft.Office.Interop.Excel.Range).Value = aPart.Manufacturer
                         DirectCast(activeSheet.Cells(row + i, 5), Microsoft.Office.Interop.Excel.Range).Value = aPart.Description
                         DirectCast(activeSheet.Cells(row + i, 6), Microsoft.Office.Interop.Excel.Range).Value = aPart.Note
@@ -2452,14 +2432,30 @@ Public Class frmMain
                     End If
                 Case dtbOperaTemp.Name
                     If Me.ECSSSearch.OperaTempMin <> dtb.SelectedMin OrElse Me.ECSSSearch.OperaTempMax <> dtb.SelectedMax Then
-                        Me.ECSSSearch.OperaTempMin = dtb.SelectedMin
-                        Me.ECSSSearch.OperaTempMax = dtb.SelectedMax
+                        If dtb.SelectedMin = dtb.Min Then
+                            Me.ECSSSearch.OperaTempMin = 0
+                        Else
+                            Me.ECSSSearch.OperaTempMin = dtb.SelectedMin
+                        End If
+                        If dtb.SelectedMax = dtb.Max Then
+                            Me.ECSSSearch.OperaTempMax = 0
+                        Else
+                            Me.ECSSSearch.OperaTempMax = dtb.SelectedMax
+                        End If
                         Me.LoadlstPart()
                     End If
                 Case dtbNormalV.Name
                     If Me.ECSSSearch.NormalVMin <> dtb.SelectedMin OrElse Me.ECSSSearch.NormalVMax <> dtb.SelectedMax Then
-                        Me.ECSSSearch.NormalVMin = dtb.SelectedMin
-                        Me.ECSSSearch.NormalVMax = dtb.SelectedMax
+                        If dtb.SelectedMin = dtb.Min Then
+                            Me.ECSSSearch.NormalVMin = 0
+                        Else
+                            Me.ECSSSearch.NormalVMin = dtb.SelectedMin
+                        End If
+                        If dtb.SelectedMax = dtb.Max Then
+                            Me.ECSSSearch.NormalVMax = 0
+                        Else
+                            Me.ECSSSearch.NormalVMax = dtb.SelectedMax
+                        End If
                         Me.LoadlstPart()
                     End If
             End Select
