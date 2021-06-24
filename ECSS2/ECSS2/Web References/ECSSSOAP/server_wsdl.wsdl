@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:ECSSWSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:ECSSWSDL" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
-    <xsd:schema targetNamespace="urn:ECSSWSDL">
+    <xsd:schema targetNamespace="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php">
       <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
       <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
     </xsd:schema>
@@ -45,6 +45,12 @@
   <wsdl:message name="ExecuateQuerySQLCluster_SV5_WSDLResponse">
     <wsdl:part name="return" type="SOAP-ENC:Array" />
   </wsdl:message>
+  <wsdl:message name="UpdateUserUsage_wsdlRequest">
+    <wsdl:part name="strUsage" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserUsage_wsdlResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
   <wsdl:portType name="ECSSWSDLPortType">
     <wsdl:operation name="hello">
       <documentation>Say hello to the caller</documentation>
@@ -66,6 +72,10 @@
     <wsdl:operation name="ExecuateQuerySQLCluster_SV5_WSDL">
       <wsdl:input message="tns:ExecuateQuerySQLCluster_SV5_WSDLRequest" />
       <wsdl:output message="tns:ExecuateQuerySQLCluster_SV5_WSDLResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserUsage_wsdl">
+      <wsdl:input message="tns:UpdateUserUsage_wsdlRequest" />
+      <wsdl:output message="tns:UpdateUserUsage_wsdlResponse" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ECSSWSDLBinding" type="tns:ECSSWSDLPortType">
@@ -115,10 +125,19 @@
         <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateUserUsage_wsdl">
+      <soap:operation soapAction="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php/UpdateUserUsage_wsdl" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ECSSWSDL">
     <wsdl:port name="ECSSWSDLPort" binding="tns:ECSSWSDLBinding">
-      <soap:address location="http://testdomain/ECSSWSDL/server_wsdl.php" />
+      <soap:address location="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

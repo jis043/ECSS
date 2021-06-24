@@ -57,7 +57,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://testdomain/ECSSWSDL/server_wsdl.php")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php")>  _
         Public ReadOnly Property ECSS_ECSSSOAP_ECSSWSDL() As String
             Get
                 Return CType(Me("ECSS_ECSSSOAP_ECSSWSDL"),String)

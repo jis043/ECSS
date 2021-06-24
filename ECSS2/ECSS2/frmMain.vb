@@ -11,12 +11,14 @@ Public Class frmMain
     Private groupTables() As Hashtable
     Private NeedSave As Boolean = False
     Private FullSizeHeight As Integer = 720
+    Private KeywordCache As New Dictionary(Of String, Integer)
+
 
     Private Const ColManufacturerWidthDefault As Integer = 100
     Private Const ColHighlightWidthDefault As Integer = 250
     Private Const SmallSizeHeight As Integer = 75
 
-    Private WSDL As New ECSSSOAP.ECSSWSDL
+    'Private WSDL As New ECSSSOAP.ECSSWSDL
 
     Public Sub New()
 
@@ -36,7 +38,14 @@ Public Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-            ECSSDBFunctions.UserDB = New SQLiteDBFunctions(GlobalSettings.ECSSUSER_DB, False)
+            If System.IO.Directory.Exists(GlobalSettings.ECSSUSER_DBPath) = False Then
+                System.IO.Directory.CreateDirectory(GlobalSettings.ECSSUSER_DBPath)
+            End If
+            If System.IO.File.Exists(GlobalSettings.ECSSUSER_DBPath & "\" & GlobalSettings.ECSSUSER_DB) = False Then
+                System.IO.File.Copy(GlobalSettings.ECSSUSER_DB, GlobalSettings.ECSSUSER_DBPath & "\" & GlobalSettings.ECSSUSER_DB, True)
+            End If
+
+            ECSSDBFunctions.UserDB = New SQLiteDBFunctions(GlobalSettings.ECSSUSER_DBPath & "\" & GlobalSettings.ECSSUSER_DB, False)
             GlobalSettings.LoadUserConfig()
             GlobalSettings.MachineID = Authorization.GenMachineID
 
@@ -54,6 +63,8 @@ Public Class frmMain
             Me.UpdateMainFilters(Nothing)
             Me.SetSmallSize()
 
+            Me.UpdateUsage(True)
+            'Dim str As String = Me.WSDL.UpdateUserUsage_wsdl(GlobalSettings.MachineID & "|" & "START" & "|" & "EMPTY")
         Catch ex As Exception
             MessageBox.Show("Error: Loading main dialouge." & vbCrLf & ex.ToString)
         End Try
@@ -213,7 +224,7 @@ Public Class frmMain
                     Me.lblError.Visible = False
                 End If
             End If
-
+            Me.UpdateUsageCache()
             Me.UpdateDetail(Nothing, True)
 
             If TempPartList.Count > 0 AndAlso Me.Height = SmallSizeHeight Then
@@ -234,6 +245,30 @@ Public Class frmMain
             If tlst.Contains(p.PartType) = False Then tlst.Add(p.PartType)
         Next
         Return tlst
+    End Function
+
+    Private Sub UpdateUsageCache()
+        Try
+            If Me.ECSSSearch IsNot Nothing AndAlso Me.ECSSSearch.keyword IsNot Nothing Then
+                For Each Str As String In Me.ECSSSearch.keyword
+                    If Me.KeywordCache.ContainsKey(Str) Then
+                        Me.KeywordCache.Item(Str) = Me.KeywordCache.Item(Str) + 1
+                    Else
+                        Me.KeywordCache.Add(Str, 1)
+                    End If
+                Next
+            End If
+        Catch ex As Exception
+            Debug.Print(ex.ToString)
+        End Try
+    End Sub
+
+    Private Function KeywordCacheToString() As String
+        Dim result As String = ""
+        For Each kvp As KeyValuePair(Of String, Integer) In Me.KeywordCache
+            result = result & kvp.Key & "," & kvp.Value & ";"
+        Next
+        Return result
     End Function
 
     Private Sub UpdateDetail(ByVal aPart As ECSSParts.OnePart, ByVal reset As Boolean)
@@ -277,10 +312,13 @@ Public Class frmMain
                         Me.dgvDetail.Rows.Add("Temp. Code", aPart.aPowerSupply.Temp_Code, "", "", "", "")
 
                     Case ECSSParts.PART_TYPE.ENCLOSURE
-                        Me.dgvDetail.Rows.Add("Color", aPart.aEnclosure.Color, "NEMA Type", Miscelllaneous.ListToString(aPart.aEnclosure.NEMA_Type), "Window", aPart.aEnclosure.Window)
+                        Me.dgvDetail.Rows.Add("Color", aPart.aEnclosure.Color, "NEMA Type", Miscelllaneous.ListToString(aPart.aEnclosure.NEMA_Display), "Window", aPart.aEnclosure.Window)
                         Me.dgvDetail.Rows.Add("Mount Type", aPart.aEnclosure.MountType, "Mount Plate ID", Miscelllaneous.ListToString(aPart.aEnclosure.MountID), "Mount Plate Height", aPart.aEnclosure.MountHeight & " (mm)")
-                        Me.dgvDetail.Rows.Add("Mount Plate Width", aPart.aEnclosure.MountWidth & " (mm)", "PDF", aPart.PDF, "", "")
-                        Dim cell As SpannedDataGridViewNet2.DataGridViewTextBoxCellEx = Me.dgvDetail.Rows(4).Cells(3)
+                        Me.dgvDetail.Rows.Add("PDF", aPart.PDF, "", "", "Mount Plate Width", aPart.aEnclosure.MountWidth & " (mm)")
+                        Dim cell As SpannedDataGridViewNet2.DataGridViewTextBoxCellEx = Me.dgvDetail.Rows(4).Cells(1)
+                        cell.ColumnSpan = 3
+                        Me.dgvDetail.Rows.Add("Link", aPart.link, "", "", "", "")
+                        cell = Me.dgvDetail.Rows(5).Cells(1)
                         cell.ColumnSpan = 3
 
                     Case ECSSParts.PART_TYPE.SERVIT_POST
@@ -291,19 +329,19 @@ Public Class frmMain
                         Me.dgvDetail.Rows.Add("Size", aPart.aBreatherDrain.Part_size, "Material", aPart.aBreatherDrain.Material, "NEMA Type", Miscelllaneous.ListToString(aPart.aBreatherDrain.NEMA_Type))
 
                     Case ECSSParts.PART_TYPE.WINDOW_KIT
-                        Me.dgvDetail.Rows.Add("NEMA Type", Miscelllaneous.ListToString(aPart.aWindowKit.NEMA_Type), "Material", aPart.aWindowKit.Material, "Kit_Type", aPart.aWindowKit.Kit_Type)
-                        Me.dgvDetail.Rows.Add("Color", aPart.aWindowKit.Color, "Weight", aPart.aWindowKit.Weight & " (kg)", "Overal Height", aPart.aWindowKit.OveralHeight & " (mm)")
+                        Me.dgvDetail.Rows.Add("NEMA Type", Miscelllaneous.ListToString(aPart.aWindowKit.NEMA_Type), "Material", aPart.aWindowKit.Material, "Kit Type", aPart.aWindowKit.Kit_Type)
+                        Me.dgvDetail.Rows.Add("Color", aPart.aWindowKit.Color, "Weight", Miscelllaneous.NumberToGoodString(aPart.aWindowKit.Weight) & " (kg)", "Overal Height", aPart.aWindowKit.OveralHeight & " (mm)")
                         Me.dgvDetail.Rows.Add("Overal Width", aPart.aWindowKit.OveralWidth & " (mm)", "View Height", aPart.aWindowKit.ViewHeight & " (mm)", "View Width", aPart.aWindowKit.ViewWidth & " (mm)")
                         Me.dgvDetail.Rows.Add("Cutout Height", aPart.aWindowKit.CutoutHeight & " (mm)", "Cutout Width", aPart.aWindowKit.CutoutWidth & " (mm)", "", "")
 
                     Case ECSSParts.PART_TYPE.THEROMOSTAT
-                        Me.dgvDetail.Rows.Add("Mounting", aPart.aTheromostat.Monut, "Rated_Vol_Max", aPart.aTheromostat.Rated_Vol_Max & " (V)", "Rated_Current", aPart.aTheromostat.Rated_Current & " (A)")
+                        Me.dgvDetail.Rows.Add("Mounting", aPart.aTheromostat.Monut, "Rated Vol Max", aPart.aTheromostat.Rated_Vol_Max & " (V)", "Rated Current", aPart.aTheromostat.Rated_Current & " (A)")
                         Me.dgvDetail.Rows.Add("Function", aPart.aTheromostat.TheroFunction, "Adjust Min", aPart.aTheromostat.AdjustMin & " (°C)", "Adjust Max", aPart.aTheromostat.AdjustMax & " (°C)")
                         Me.dgvDetail.Rows.Add("Opera Temp Min", aPart.aTheromostat.Opera_Temp_Min & " (°C)", "Opera Temp Max", aPart.aTheromostat.Opera_Temp_Max & " (°C)", "Weight", aPart.aTheromostat.Weight & " (kg)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aTheromostat.Area_Class, "Class", aPart.aTheromostat.Part_Class, "Gas Group", aPart.aTheromostat.Gas_Group)
                         Me.dgvDetail.Rows.Add("Temp. Code", aPart.aTheromostat.Temp_Code, "", "", "", "")
                     Case ECSSParts.PART_TYPE.TEMP_SWITCH
-                        Me.dgvDetail.Rows.Add("Mounting", aPart.aTempSwitch.Monut, "Rated_Vol_Max", aPart.aTempSwitch.Rated_Vol_Max & " (V)", "Rated_Current", aPart.aTempSwitch.Rated_Current & " (A)")
+                        Me.dgvDetail.Rows.Add("Mounting", aPart.aTempSwitch.Monut, "Rated Vol Max", aPart.aTempSwitch.Rated_Vol_Max & " (V)", "Rated Current", aPart.aTempSwitch.Rated_Current & " (A)")
                         Me.dgvDetail.Rows.Add("Function", aPart.aTempSwitch.SwitchFunction, "Switch On Temperature", aPart.aTempSwitch.Switch_Temp_ON, "Switch Off Temperature ", aPart.aTempSwitch.Switch_Temp_OFF)
                         Me.dgvDetail.Rows.Add("Opera Temp Min", aPart.aTempSwitch.Opera_Temp_Min & " (°C)", "Opera Temp Max", aPart.aTempSwitch.Opera_Temp_Max & " (°C)", "Weight", aPart.aTempSwitch.Weight & " (kg)")
                         Me.dgvDetail.Rows.Add("Area Classification", aPart.aTempSwitch.Area_Class, "Class", aPart.aTempSwitch.Part_Class, "Gas Group", aPart.aTempSwitch.Gas_Group)
@@ -1409,6 +1447,7 @@ Public Class frmMain
             Dim msg = MessageBox.Show("All unsaved BOM will be lost, do you still want to close the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             e.Cancel = (msg = DialogResult.No)
         End If
+        Me.UpdateUsage(False)
     End Sub
 
     Private Sub btnSetting_Click(sender As Object, e As EventArgs) Handles btnSetting.Click
@@ -1732,6 +1771,8 @@ Public Class frmMain
         Dim OAList As New List(Of Single)
         Dim RCList As New List(Of Single)
         Dim PartList As List(Of ECSSParts.OnePart)
+        Dim TempMinDefault As Integer = 5
+        Dim TempMaxDefault As Integer = 30
         If CurrentType = ECSSParts.PART_TYPE.NONE Then Exit Sub
         Try
             Me.lblFilterFunction.Text = "Functions"
@@ -1842,8 +1883,8 @@ Public Class frmMain
 
                             OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
-                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, TempMinDefault)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, TempMaxDefault)
                             Me.palOperaTemp.Visible = True
 
                             Me.palOutputV.Visible = True
@@ -2168,8 +2209,8 @@ Public Class frmMain
 
                             OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
-                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, TempMinDefault)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, TempMaxDefault)
                             Me.palOperaTemp.Visible = True
 
                             Me.clbArea.Items.Clear()
@@ -2255,8 +2296,8 @@ Public Class frmMain
 
                             OTMList = OTMList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
                             OTXList = OTXList.Where(Function(s) String.IsNullOrWhiteSpace(s) = False).Distinct().ToList()
-                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, OTMList.Min)
-                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, OTXList.Max)
+                            Me.dtbOperaTemp.Min = OTMList.Min : Me.dtbOperaTemp.SelectedMin = IIf(Math.Abs(Me.ECSSSearch.OperaTempMin) > 0, Me.ECSSSearch.OperaTempMin, TempMinDefault)
+                            Me.dtbOperaTemp.Max = OTXList.Max : Me.dtbOperaTemp.SelectedMax = IIf(Math.Abs(Me.ECSSSearch.OperaTempMax) > 0, Me.ECSSSearch.OperaTempMax, TempMaxDefault)
                             Me.palOperaTemp.Visible = True
 
                             Me.clbArea.Items.Clear()
@@ -2415,7 +2456,6 @@ Public Class frmMain
                     If Me.ECSSSearch.HeightMin <> dtb.SelectedMin OrElse Me.ECSSSearch.HeightMax <> dtb.SelectedMax Then
                         Me.ECSSSearch.HeightMin = dtb.SelectedMin
                         Me.ECSSSearch.HeightMax = dtb.SelectedMax
-
                         Me.LoadlstPart()
                     End If
                 Case dtbDepth.Name
@@ -2432,30 +2472,14 @@ Public Class frmMain
                     End If
                 Case dtbOperaTemp.Name
                     If Me.ECSSSearch.OperaTempMin <> dtb.SelectedMin OrElse Me.ECSSSearch.OperaTempMax <> dtb.SelectedMax Then
-                        If dtb.SelectedMin = dtb.Min Then
-                            Me.ECSSSearch.OperaTempMin = 0
-                        Else
-                            Me.ECSSSearch.OperaTempMin = dtb.SelectedMin
-                        End If
-                        If dtb.SelectedMax = dtb.Max Then
-                            Me.ECSSSearch.OperaTempMax = 0
-                        Else
-                            Me.ECSSSearch.OperaTempMax = dtb.SelectedMax
-                        End If
+                        Me.ECSSSearch.OperaTempMin = dtb.SelectedMin
+                        Me.ECSSSearch.OperaTempMax = dtb.SelectedMax
                         Me.LoadlstPart()
                     End If
                 Case dtbNormalV.Name
                     If Me.ECSSSearch.NormalVMin <> dtb.SelectedMin OrElse Me.ECSSSearch.NormalVMax <> dtb.SelectedMax Then
-                        If dtb.SelectedMin = dtb.Min Then
-                            Me.ECSSSearch.NormalVMin = 0
-                        Else
-                            Me.ECSSSearch.NormalVMin = dtb.SelectedMin
-                        End If
-                        If dtb.SelectedMax = dtb.Max Then
-                            Me.ECSSSearch.NormalVMax = 0
-                        Else
-                            Me.ECSSSearch.NormalVMax = dtb.SelectedMax
-                        End If
+                        Me.ECSSSearch.NormalVMin = dtb.SelectedMin
+                        Me.ECSSSearch.NormalVMax = dtb.SelectedMax
                         Me.LoadlstPart()
                     End If
             End Select
@@ -2465,8 +2489,26 @@ Public Class frmMain
         End Try
     End Sub
 
+#End Region
 
 
-
+#Region "USAGE"
+    Private Sub UpdateUsage(ByVal isStart As Boolean)
+        Try
+            Dim Reply As String
+            Dim formData As New Specialized.NameValueCollection()
+            'check registration 
+            formData("SID") = "USAGE"
+            If isStart Then
+                formData("UCONTENT") = GlobalSettings.MachineID & "|" & "START" & "|" & "EMPTY"
+            Else
+                formData("UCONTENT") = GlobalSettings.MachineID & "|" & "CLOSE" & "|" & Me.KeywordCacheToString
+            End If
+            Reply = Miscelllaneous.HttpPost(GlobalSettings.USAGE_URL, formData)
+            Debug.Print(Reply)
+        Catch ex As Exception
+            Debug.Print(ex.ToString)
+        End Try
+    End Sub
 #End Region
 End Class

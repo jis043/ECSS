@@ -27,7 +27,7 @@ Namespace ECSSSOAP
     <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     System.Web.Services.WebServiceBindingAttribute(Name:="ECSSWSDLBinding", [Namespace]:="urn:ECSSWSDL")>  _
+     System.Web.Services.WebServiceBindingAttribute(Name:="ECSSWSDLBinding", [Namespace]:="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php")>  _
     Partial Public Class ECSSWSDL
         Inherits System.Web.Services.Protocols.SoapHttpClientProtocol
         
@@ -40,6 +40,8 @@ Namespace ECSSSOAP
         Private ExecuateQuerySQL_SV5_WSDLOperationCompleted As System.Threading.SendOrPostCallback
         
         Private ExecuateQuerySQLCluster_SV5_WSDLOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private UpdateUserUsage_wsdlOperationCompleted As System.Threading.SendOrPostCallback
         
         Private useDefaultCredentialsSetExplicitly As Boolean
         
@@ -93,6 +95,9 @@ Namespace ECSSSOAP
         
         '''<remarks/>
         Public Event ExecuateQuerySQLCluster_SV5_WSDLCompleted As ExecuateQuerySQLCluster_SV5_WSDLCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event UpdateUserUsage_wsdlCompleted As UpdateUserUsage_wsdlCompletedEventHandler
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapRpcMethodAttribute("urn:ECSSWSDL#hello", RequestNamespace:="urn:ECSSWSDL", ResponseNamespace:="urn:ECSSWSDL")>  _
@@ -226,6 +231,33 @@ Namespace ECSSSOAP
             If (Not (Me.ExecuateQuerySQLCluster_SV5_WSDLCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
                 RaiseEvent ExecuateQuerySQLCluster_SV5_WSDLCompleted(Me, New ExecuateQuerySQLCluster_SV5_WSDLCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php/UpdateUserUsage_wsdl", RequestNamespace:="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php", ResponseNamespace:="http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php")>  _
+        Public Function UpdateUserUsage_wsdl(ByVal strUsage As String) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("UpdateUserUsage_wsdl", New Object() {strUsage})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub UpdateUserUsage_wsdlAsync(ByVal strUsage As String)
+            Me.UpdateUserUsage_wsdlAsync(strUsage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub UpdateUserUsage_wsdlAsync(ByVal strUsage As String, ByVal userState As Object)
+            If (Me.UpdateUserUsage_wsdlOperationCompleted Is Nothing) Then
+                Me.UpdateUserUsage_wsdlOperationCompleted = AddressOf Me.OnUpdateUserUsage_wsdlOperationCompleted
+            End If
+            Me.InvokeAsync("UpdateUserUsage_wsdl", New Object() {strUsage}, Me.UpdateUserUsage_wsdlOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnUpdateUserUsage_wsdlOperationCompleted(ByVal arg As Object)
+            If (Not (Me.UpdateUserUsage_wsdlCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent UpdateUserUsage_wsdlCompleted(Me, New UpdateUserUsage_wsdlCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -379,6 +411,33 @@ Namespace ECSSSOAP
             Get
                 Me.RaiseExceptionIfNecessary
                 Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0")>  _
+    Public Delegate Sub UpdateUserUsage_wsdlCompletedEventHandler(ByVal sender As Object, ByVal e As UpdateUserUsage_wsdlCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.3752.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class UpdateUserUsage_wsdlCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
             End Get
         End Property
     End Class

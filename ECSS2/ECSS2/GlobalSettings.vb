@@ -11,8 +11,9 @@
     Public Const ECSS_TITLE As String = "Engineering Components Search Systems"
     Public Const MAIN_VER As Integer = 0
     Public Const SUB_VER As Integer = 7
-    Public Const MIN_VER As Integer = 3
+    Public Const MIN_VER As Integer = 10
     Public Const CODEBOOK As String = "AlexLongYan"
+    Public Const USAGE_URL As String = "http://phpserver1.prexeco.com/ECSSWSDL/REST.php"
 
     Public Shared SystemUnit As UNITTYPE = UNITTYPE.METRIC
     Public Shared MaxDisplay As Integer = 1000
@@ -43,4 +44,10 @@
             Next
         End If
     End Sub
+
+    Public Shared Function ECSSUSER_DBPath() As String
+        Dim result As String = ""
+        result = System.IO.Path.Combine(FileIO.SpecialDirectories.MyDocuments, "ECSS")
+        Return result
+    End Function
 End Class

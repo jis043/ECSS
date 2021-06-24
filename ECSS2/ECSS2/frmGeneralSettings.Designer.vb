@@ -47,6 +47,7 @@ Partial Class frmGeneralSettings
         Me.palAbout = New System.Windows.Forms.Panel()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.lblAbout = New System.Windows.Forms.Label()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.TabGeneral.SuspendLayout()
         Me.tabSettings.SuspendLayout()
         Me.grpGeneral.SuspendLayout()
@@ -183,6 +184,7 @@ Partial Class frmGeneralSettings
         '
         'tabAuth
         '
+        Me.tabAuth.Controls.Add(Me.RichTextBox1)
         Me.tabAuth.Controls.Add(Me.lblAuthLevel)
         Me.tabAuth.Controls.Add(Me.Label4)
         Me.tabAuth.Controls.Add(Me.btnAuth)
@@ -308,6 +310,17 @@ Partial Class frmGeneralSettings
         Me.lblAbout.Text = "Engineering Components Search Systems" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Copyright 2021 Prexeco. All rights Reser" &
     "ved." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Design and Developed by Sam S, Mark L, Randy L"
         '
+        'RichTextBox1
+        '
+        Me.RichTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.RichTextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.RichTextBox1.Location = New System.Drawing.Point(18, 196)
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.Size = New System.Drawing.Size(288, 66)
+        Me.RichTextBox1.TabIndex = 8
+        Me.RichTextBox1.Text = "I understand when I use this software, I CONSENT to allow Prexeco to anonymously " &
+    "collect usage statistics in order to improve the software."
+        '
         'frmGeneralSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -355,4 +368,5 @@ Partial Class frmGeneralSettings
     Friend WithEvents Label3 As Label
     Friend WithEvents txtMachine As TextBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents RichTextBox1 As RichTextBox
 End Class

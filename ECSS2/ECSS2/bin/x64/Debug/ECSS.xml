@@ -32,9 +32,19 @@ ECSS
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="P:ECSS.My.Resources.Resources.pesticon_16x16">
+<member name="P:ECSS.My.Resources.Resources.Prexeco">
 <summary>
-  Looks up a localized resource of type System.Drawing.Bitmap.
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:ECSS.My.Resources.Resources.Prexeco_16x16">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
+</member>
+<member name="P:ECSS.My.Resources.Resources.Prexeco_64x64">
+<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
 </summary>
 </member>
 <member name="T:ECSS.ECSSSOAP.ECSSWSDL">
@@ -56,6 +66,9 @@ ECSS
 <remarks/>
 </member>
 <member name="E:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQLCluster_SV5_WSDLCompleted">
+<remarks/>
+</member>
+<member name="E:ECSS.ECSSSOAP.ECSSWSDL.UpdateUserUsage_wsdlCompleted">
 <remarks/>
 </member>
 <member name="M:ECSS.ECSSSOAP.ECSSWSDL.hello(System.String)">
@@ -101,6 +114,15 @@ ECSS
 <remarks/>
 </member>
 <member name="M:ECSS.ECSSSOAP.ECSSWSDL.ExecuateQuerySQLCluster_SV5_WSDLAsync(System.String,System.String,System.String,System.String,System.Object)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.UpdateUserUsage_wsdl(System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.UpdateUserUsage_wsdlAsync(System.String)">
+<remarks/>
+</member>
+<member name="M:ECSS.ECSSSOAP.ECSSWSDL.UpdateUserUsage_wsdlAsync(System.String,System.Object)">
 <remarks/>
 </member>
 <member name="M:ECSS.ECSSSOAP.ECSSWSDL.CancelAsync(System.Object)">
@@ -149,6 +171,15 @@ ECSS
 <remarks/>
 </member>
 <member name="P:ECSS.ECSSSOAP.ExecuateQuerySQLCluster_SV5_WSDLCompletedEventArgs.Result">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.UpdateUserUsage_wsdlCompletedEventHandler">
+<remarks/>
+</member>
+<member name="T:ECSS.ECSSSOAP.UpdateUserUsage_wsdlCompletedEventArgs">
+<remarks/>
+</member>
+<member name="P:ECSS.ECSSSOAP.UpdateUserUsage_wsdlCompletedEventArgs.Result">
 <remarks/>
 </member>
 </members>

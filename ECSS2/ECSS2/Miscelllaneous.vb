@@ -71,4 +71,27 @@
     Public Shared Function MM2INCH(ByVal m As Integer) As String
         Return String.Format("{0:F1}", m / 25.4)
     End Function
+
+    Public Shared Function HttpPost(URL As String, Parameters As Specialized.NameValueCollection) As String
+        Dim webClient As New Net.WebClient()
+        Try
+            EnableTLS1p2ForLegacySystems()
+            Dim responseBytes As Byte() = webClient.UploadValues(URL, "POST", Parameters)
+            Dim ResultAuthTicket As String = System.Text.Encoding.UTF8.GetString(responseBytes)
+            Return ResultAuthTicket
+
+        Catch ex As Exception
+            Return "Error"
+        Finally
+            webClient.Dispose()
+        End Try
+
+    End Function
+
+    Public Shared Sub EnableTLS1p2ForLegacySystems()
+        If Environment.OSVersion.Platform = PlatformID.Win32NT AndAlso Environment.OSVersion.Version.Major < 10 Then
+            '3072 is the TLS1.2 setting
+            Net.ServicePointManager.SecurityProtocol = CType(3072, Net.SecurityProtocolType)
+        End If
+    End Sub
 End Class

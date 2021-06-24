@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ECSS_ECSSSOAP_ECSSWSDL" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://testdomain/ECSSWSDL/server_wsdl.php</Value>
+      <Value Profile="(Default)">http://phpserver1.prexeco.com/ECSSWSDL/server_wsdl.php</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -77,6 +77,7 @@
         Public Class OneEnclosure
             Public Color As String = ""
             Public NEMA_Type As New List(Of String)
+            Public NEMA_Display As New List(Of String)
             Public Material As String = ""
             Public MountType As String = ""
             Public MountID As New List(Of String)
@@ -561,6 +562,9 @@
             If oneRow("NEMA_Type") IsNot Nothing Then
                 aPart.aEnclosure.NEMA_Type.AddRange(oneRow("NEMA_Type").ToString.Split("|"))
             End If
+            If oneRow("NEMA_Display") IsNot Nothing Then
+                aPart.aEnclosure.NEMA_Display.AddRange(oneRow("NEMA_Display").ToString.Split("|"))
+            End If
             aPart.aEnclosure.Material = oneRow("Material").ToString
             aPart.aEnclosure.MountType = oneRow("Mount").ToString
             If oneRow("MountID") IsNot Nothing Then
@@ -874,7 +878,7 @@
     Private Function GenKeyWords(ByVal str As String) As List(Of String)
         Dim keys As New List(Of String)
         If String.IsNullOrEmpty(str) = False Then
-            keys.AddRange(str.Split(","))
+            keys.AddRange(str.Split("|"))
         End If
         For Each str In keys
             str = str.Trim
@@ -1588,11 +1592,7 @@ Public Class ECSSSearchCriteria
         If BlockType.Count > 0 Then str = str & " Block Type: " & Miscelllaneous.ListToString(BlockType) & "; " Else str = str & ""
         If Contacts.Count > 0 Then str = str & " Contacts: " & Miscelllaneous.ListToString(Contacts) & "; " Else str = str & ""
 
-        If OperaTempMin = 0 AndAlso Math.Abs(OperaTempMax) > 0 Then
-            str = str & " Operation Temprture: > " & OperaTempMax & "; "
-        ElseIf Math.Abs(OperaTempMin) > 0 AndAlso OperaTempMax = 0 Then
-            str = str & " Operation Temprture: < " & OperaTempMin & "; "
-        ElseIf Math.Abs(OperaTempMin) > 0 AndAlso Math.Abs(OperaTempMax) > 0 Then
+        If Math.Abs(OperaTempMin) > 0 OrElse Math.Abs(OperaTempMax) > 0 Then
             str = str & " Operation Temprture: " & OperaTempMin & " - " & OperaTempMax & "; "
         Else
             str = str & ""
@@ -1614,7 +1614,6 @@ Public Class ECSSSearchCriteria
     End Function
 
 End Class
-
 
 Public Class OneBOMList
     Public BOMID As String = ""

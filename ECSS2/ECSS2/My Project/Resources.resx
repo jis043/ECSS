@@ -120,18 +120,18 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="apps_16x16" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
+        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
+        20ighSjQDqR/nk2wMBRONTYAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="BOM" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -151,18 +151,14 @@
         yQHkAHKA/z0AwC962N8gQGyrRwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="pesticon_16x16" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        xAAADsQBlSsOGwAAAAd0SU1FB9oJCRQVL4giaPMAAAHkSURBVDhPzVM9SFthFL2JTdEW+oyKtvlDQ9Q0
-        xMQ+mzS4uImxiulQa/Dp4GBdHJRM4j+kS2uTbhZaLQ76okK6OJRMBQWnRAu6uDgJxQ4FMT8qHG/CWySi
-        cfPAge/n3sM9h++j+4WtnQQFFxcQkmWEmV8ikRzDERlff0bxOxHvT2bSKqU8H4HZWVB1NVQeD9RMcr0E
-        vWgENYnQNDdD196O0VAopZTnY2V1FdoGO8jhALndKH7lhtbtwuPs3vYcZLfjAZ/Pc53SchWpkxOh1d8D
-        sligdrkQ+PQRiZ1d669YTGx54wNZ61jIivfB4PUCmVRK6JAktmGCqtGJ+fU1ApCl+GHuM5HRCKqrRd/E
-        +PUCydNTwev3g4x6FDkdCC8t4ez8gv4e/xOl4WGQiQUsZvSPjd0g0MMWDHpo2LeH122Dg3D6fHjI/qme
-        LeieYWh65iaBd7kJVDYbSK8DlT4BaUtBVZWg8jLUcLCxrU1JabmKdDIpvM4KPK2CmlNv8Lahs1eCl4Pt
-        4mxGJiexHY87lPJ8ZNJpU2v3W1BFOdT1tZj7/u2/clUY5GgUgtmcy4BMBngHBrB3cOBUrm9HYGoK9KiE
-        MzDkPGvMNZA3Ngqf4s/+vriwvIwf/NIWs+Q/cHh0VPgEdwfRJXCk7K+BVRhZAAAAAElFTkSuQmCC
-</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Prexeco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Prexeco.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Prexeco_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Prexeco_16x16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Prexeco_64x64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Prexeco_64x64.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

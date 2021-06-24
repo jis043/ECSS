@@ -128,7 +128,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Prexeco.ico</ApplicationIcon>
+    <ApplicationIcon>Prexeco_64x64.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -311,6 +311,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Prexeco.ico" />
+    <None Include="Prexeco_64x64.ico" />
+    <None Include="Prexeco_16x16.ico" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
